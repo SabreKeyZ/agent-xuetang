@@ -1,6 +1,8 @@
 # 第 7 周 · 理赔初审台
 
 > **本班属于 1 个月路径的第 4 周**（中段，约 day 2–4）。同周最先是 [vibe-claim](vibe-claim.md)，后半是 [08](08-ship-and-job.md)。
+>
+> 面试先讲业务 → [docs/jobs/business.md](../jobs/business.md)
 
 **先苦过 [vibe-claim](vibe-claim.md) / `labs/vibe-miniclaim` 再读本周。** 迷你台是空目录 + 评测；本周是已经写好的 Payments 走读。不要把两份作业合成一份抄。
 

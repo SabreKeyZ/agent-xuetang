@@ -1,6 +1,8 @@
 # 第 6 周 · 收完客服工单台
 
 > **本班属于 1 个月路径的第 3 周**（后半：走读工单台）。同周前半是 [vibe](vibe.md)。
+>
+> 面试先讲业务 → [docs/jobs/business.md](../jobs/business.md)
 
 **先苦过 [vibe 章](vibe.md) / `labs/vibe-minidesk` 再读本周。** 迷你台是空目录 + 评测；本周是已经写好的 Inbox 走读。不要把两份作业合成一份抄。
 

@@ -196,7 +196,7 @@ flowchart LR
 ```
 agent-xuetang/
   docs/weeks/            班 00–08 + vibe + vibe-claim；默认按 1 个月 / 4 周排
-  docs/jobs/             岗位 · 作品集 · 面试（STAR 在这里）
+  docs/jobs/             岗位 · 作品集 · 业务背景 · 面试（STAR 在作品 README）
   code/week0–5/          无框架小脚本；第 5 班是可选教室实验
   projects/ticketdesk/   青匣记工单台
   projects/claimdesk/    青途保理赔台
@@ -208,7 +208,7 @@ agent-xuetang/
 ## 求职材料
 
 简历三条和 STAR 四行写在作品自己的 README，以及 [docs/jobs](docs/jobs/roles.md)。首页不贴题库。
-[岗位地图](docs/jobs/roles.md) · [作品集](docs/jobs/portfolio.md) · [面试问法](docs/jobs/interview.md)
+[岗位地图](docs/jobs/roles.md) · [作品集](docs/jobs/portfolio.md) · [业务背景](docs/jobs/business.md) · [面试问法](docs/jobs/interview.md)
 
 ## 如何贡献
 

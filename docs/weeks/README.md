@@ -75,6 +75,6 @@ flowchart LR
 | 06 | [06-ticketdesk](06-ticketdesk.md) | `projects/ticketdesk` | 芯片 + 闸门红条 |
 | vibe-claim | [vibe-claim](vibe-claim.md) | `labs/vibe-miniclaim`（自跑评测） | 助手 + 条款引用 + 人确认闸门 |
 | 07 | [07-claimdesk](07-claimdesk.md) | `projects/claimdesk` | 条款芯片 + 决定书 |
-| 08 | [08-ship-and-job](08-ship-and-job.md) | README / 评测 / Docker | 两分钟讲清两个队列 |
+| 08 | [08-ship-and-job](08-ship-and-job.md) | README / 评测 / Docker | 先讲业务再讲两个队列 |
 
-视频：[../videos.md](../videos.md) · 求职：[../jobs/roles.md](../jobs/roles.md) · 坑：[../faq.md](../faq.md) · 延伸：[../resources.md](../resources.md)
+视频：[../videos.md](../videos.md) · 求职：[../jobs/roles.md](../jobs/roles.md) · [业务背景](../jobs/business.md) · 坑：[../faq.md](../faq.md) · 延伸：[../resources.md](../resources.md)
