@@ -32,7 +32,7 @@ pytest labs/vibe-minidesk/evals -q
 python -m minidesk demo
 ```
 
-评测全绿。终端里能指着芯片或红条。然后合上本目录，去读 [第 6 周](../../../docs/weeks/06-ticketdesk.md) / `projects/ticketdesk` 的**走读**（不是把源码抄回来）。
+评测全绿。终端里能指着芯片或红条。然后合上本目录，去读 [第 3 周后半 / 班 06](../../../docs/weeks/06-ticketdesk.md) / `projects/ticketdesk` 的**走读**（不是把源码抄回来）。
 
 ## FORBIDDEN
 
