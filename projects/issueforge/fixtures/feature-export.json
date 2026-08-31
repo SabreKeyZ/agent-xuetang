@@ -1,0 +1,5 @@
+{
+  "number": 21,
+  "title": "Feature request: export AskHall study plan as Markdown",
+  "body": "I would like a button or CLI flag to export the planner's 3 steps to a .md file so I can put it in my notes.\n\nSuggestion: `python -m askhall demo --export notes.md`\nThis is not a bug. Thanks!"
+}

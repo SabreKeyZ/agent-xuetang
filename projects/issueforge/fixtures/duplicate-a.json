@@ -1,0 +1,5 @@
+{
+  "number": 50,
+  "title": "weekday tool returns English day names only",
+  "body": "The week 1 echo agent prints Monday instead of 星期一. Is that intended?\nLooks like a small bug in weekday_tool."
+}

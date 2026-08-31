@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>问学堂 AskHall</title>
+  <style>
+    :root {
+      --bg: #12141a;
+      --panel: #1b1f2a;
+      --ink: #e8ecf4;
+      --muted: #8b93a7;
+      --accent: #7aa2ff;
+      --planner: #c4a35a;
+      --tutor: #6ec6a6;
+      --examiner: #e09a7a;
+      --line: #2a3142;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font: 16px/1.55 "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
+    }
+    header {
+      padding: 20px 24px 8px; border-bottom: 1px solid var(--line);
+    }
+    header h1 { margin: 0; font-size: 20px; letter-spacing: 0.04em; }
+    header p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+    #badge {
+      display: inline-block; margin-left: 8px; padding: 2px 8px;
+      border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted);
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 16px 16px 120px; }
+    .card {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px 16px; margin: 12px 0;
+    }
+    .role { font-size: 12px; text-transform: lowercase; letter-spacing: 0.08em; }
+    .role.planner { color: var(--planner); }
+    .role.tutor { color: var(--tutor); }
+    .role.examiner { color: var(--examiner); }
+    .body { white-space: pre-wrap; margin-top: 8px; }
+    .cites { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      font-size: 12px; padding: 2px 8px; border-radius: 999px;
+      border: 1px solid var(--line); color: var(--accent);
+    }
+    form {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #0e1016; border-top: 1px solid var(--line);
+      padding: 12px 16px 16px;
+    }
+    .row { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; }
+    input[type=text] {
+      flex: 1; background: var(--panel); color: var(--ink);
+      border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+    }
+    button {
+      background: var(--accent); color: #0c1020; border: 0;
+      border-radius: 8px; padding: 10px 14px; font-weight: 600; cursor: pointer;
+    }
+    button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>问学堂 AskHall <span id="badge">检查中…</span></h1>
+    <p>知识库是本仓库的周文档。没有 Key 时只检索、只引用，不编造一周课。</p>
+  </header>
+  <main id="log"></main>
+  <form id="f">
+    <div class="row">
+      <input id="q" type="text" maxlength="2000" placeholder="问教材，或输入「考我」" autocomplete="off" />
+      <button type="submit">发送</button>
+      <button type="button" class="ghost" id="quiz">考我</button>
+    </div>
+  </form>
+  <script>
+    const log = document.getElementById("log");
+    const input = document.getElementById("q");
+    let pending = null;
+
+    async function boot() {
+      try {
+        const h = await (await fetch("/api/health")).json();
+        document.getElementById("badge").textContent = h.llm ? "模型已开" : "抽取式模式";
+      } catch (e) {
+        document.getElementById("badge").textContent = "后端未连接";
+      }
+    }
+
+    function addYou(text) {
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `<div class="role">学员</div><div class="body"></div>`;
+      el.querySelector(".body").textContent = text;
+      log.appendChild(el);
+    }
+
+    function addTurn(t) {
+      const el = document.createElement("div");
+      el.className = "card";
+      const cites = (t.citations || []).map(c => `<span class="chip">${c}</span>`).join("");
+      el.innerHTML = `
+        <div class="role ${t.role || ""}">${t.role || "agent"} · ${t.title || ""} · ${t.mode || ""}</div>
+        <div class="body"></div>
+        <div class="cites">${cites}</div>`;
+      el.querySelector(".body").textContent = t.body || "";
+      log.appendChild(el);
+      el.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+
+    async function send(text) {
+      addYou(text || "（空）");
+      const resp = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, pending_quiz: pending }),
+      });
+      const data = await resp.json();
+      pending = data.pending_quiz || null;
+      (data.turns || []).forEach(addTurn);
+    }
+
+    document.getElementById("f").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      input.value = "";
+      send(text);
+    });
+    document.getElementById("quiz").addEventListener("click", () => send("考我一下循环三步"));
+    boot();
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "calc-1",
+    "query": "3 * 7 等于多少",
+    "expect_tool": "calculator",
+    "expect_contains": "21"
+  },
+  {
+    "id": "search-1",
+    "query": "Agent学堂第几周讲 MCP",
+    "expect_tool": "search",
+    "expect_contains": "第4周"
+  },
+  {
+    "id": "mix-1",
+    "query": "问学堂是什么？另外 2 + 5 等于多少",
+    "expect_tools": ["search", "calculator"],
+    "expect_contains": ["毕业作品", "7"]
+  }
+]
