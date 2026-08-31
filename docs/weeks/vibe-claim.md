@@ -111,7 +111,7 @@ def payout(amount_yuan, idempotency_key, confirm=False):
     }
 ```
 
-**BAD。** 行号是编的。本文件只有 30 行，没有第 99 行。
+**BAD。** 行号是编的。本文件没有第 99 行。
 
 ```python
 return ["docs/policy/counter.md:99"]
