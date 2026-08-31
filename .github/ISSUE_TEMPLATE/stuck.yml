@@ -1,0 +1,44 @@
+name: 卡住了
+description: 命令跑不通、报错看不懂。开单前先搜 FAQ。
+title: "[卡住] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        开单前先在 [FAQ](https://github.com/SabreKeyZ/agent-xuetang/blob/main/docs/faq.md) 搜报错关键字。
+        没有 Key 也能跑 `python -m ticketdesk demo` / `python -m claimdesk demo`。
+        不要只写「跑不起来」。
+  - type: input
+    id: os
+    attributes:
+      label: 操作系统
+      description: 把系统名和版本贴过来。macOS / Linux 可附 `uname -a`。
+      placeholder: macOS 14.5 / Windows 11 23H2 / Ubuntu 22.04
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: python3 --version
+      description: 整行粘贴，不要只写「3.11」。
+      placeholder: Python 3.11.9
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: 你敲的整条命令
+      description: 从仓库根目录复制你刚回车的那一行，不要改写成「我跑了 demo」。
+      render: bash
+      placeholder: python -m ticketdesk demo
+    validations:
+      required: true
+  - type: textarea
+    id: traceback
+    attributes:
+      label: 完整报错 / traceback
+      description: 从第一行到最后一行。不要只贴最后一句 Error。
+      render: shell
+    validations:
+      required: true

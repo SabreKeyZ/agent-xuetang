@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 先看 FAQ
+    url: https://github.com/SabreKeyZ/agent-xuetang/blob/main/docs/faq.md
+    about: 报错关键字先在这里搜。python3.11、空钥匙、缺 .env 都写了。

@@ -24,8 +24,8 @@ Windows 用 `py -3`。不要为了复制旧命令去装一个刚好叫 `python3.
 4. 智谱、通义的兼容地址必须带它们文档里写的路径后缀，不要只写到域名。
 5. 改完 `.env` 要**重新开**终端里的进程。已经在跑的 `serve` 读不到你后写的文件。
 
-测 Key 用第 0 周的 `code/week0/hello_chat.py`，不要一上来就开工单台。
-工单台在 Key 为空时会走抽取式，看起来「能跑」，容易让你误以为 Key 已经生效。
+默认路径不需要 Key：先跑 `python -m ticketdesk demo` / `python -m claimdesk demo`。
+**测 Key** 才用第 0 周的 `code/week0/hello_chat.py`。工单台在钥匙空时会走抽取式，看起来「能跑」，容易让你误以为 Key 已经生效。
 
 ## 代理和网络
 
@@ -87,4 +87,4 @@ Windows 用 `py -3`。不要为了复制旧命令去装一个刚好叫 `python3.
 - 浏览器打开的是 `https://` 而服务是 `http://`。
 - Docker 里要映射端口，见工单台 README 的 compose 段。
 
-还是不行：开 Issue，附操作系统、Python 版本、完整命令和完整报错。不要只贴「跑不起来」。
+还是不行：用 [卡住了](../.github/ISSUE_TEMPLATE/stuck.yml) 模板开 Issue，贴操作系统、`python3 --version`、你敲的整条命令、完整 traceback。不要只贴「跑不起来」。
