@@ -1,0 +1,16 @@
+{
+  "id": "K-4202",
+  "fixture_id": "need-photo",
+  "insurer_id": "wujin",
+  "policy_no": "WJ-202608-02",
+  "order_id": "WZ-202608-2204",
+  "insured_name": "缺图",
+  "insured_at": "2026-08-04T10:00:00+08:00",
+  "incident_at": "2026-08-20T16:00:00+08:00",
+  "now": "2026-08-21T09:20:00+08:00",
+  "amount_yuan": 22,
+  "attachments": [
+    {"name": "运单截图.png", "kind": "运单"}
+  ],
+  "narrative": "外包装压扁了。有运单 WZ-202608-2204，签收图还没拍，发票也找不到。先给补件清单。"
+}

@@ -101,7 +101,7 @@ python -m claimdesk serve
 
 ## 学徒工期
 
-默认给**有一点 Python 的小白**：**1 个月 / 4 周**，每周约 8–12 小时（工作日晚上 + 周末）。材料仍是原来的班文件 `00`–`08` 和 [vibe](docs/weeks/vibe.md)，一篇不删，只是排得更密。做不完就停在当周验收，不要跳周。
+默认给**有一点 Python 的小白**：**1 个月 / 4 周**，每周约 8–12 小时（工作日晚上 + 周末）。材料仍是原来的班文件 `00`–`08`、[vibe](docs/weeks/vibe.md) 和 [vibe-claim](docs/weeks/vibe-claim.md)，一篇不删，只是排得更密。做不完就停在当周验收，不要跳周。
 
 **[只有 2 小时](docs/weeks/two-hour.md)** —— 先见面，不是这 1 个月路径。
 
@@ -113,22 +113,22 @@ python -m claimdesk serve
 
 | 月份第 1 周<br>~10h | 月份第 2 周<br>~10h | 月份第 3 周<br>~10h | 月份第 4 周<br>~10h |
 | :---: | :---: | :---: | :---: |
-| 环境 + Agent 循环 + 工具/ReAct | RAG + MCP + 多 Agent | vibe 迷你台 + 客服工单台 | 理赔台 + 上线求职 |
-| [00 环境](docs/weeks/00-setup.md) · [01 循环](docs/weeks/01-what-is-an-agent.md) · [02 ReAct](docs/weeks/02-tools-and-react.md) | [03 引用](docs/weeks/03-memory-rag.md) · [04 MCP](docs/weeks/04-mcp-and-skills.md) · [05 多角色](docs/weeks/05-multi-agent.md) | [vibe](docs/weeks/vibe.md) · [06 工单台](docs/weeks/06-ticketdesk.md) | [07 理赔台](docs/weeks/07-claimdesk.md) · [08 上线](docs/weeks/08-ship-and-job.md) |
-| 芯片或红条 · JSON 日志 · `--eval` 3 条 | `path:line` · 二十行 stdio · 何时不加角色 | 助手验 diff · 售后队列 | 初审队列 · 作品集谈话 |
+| 环境 + Agent 循环 + 工具/ReAct | RAG + MCP + 多 Agent | vibe 迷你台 + 客服工单台 | vibe-claim + 理赔台 + 上线求职 |
+| [00 环境](docs/weeks/00-setup.md) · [01 循环](docs/weeks/01-what-is-an-agent.md) · [02 ReAct](docs/weeks/02-tools-and-react.md) | [03 引用](docs/weeks/03-memory-rag.md) · [04 MCP](docs/weeks/04-mcp-and-skills.md) · [05 多角色](docs/weeks/05-multi-agent.md) | [vibe](docs/weeks/vibe.md) · [06 工单台](docs/weeks/06-ticketdesk.md) | [vibe-claim](docs/weeks/vibe-claim.md) · [07 理赔台](docs/weeks/07-claimdesk.md) · [08 上线](docs/weeks/08-ship-and-job.md) |
+| 芯片或红条 · JSON 日志 · `--eval` 3 条 | `path:line` · 二十行 stdio · 何时不加角色 | 助手验 diff · 售后队列 | 助手验 diff · 初审队列 · 作品集谈话 |
 
 ```mermaid
 flowchart LR
   W1["第 1 周<br/>00 01 02"] --> W2["第 2 周<br/>03 04 05"]
   W2 --> W3["第 3 周<br/>vibe 06"]
-  W3 --> W4["第 4 周<br/>07 08"]
+  W3 --> W4["第 4 周<br/>vibe-claim 07 08"]
 ```
 
 > 敢慢跟：仍按 `00`–`08` 文件一周一篇。默认是上面这张 4 周表。
 
 视频只放核对过的链接：[docs/videos.md](docs/videos.md)。踩坑：[docs/faq.md](docs/faq.md)。周目录：[docs/weeks/README.md](docs/weeks/README.md)。词表 / 一页纸：[docs/glossary.md](docs/glossary.md) · [docs/cheatsheet.md](docs/cheatsheet.md)。练习先做再看 [docs/weeks/answers](docs/weeks/answers)。
 
-第 3 周前半是 [对着助手搭最小工单台](docs/weeks/vibe.md)，后半走读工单台。不需要 Key，不要从 `projects/ticketdesk` 开写。
+第 3 周前半是 [对着助手搭最小工单台](docs/weeks/vibe.md)，后半走读工单台。第 4 周最先是 [对着助手搭最小理赔台](docs/weeks/vibe-claim.md)，再走读理赔台，再收上线。不需要 Key，不要从 `projects/ticketdesk` / `projects/claimdesk` 开写。
 
 转行、在校、后端转 Agent 都从第 0 班进。已经独立用过 LangGraph 上线的人，这份工期会偏慢，去文末结构参考即可。
 
@@ -195,13 +195,14 @@ flowchart LR
 
 ```
 agent-xuetang/
-  docs/weeks/            班 00–08 + vibe；默认按 1 个月 / 4 周排
+  docs/weeks/            班 00–08 + vibe + vibe-claim；默认按 1 个月 / 4 周排
   docs/jobs/             岗位 · 作品集 · 面试（STAR 在这里）
   code/week0–5/          无框架小脚本；第 5 班是可选教室实验
   projects/ticketdesk/   青匣记工单台
   projects/claimdesk/    青途保理赔台
   labs/week5/            问学堂 / 值班台降级说明
   labs/vibe-minidesk/    日历第 3 周前半：助手搭最小工单台（评测自跑）
+  labs/vibe-miniclaim/   日历第 4 周最先：助手搭最小理赔台（评测自跑）
 ```
 
 ## 求职材料

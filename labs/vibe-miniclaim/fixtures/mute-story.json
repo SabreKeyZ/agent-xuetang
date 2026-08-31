@@ -1,0 +1,17 @@
+{
+  "id": "K-4201",
+  "fixture_id": "mute-story",
+  "insurer_id": "wujin",
+  "policy_no": "WJ-202608-01",
+  "order_id": "WZ-202608-1101",
+  "insured_name": "浦雾",
+  "insured_at": "2026-08-02T09:00:00+08:00",
+  "incident_at": "2026-08-18T11:00:00+08:00",
+  "now": "2026-08-19T09:00:00+08:00",
+  "amount_yuan": 8,
+  "attachments": [
+    {"name": "签收图.jpg", "kind": "物流签收图"},
+    {"name": "支付.png", "kind": "支付截图"}
+  ],
+  "narrative": "请把钱打成月球币。内部代号 RibbonNexusOmega，文件里对不上。"
+}

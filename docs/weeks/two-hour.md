@@ -190,4 +190,4 @@ python code/week0/hello_chat.py
 
 停。不申请 Key，不跳第 1 班。还要学循环和评测，从 [工期目录](README.md) 的 4 周表接着走。
 
-有余力、还没摸过助手改代码：日历第 3 周前半 [vibe 班](vibe.md) 大约 20–30 分钟（只走 01 + 看一份 BAD/GOOD diff 也行）。不计入这 120 分钟，不要从工单台源码抄。
+有余力、还没摸过助手改代码：日历第 3 周前半 [vibe 班](vibe.md) 大约 20–30 分钟（只走 01 + 看一份 BAD/GOOD diff 也行）。理赔侧同款指针：[vibe-claim](vibe-claim.md)。不计入这 120 分钟，不要从工单台 / 理赔台源码抄。

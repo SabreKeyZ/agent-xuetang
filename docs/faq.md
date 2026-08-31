@@ -89,15 +89,17 @@ Windows 用 `py -3`。不要为了复制旧命令去装一个刚好叫 `python3.
 
 ## 可以不手写全部代码吗
 
-班 01–05 仍手写小脚本（`code/week1` … `code/week5`）。日历第 3 周前半用工单台最小版：[vibe](weeks/vibe.md) + `labs/vibe-minidesk`：你贴分步提示，自己验 diff。第 3 周后半 / 第 4 周前半走读已经写好的两台，不是让你从零手写 Inbox。
+班 01–05 仍手写小脚本（`code/week1` … `code/week5`）。日历第 3 周前半用工单台最小版：[vibe](weeks/vibe.md) + `labs/vibe-minidesk`；第 4 周最先用理赔台最小版：[vibe-claim](weeks/vibe-claim.md) + `labs/vibe-miniclaim`：你贴分步提示，自己验 diff。第 3 周后半 / 第 4 周中段走读已经写好的两台，不是让你从零手写 Inbox。
 
 默认 `pytest`（以及 CI）不含 `labs/`——空 stub 会红，不能让 main 红。学徒验收：
 
 ```bash
 python -m pip install -e labs/vibe-minidesk
 pytest labs/vibe-minidesk/evals
+python -m pip install -e labs/vibe-miniclaim
+pytest labs/vibe-miniclaim/evals
 ```
 
-不要从 `projects/ticketdesk` 开写，不要一次把五份提示贴完。不需要 Key。
+不要从 `projects/ticketdesk` / `projects/claimdesk` 开写，不要一次把五份提示贴完。不需要 Key。
 
 还是不行：用 [卡住了](../.github/ISSUE_TEMPLATE/stuck.yml) 模板开 Issue，贴操作系统、`python3 --version`、你敲的整条命令、完整 traceback。不要只贴「跑不起来」。

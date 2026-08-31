@@ -9,6 +9,7 @@
 | 理赔台标签 | `条款 3.2 · docs/policy/qingtu-bao-v2.md:38` | `projects/claimdesk`（先剥 `条款 3.2 · `） |
 | 分类员相似夹具 | `fixtures/tickets/promo-overrides-sla.json:1` | 工单台项目根 |
 | 迷你台 `cite_policy` | `docs/policy/lantern-week-2026.md:12` | `labs/vibe-minidesk` |
+| 迷你理赔台 `cite_policy` | `docs/policy/autumn-cut-2026.md:12` | `labs/vibe-miniclaim` |
 
 ## 允许 / 拒绝
 
