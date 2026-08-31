@@ -38,12 +38,13 @@ A Chinese-first apprenticeship — not another encyclopedia — from the first a
 | 4 | 6 | [3 记忆与 RAG](docs/weeks/03-memory-rag.md) | 对本仓库 `docs/` 的引用 |
 | 5 | 5 | [4 MCP 与 Skill](docs/weeks/04-mcp-and-skills.md) | 二十行 MCP + Skill |
 | 6 | 6 | [5 多智能体](docs/weeks/05-multi-agent.md) + 开始 [6 问学堂](docs/weeks/06-askhall.md) | 问学堂 `demo` / `serve` |
-| 7 | 6 | 收完 06 + [7 值班台](docs/weeks/07-issueforge.md) | 夹具报告，可选部署 |
-| 8 | 5 | [8 上线与求职](docs/weeks/08-ship-and-job.md) | Docker、十行评测、作品集、模拟面试 |
+| 7 | 6 | [7 值班台](docs/weeks/07-issueforge.md) | 夹具报告，可部署 |
+| 8 | 5 | [8 上线与求职](docs/weeks/08-ship-and-job.md) | Docker、日志、十行评测、作品集、模拟面试 |
 
-每周能稳定拿出约 8 小时：走 [6 周压缩](docs/ROADMAP.md)。
+6 周压缩（合并 1+2、3+4，作品不变）写在 [docs/ROADMAP.md](docs/ROADMAP.md)，不是另一条主路。
 
 视频课表（只放核对过的链接）：[docs/videos.md](docs/videos.md)。
+默认日历详表：[docs/ROADMAP.md](docs/ROADMAP.md) · [docs/weeks/README.md](docs/weeks/README.md)。
 怕踩坑：[docs/faq.md](docs/faq.md)。
 求职三件套：[岗位](docs/jobs/roles.md) · [作品集](docs/jobs/portfolio.md) · [面试](docs/jobs/interview.md)。
 

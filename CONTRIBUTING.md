@@ -50,7 +50,7 @@ python -m issueforge demo
 
 1. 目标
 2. 你将做出的东西
-3. 预计 4–6 小时
+3. 本周时间（对照 [docs/ROADMAP.md](docs/ROADMAP.md)）+ 工作日/周末怎么拆
 4. 图文步骤
 5. 对应视频
 6. 练习

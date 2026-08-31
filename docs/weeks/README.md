@@ -14,9 +14,9 @@
 | 4 | 6 | [03 RAG](03-memory-rag.md) | 同上 |
 | 5 | 5 | [04 MCP](04-mcp-and-skills.md) | 两晚 1.5+1.5，周末 2h Skill |
 | 6 | 6 | [05 多角色](05-multi-agent.md) + 开始 [06 问学堂](06-askhall.md) | 工作日画图，周末跑 demo/serve |
-| 7 | 6 | 收完 06 + [07 值班台](07-issueforge.md) | 工作日夹具，周末报告/Action |
-| 8 | 5 | [08 上线与求职](08-ship-and-job.md) | 工作日 Docker+评测，周末作品集/对练 |
+| 7 | 6 | [07 值班台](07-issueforge.md) | 工作日夹具，周末报告与部署 |
+| 8 | 5 | [08 上线与求职](08-ship-and-job.md) | 工作日 Docker+日志+评测，周末作品集/对练 |
 
-6 周压缩和 Week -1：[../ROADMAP.md](../ROADMAP.md)
+6 周压缩（合并日历周 1+2、3+4）和 Week -1 见 [../ROADMAP.md](../ROADMAP.md)。那不是第二条主路。
 
 视频：[../videos.md](../videos.md) · 求职：[../jobs/roles.md](../jobs/roles.md) · 坑：[../faq.md](../faq.md)
