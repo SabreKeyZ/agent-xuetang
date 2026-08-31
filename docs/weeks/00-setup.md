@@ -9,7 +9,7 @@
 
 - [ ] venv 里 `python --version` 是 3.11+，提示符有 `(.venv)`。
 - [ ] `python -m ticketdesk demo` 和 `python -m claimdesk demo` 打出芯片或红条。
-- [ ] 打开 http://127.0.0.1:8000 ，你应当看见芯片或红条（顾客灰气泡、客服白气泡）。
+- [ ] 打开工单台（默认 8000；被占用则 `python -m ticketdesk serve --port 8010` → http://127.0.0.1:8010 ），你应当看见芯片或红条（顾客灰气泡、客服白气泡）。
 - [ ] （可选）根目录有 `.env`，且 `git status` 不把它列成已跟踪的密钥文件。
 - [ ] （可选）`hello_chat.py` 打出 `[ok] reply=`，或你留下了缺 Key / 401 的诚实输出。
 - [ ] 你能说出：这次成功**还不是 Agent**。
@@ -18,7 +18,7 @@
 
 - 用 Git 把本仓库放到自己机器上。
 - 建虚拟环境，不污染系统 Python。
-- 无 Key 跑通两台 demo，打开 8000 / 8001。
+- 无 Key 跑通两台 demo，打开工单台（8000 或 `--port 8010`）/ 理赔台 8001。两台是抽取式，Key 可选。
 - （可选）用 OpenAI 兼容协议打通一次 chat completion。
 - 确认：**没有 GPU 也能学后面七周**。
 
@@ -57,7 +57,7 @@ flowchart LR
   A[克隆仓库] --> B[Python 3.11 + venv]
   B --> C["pip install -e 两台"]
   C --> D["ticketdesk / claimdesk demo"]
-  D --> E["serve 8000 / 8001"]
+  D --> E["serve 8010 / 8001"]
   E --> F{看见芯片或红条?}
   F -->|是| G[第 1 周见]
   F -->|否| H[FAQ]
@@ -114,10 +114,10 @@ python -m claimdesk demo
 ### 4. 打开两张脸
 
 ```bash
-python -m ticketdesk serve
+python -m ticketdesk serve --port 8010
 ```
 
-浏览器打开 http://127.0.0.1:8000 。**你应当看见芯片或红条。** 工单台是浅色会话：顾客灰气泡、客服白气泡。另开一个终端：
+浏览器打开 http://127.0.0.1:8010 。**你应当看见芯片或红条。** 工单台是浅色会话：顾客灰气泡、客服白气泡。8000 常被占用，命令写成 `--port 8010`（[FAQ](../faq.md) 同条）。另开一个终端：
 
 ```bash
 python -m claimdesk serve

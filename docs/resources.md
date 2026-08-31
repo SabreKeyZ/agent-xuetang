@@ -29,7 +29,7 @@
 | --- | --- |
 | Microsoft [MCP for Beginners](https://github.com/microsoft/mcp-for-beginners) | 第 4 周写完自己的二十行服务器之后。 |
 | [shareAI-lab/learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) | 把套件看成循环 + 工具 + 权限。不克隆代码。 |
-| LangChain Academy LangGraph / Deep Agents | 第 5 周以后，对照「为什么工单台 v1 不用图」。 |
+| LangChain Academy [Intro to LangGraph](https://academy.langchain.com/courses/intro-to-langgraph) · [Deep Agents](https://academy.langchain.com/courses/foundation-introduction-to-deepagents) | 第 5 周以后，对照「为什么工单台 v1 不用图」。链接与 [videos.md](videos.md) 第 4–7 周同一对。 |
 | [kevinten-ai/ai-agent-langgraph](https://github.com/kevinten-ai/ai-agent-langgraph) | 第 8 周看观测和 Docker 的生产说法。 |
 
 CiteKit（同作者，可选）：<https://github.com/SabreKeyZ/citekit>

@@ -23,7 +23,7 @@
 
 **为什么没条款就拒审。** 叙述对不上任何一条，就亮红条「没有引用，就先不答」。不能猜、不能按「看起来像」放行。没条款的通过，是假通过。
 
-演示里 payout 永远要人点，而且点了也不打款（`NEVER_PAYOUT`）。
+演示里打款永远要人点，而且点了也不打款（`NEVER_PAYOUT`）。
 
 ## 本周你要带走什么
 
@@ -89,6 +89,8 @@ flowchart LR
 
 ![理赔台条款 3.2 除外拒赔（C-2002）](../images/claimdesk-refuse.png)
 
+截图若仍写「建议赔付：¥40」，以**当场 CLI**为准：拒赔决定书必须是「建议拒赔，不予赔付」；试算式可以留着当覆盖数学。巨型 ¥ 是试算，不是打款建议。
+
 ```bash
 python -m pip install -e projects/claimdesk
 ls projects/claimdesk/fixtures/claims
@@ -115,7 +117,7 @@ python -m claimdesk demo --fixture wrong-policy-version
 决定书: 出险叙述命中除外（易碎）。建议拒赔，须人确认。
 条款：条款 3.2、条款 2.3、条款 4.1
 计算：max(0, 40.00 - 0.00 - 0.00) = 40.00（保额¥80）
-建议赔付：¥40.00。
+建议拒赔，不予赔付。
 idempotency_key=qingtu:payout:C-2002:4000 executed=False
 ```
 
@@ -156,7 +158,7 @@ python -m claimdesk demo --fixture valid-low
 [adjudicator] 通过  通过建议 · 仍不打款
 状态: 待人打款
 试算: max(0, 12.00 - 0.00 - 0.00) = 12.00（保额¥80）
-决定书: 材料齐、条款覆盖、金额 ¥12.00 未超限。免赔 ¥0.00。核赔建议：通过。payout 须人点执行，演示不打款。
+决定书: 材料齐、条款覆盖、金额 ¥12.00 未超限。免赔 ¥0.00。核赔建议：通过。打款须人点执行，演示不打款。
 条款：条款 2.3、条款 4.1
 计算：max(0, 12.00 - 0.00 - 0.00) = 12.00（保额¥80）
 建议赔付：¥12.00。
@@ -185,14 +187,14 @@ python -m claimdesk demo --fixture accident-deductible
 [adjudicator] 通过  通过建议 · 仍不打款
 状态: 待人打款
 试算: max(0, 80.00 - 50.00 - 0.00) = 30.00（保额¥500）
-决定书: …免赔 ¥50.00。核赔建议：通过。
+决定书: …免赔 ¥50.00。核赔建议：通过。打款须人点执行，演示不打款。
 条款：条款 2.3、条款 4.1
 计算：max(0, 80.00 - 50.00 - 0.00) = 30.00（保额¥500）
 建议赔付：¥30.00。
 idempotency_key=qingtu:payout:C-2111:3000 executed=False
 ```
 
-**芯片必须含条款 2.3。** 公式在 [`settle.py:10`](../../projects/claimdesk/src/claimdesk/settle.py)。支付表巨型 ¥ 显示建议赔付，下面有 `cd-math` 试算。
+**芯片必须含条款 2.3，不得含条款 3.2**（3.2 是 C-2002 易碎除外）。公式在 [`settle.py:10`](../../projects/claimdesk/src/claimdesk/settle.py)。支付表巨型 ¥ 显示建议赔付，下面有 `cd-math` 试算。
 
 ### 5. `shop-partial-offset` · 部分退不是整单拒
 
@@ -208,7 +210,7 @@ idempotency_key=qingtu:payout:C-2111:3000 executed=False
 决定书: 已引用复议条款。进入待核赔，不因新证据默示改判通过。须人审。
 ```
 
-再扫：`reject-unsigned` 芯片 3.4；`signed-damaged` 芯片 3.5；`delay-only` 仍除外；`supplement-returned` 补件回传入「待人打款」；`photo-signed-track-unsigned` 轨迹 `in_transit` → 补件，不通过。
+再扫：`unsigned-reject-proof`（原名 reject-unsigned，条款 3.4 允许拒收证明代替签收图，所以是通过不是拒赔）芯片 3.4；`signed-damaged` 芯片 3.5；`delay-only` 仍除外；`supplement-returned` 补件回传入「待人打款」；`photo-signed-track-unsigned` 轨迹 `in_transit` → 补件，不通过。
 
 ## 出险日 vs 投保日（path:line）
 
@@ -262,7 +264,7 @@ v1 禁止为了「自动赔付」去把 `confirm=True` 写进核赔员。
 python -m claimdesk serve
 ```
 
-http://127.0.0.1:8001 。先支付表（案件号 / 险种 / ¥ / 状态机 / 出险日），再点进卷宗。巨型金额（建议赔付）、试算式、条款标签、核赔三键在无芯片时是灰的。强调色 blurple，不是 Inbox 蓝。状态机：已报案 → 立案 → 补件中 → 待核赔 → 待人打款 / 结案。
+http://127.0.0.1:8001 。先支付表（案件号 / 险种 / ¥ / 状态机 / 出险日），再点进卷宗。巨型金额是试算覆盖；拒赔决定书不得写「建议赔付：¥」。现场约 19 行，C-2009 / C-2002 置顶。点「通过」不会在服务端仍拒赔时点亮「执行打款」。核赔三键在无芯片时是灰的。强调色 blurple，不是 Inbox 蓝。状态机：已报案 → 立案 → 补件中 → 待核赔 → 待人打款 / 结案。
 
 ```bash
 python -m pytest projects/claimdesk/tests -q

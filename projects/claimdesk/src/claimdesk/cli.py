@@ -33,7 +33,7 @@ def cmd_demo(name: str) -> int:
 
     print(f"[claimdesk] root={project_root()}")
     print(f"[claimdesk] llm={'on' if has_llm_key() else 'off (extractive)'}")
-    print("[claimdesk] 演示不调用 payout。")
+    print("[claimdesk] 演示不打款。")
     sup = Supervisor()
     cases = [sup.process_fixture(name)] if name else sup.demo()["cases"]
     for case in cases:

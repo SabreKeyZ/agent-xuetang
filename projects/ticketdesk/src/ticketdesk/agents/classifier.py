@@ -4,6 +4,7 @@ from ticketdesk.aftersales import (
     broken_line,
     infer_after_sales_type,
     last_customer_text,
+    mentions_return_goods,
     seven_day_no_reason_late,
 )
 from ticketdesk.models import Ticket
@@ -98,6 +99,10 @@ class Classifier:
         if after_type == "未发货取消":
             return "未发货取消"
         for kind, hints in TYPE_HINTS:
+            if kind == "退货退款":
+                if mentions_return_goods(text):
+                    return kind
+                continue
             if any(h in text for h in hints):
                 return kind
         if ticket.refund_yuan > 0:

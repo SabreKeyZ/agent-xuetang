@@ -33,6 +33,19 @@ def test_pass_case_page_enables_payout_and_hides_keys():
     assert paid["payment"]["status"] == "confirm_required"
 
 
+def test_pass_click_keeps_payout_gated_on_server_rec():
+    client = TestClient(app)
+    html = client.get("/").text
+    assert "canPay(serverRec" in html
+    assert "本机改选不会改服务端结论" in html
+    queue = client.get("/api/queue").json()["cases"]
+    refused = next(c for c in queue if c["claim"]["id"] == "C-2002")
+    assert refused["decision"]["recommendation"] == "拒赔"
+    paid = client.post("/api/execute", json={"case_id": refused["case_id"], "confirm": True}).json()
+    assert paid["executed"] is False
+    assert paid["payment"]["status"] == "confirm_required"
+
+
 def test_payments_page_and_stylesheet():
     client = TestClient(app)
     page = client.get("/")

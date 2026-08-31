@@ -84,7 +84,7 @@ MCP 官方仓库是给「自己写一个小服务器」用的。看完请回到 
 | 标签 | 内容 | 链接 |
 | --- | --- | --- |
 | 官方 | 吴恩达 Agentic AI（评测与上线相关讨论） | https://www.deeplearning.ai/courses/agentic-ai |
-| 官方 | Hugging Face Agents Course（观测加分单元） | https://huggingface.co/learn/agents-course/unit0/introduction |
+| 官方 | Hugging Face Agents Course（观测加分单元 bonus-unit2） | https://huggingface.co/learn/agents-course/bonus-unit2/introduction |
 | 中文搬运 | 模块4-1 evals（和第 2 周同一分 P） | https://www.bilibili.com/video/BV11Y49zCEuk/?p=19 |
 | 中文搬运 | 模块4-6 延迟成本（第 8 周） | https://www.bilibili.com/video/BV11Y49zCEuk/?p=24 |
 

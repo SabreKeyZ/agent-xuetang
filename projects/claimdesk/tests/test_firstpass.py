@@ -37,7 +37,7 @@ def test_shop_full_refund_still_denies():
 
 
 def test_reject_unsigned_vs_signed_damaged():
-    rej = Supervisor().process(load_claim("reject-unsigned"))
+    rej = Supervisor().process(load_claim("unsigned-reject-proof"))
     sig = Supervisor().process(load_claim("signed-damaged"))
     delay = Supervisor().process(load_claim("delay-only"))
     assert any("3.4" in c or "拒收" in c for c in rej["citations"])
@@ -102,3 +102,24 @@ def test_payout_never_fires():
     probe = payout(30, "qingtu:payout:C-x:3000", confirm=True)
     assert probe["executed"] is False
     assert probe["status"] == "confirm_required"
+
+
+def test_refused_claim_letter_has_no_suggested_payout_yuan():
+    out = Supervisor().process(load_claim("wrong-policy-version"))
+    letter = out["draft_reply"]
+    assert out["decision"]["recommendation"] == "拒赔"
+    assert "建议拒赔" in letter
+    assert "不予赔付" in letter
+    assert "建议赔付：¥" not in letter
+    assert "建议赔付:¥" not in letter
+    assert "计算" in letter
+    assert out["executed"] is False
+
+
+def test_accident_pass_does_not_cite_fragile_exclusion():
+    out = Supervisor().process(load_claim("accident-deductible"))
+    assert out["decision"]["recommendation"] == "通过"
+    assert all("3.2" not in c for c in out["citations"])
+    assert any("2.3" in c for c in out["citations"])
+    assert "建议赔付：¥30.00" in out["draft_reply"]
+    assert "payout" not in out["draft_reply"]

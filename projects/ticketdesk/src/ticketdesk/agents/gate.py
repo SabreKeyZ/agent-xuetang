@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 from ticketdesk.aftersales import (
     broken_line,
     infer_after_sales_type,
@@ -14,6 +16,18 @@ from ticketdesk.safety import NEVER_EXECUTE, NEVER_MUTATE_ORDER, NEVER_PAY
 from ticketdesk.tools.payment import coupon as coupon_api
 from ticketdesk.tools.payment import refund as refund_api
 from ticketdesk.tools.sla import sla_clock
+
+_OPERATOR_TOKEN = re.compile(
+    r"[（(]?\b(?:qingxia:(?:refund|coupon)|qingtu:payout):[A-Za-z0-9_.:-]+[)）]?"
+)
+
+
+def strip_operator_tokens(text: str) -> str:
+    """对客草稿不得出现幂等钥匙。对内备注 / 审计 JSON 可以留。"""
+    cleaned = _OPERATOR_TOKEN.sub("", text or "")
+    cleaned = re.sub(r"[ \t]{2,}", " ", cleaned)
+    cleaned = cleaned.replace(" 。", "。").replace("（）", "").replace("()", "")
+    return cleaned.strip()
 
 
 class Gate:
@@ -77,8 +91,8 @@ class Gate:
             banner = "同一损失不得再补运费险或二次退款。"
             paid_old = already[0].get("amount_yuan")
             old_key = already[0].get("idempotency_key") or key
-            draft = f"订单已退 ¥{paid_old}（{old_key}）。按重复赔条款，不再补偿。"
-            internal = f"对内：prior_actions 已有退款 ¥{paid_old}，防重复赔。"
+            draft = f"订单已退 ¥{paid_old}。按重复赔条款，不再补偿。"
+            internal = f"对内：prior_actions 已有退款 ¥{paid_old}，钥匙 {old_key}，防重复赔。"
         elif policy_miss:
             verdict, title, next_action, refused = "refuse", "没有引用，就先不答", "refuse", True
             banner = "没有引用，就先不答"
@@ -147,7 +161,7 @@ class Gate:
             "next_action": next_action,
             "refused": refused,
             "banner": banner,
-            "draft_reply": draft,
+            "draft_reply": strip_operator_tokens(draft),
             "internal_note": internal,
             "after_sales_type": after_type,
             "compensation_kind": "coupon" if coupon else ("none" if after_type == "换货" else "cash"),

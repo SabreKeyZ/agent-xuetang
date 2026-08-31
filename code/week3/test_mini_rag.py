@@ -32,10 +32,21 @@ def test_empty_corpus_no_hits():
 
 def test_citation_format():
     chunks = build_corpus()
-    hits = retrieve("工单台有哪些角色", chunks, k=3)
+    hits = retrieve("工单三角色出口", chunks, k=3)
     assert hits
     cite = hits[0][1].citation
     assert ":" in cite
     path, line = cite.rsplit(":", 1)
     assert path.endswith(".md")
     assert line.isdigit()
+
+
+def test_ticketdesk_roles_query_hits_glossary_not_fence():
+    chunks = build_corpus()
+    hits = retrieve("工单三角色出口", chunks, k=5)
+    assert hits
+    top = hits[0][1]
+    assert top.path.endswith("glossary.md") or top.path.endswith("cheatsheets/ticketdesk-roles.md")
+    assert not top.text.lstrip().startswith("```")
+    text = (repo_root() / top.path).read_text(encoding="utf-8").splitlines()
+    assert 1 <= top.start_line <= len(text)

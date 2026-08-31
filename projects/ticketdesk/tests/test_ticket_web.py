@@ -54,6 +54,19 @@ def test_over_200_is_draft_only_not_todo():
     assert case["refused"] is True
 
 
+def test_inbox_pins_walkthrough_and_hides_refund_token():
+    client = TestClient(app)
+    queue = client.get("/api/queue").json()["cases"]
+    assert queue[0]["case_id"] == "T-1001"
+    assert any(c["case_id"] == "T-1201" for c in queue[:3])
+    refunded = next(c for c in queue if c["case_id"] == "T-1301")
+    assert "qingxia:refund" not in (refunded.get("draft_reply") or "")
+    assert "qingxia:refund" in (refunded.get("internal_note") or "")
+    html = client.get("/").text
+    assert "resolution_breached" in html
+    assert "is_night" in html
+
+
 def test_inbox_page_and_stylesheet():
     client = TestClient(app)
     page = client.get("/")

@@ -6,6 +6,17 @@ from ticketdesk.models import Ticket
 CUSTOMER_ROLES = {"customer", "顾客", "guest", "user"}
 QUALITY_HINTS = ("漏液", "破损", "质量", "裂了", "发霉", "划痕", "坏了", "开箱破")
 NO_REASON_HINTS = ("不想要了", "不喜欢", "用不上", "无理由")
+# 先剥否定再匹配「退货」，避免「不用退货」被当成退货退款。
+NEGATED_RETURN_PHRASES = (
+    "不需要退货",
+    "不用退货",
+    "无需退货",
+    "不要退货",
+    "不必退货",
+    "无须退货",
+    "不用退",
+    "不退货",
+)
 
 
 def last_customer_text(ticket: Ticket) -> str:
@@ -19,13 +30,21 @@ def last_customer_text(ticket: Ticket) -> str:
     return f"{ticket.title}{ticket.body}"
 
 
+def mentions_return_goods(blob: str) -> bool:
+    """肯定要退货才算。否定短语里的「退货」两字不算。"""
+    cleaned = blob or ""
+    for phrase in NEGATED_RETURN_PHRASES:
+        cleaned = cleaned.replace(phrase, "")
+    return "退货退款" in cleaned or "退货" in cleaned
+
+
 def infer_after_sales_type(ticket: Ticket, text: str = "") -> str:
     if ticket.after_sales_type.strip():
         return ticket.after_sales_type.strip()
     blob = text or last_customer_text(ticket)
     if any(w in blob for w in ("换货", "换一个", "换成")):
         return "换货"
-    if any(w in blob for w in ("退货退款", "退货")):
+    if mentions_return_goods(blob):
         return "退货退款"
     if any(w in blob for w in ("仅退款", "未发货", "还没发货", "取消订单")):
         return "仅退款"

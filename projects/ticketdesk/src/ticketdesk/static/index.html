@@ -77,18 +77,26 @@
     const lastLine = (c) => (ticketOf(c).body || "").replace(/\s+/g, " ").trim().slice(0, 48) || "（空）";
     const canExec = (c) => !c.refused && c.next_action === "wait_human_confirm";
     const needsYou = (c) => canExec(c);
-    const overdue = (c) => Boolean(slaOf(c).breached);
+    const overdue = (c) => Boolean(slaOf(c).resolution_breached);
     const visible = () => cases.filter((c) => {
       if (filter === "overdue") return overdue(c);
       if (filter === "todo") return needsYou(c);
       return true;
     });
+    const clockLabel = (remaining, breached) => {
+      if (breached) return "已超时";
+      if (remaining == null) return "?";
+      return Math.max(0, Number(remaining)) + "m";
+    };
     const slaMinutes = (c) => {
       const sla = slaOf(c);
-      if (sla.breached) return "已超时";
-      const m = sla.remaining_minutes;
-      if (m == null) return "?";
-      return Math.max(0, Number(m)) + "m";
+      return clockLabel(sla.first_response_remaining ?? sla.remaining_minutes, sla.first_response_breached);
+    };
+    const listSla = (c) => {
+      const sla = slaOf(c);
+      const first = sla.first_response_breached ? "首次超时" : ("首次 " + clockLabel(sla.first_response_remaining ?? sla.remaining_minutes, false));
+      const res = sla.resolution_breached ? "完结超时" : ("完结 " + clockLabel(sla.resolution_remaining, false));
+      return first + " · " + res;
     };
     const execLockReason = (c) => {
       if (canExec(c)) return "";
@@ -129,7 +137,7 @@
             <div class="td-preview">${esc(lastLine(c))}</div>
             <div class="td-meta">
               <span class="td-chan">${esc(ch(c))}</span>
-              <span class="td-sla ${late ? "td-sla-late" : ""}">${late ? "超时" : "SLA " + (slaOf(c).remaining_minutes ?? "?") + "m"}</span>
+              <span class="td-sla ${late ? "td-sla-late" : ""}">${esc(listSla(c))}</span>
             </div>
           </div>
         </div>`;
@@ -187,7 +195,7 @@
           <div class="td-timer ${sla.first_response_breached ? "td-timer-late" : ""}">${slaMinutes(c)}</div></div>
         <div class="td-fact"><span class="td-k">完结时钟</span><span class="td-v">${sla.resolution_breached ? "已超时" : ((sla.resolution_remaining ?? "?") + "m")}</span></div>
         <div class="td-fact"><span class="td-k">优先级</span><span class="td-v">${esc(t.priority || sla.priority || "—")}</span></div>
-        <div class="td-fact"><span class="td-k">夜班 L2</span><span class="td-v">${sla.l2_empty ? "空岗" : ((sla.l2 && sla.l2.name) || "在岗")}</span></div>`;
+        <div class="td-fact"><span class="td-k">${sla.is_night ? "夜班 L2" : "白班 L2"}</span><span class="td-v">${sla.l2_empty ? "空岗" : ((sla.l2 && sla.l2.name) || "在岗")}</span></div>`;
       $("td-feed").querySelectorAll(".td-cite").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const cite = await (await fetch("/api/cite?ref=" + encodeURIComponent(btn.dataset.ref))).json();

@@ -92,6 +92,11 @@
 - 代码：[`adjudicator.py:69`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py) · [`adjudicator.py:148`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
 - 夹具：`shop-already-refunded` · `shared-photo-b`
 
+### S10. 人已经点了「执行 / 执行打款」
+
+- 希望听到：仍 `executed=False`，`confirm_required`。演示禁则在支付模块，不在按钮文案。
+- 代码：[`ticketdesk/web.py:86`](../../projects/ticketdesk/src/ticketdesk/web.py) · [`ticketdesk/tools/payment.py:10`](../../projects/ticketdesk/src/ticketdesk/tools/payment.py) · [`claimdesk/web.py:70`](../../projects/claimdesk/src/claimdesk/web.py) · [`claimdesk/tools/payment.py:8`](../../projects/claimdesk/src/claimdesk/tools/payment.py)
+
 ### S11. 三件套只坏一件却要整单退
 
 - 希望听到：分类 `部分退`；闸门 `partial_line`；对客只建议该行实付；不打款。
@@ -103,11 +108,6 @@
 - 希望听到：试算 `max(0, 80-50-0)=30`；决定书有条款号和计算式；`executed=false`。
 - 代码：[`settle.py:10`](../../projects/claimdesk/src/claimdesk/settle.py) · [`adjudicator.py:88`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
 - 夹具：`accident-deductible`
-
-### S10. 人已经点了「执行 / 执行打款」
-
-- 希望听到：仍 `executed=False`，`confirm_required`。演示禁则在支付模块，不在按钮文案。
-- 代码：[`ticketdesk/web.py:86`](../../projects/ticketdesk/src/ticketdesk/web.py) · [`ticketdesk/tools/payment.py:10`](../../projects/ticketdesk/src/ticketdesk/tools/payment.py) · [`claimdesk/web.py:70`](../../projects/claimdesk/src/claimdesk/web.py) · [`claimdesk/tools/payment.py:8`](../../projects/claimdesk/src/claimdesk/tools/payment.py)
 
 ## A. 循环还是聊天
 

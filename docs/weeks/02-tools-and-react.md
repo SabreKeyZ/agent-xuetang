@@ -29,7 +29,7 @@
 
 **对应视频：** [docs/videos.md](../videos.md)「第 2 周」
 
-- 李宏毅 HW2 Agent（YouTube）：https://youtu.be/o4AT86nLcd0
+- 李宏毅 HW2 Agent（YouTube，林毓翔 / Ulin Sanga，非官方课）：https://youtu.be/o4AT86nLcd0
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
 - 模块3 工具（第 14 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=14
 - 模块4-1 evals（第 19 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=19
@@ -206,7 +206,7 @@ $ python code/week2/react_agent.py --parse $'Thought：要算一下\nAction：ca
 ## 延伸阅读
 
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
-- 李宏毅 HW2：https://youtu.be/o4AT86nLcd0
+- 李宏毅 HW2（YouTube，非官方课）：https://youtu.be/o4AT86nLcd0
 - HF unit1：https://huggingface.co/learn/agents-course/unit1/introduction
 - hello-agents（工具章，勿抄）：https://github.com/datawhalechina/hello-agents
 - 下一周：[记忆与 RAG](03-memory-rag.md)

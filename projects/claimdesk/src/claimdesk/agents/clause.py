@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from claimdesk.models import Claim
-from claimdesk.rag import citation_exists, retrieve
+from claimdesk.rag import Hit, citation_exists, retrieve
 
 
 class ClauseClerk:
@@ -16,6 +16,7 @@ class ClauseClerk:
         wrong_version = [h for h in hits if h.chunk.version and h.chunk.version != _expected_version(claim)]
         # 出险日过滤已在 retrieve 里做；再钉一次版本
         hits = [h for h in hits if not h.chunk.version or h.chunk.version == _expected_version(claim)]
+        hits = [h for h in hits if _clause_applies(claim, h)]
         cites = [h.chunk.citation for h in hits if citation_exists(h.chunk.citation)]
         if not cites:
             return {
@@ -40,6 +41,21 @@ class ClauseClerk:
             ),
             "dropped_wrong_version": len(wrong_version),
         }
+
+
+def _exclusion_needed(claim: Claim) -> bool:
+    text = claim.narrative
+    return any(w in text for w in ("易碎", "陶瓷", "玻璃", "墨水瓶", "墨水碎", "自行丢弃", "扔掉"))
+
+
+def _clause_applies(claim: Claim, hit: Hit) -> bool:
+    """通过案不得捎带条款 3.2（易碎除外）。第 7 周把 3.2 钉在 C-2002 拒赔。"""
+    cid = hit.chunk.clause_id or ""
+    if "3.2" in cid:
+        return _exclusion_needed(claim)
+    if "3.3" in cid:
+        return "延误" in claim.narrative and "破损" not in claim.narrative and "丢失" not in claim.narrative
+    return True
 
 
 def _expected_version(claim: Claim) -> str:

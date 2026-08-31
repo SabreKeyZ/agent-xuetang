@@ -32,7 +32,7 @@ RAG（检索再生成）只是长记忆的一种用法：先找出可能有用�
 
 **对应视频：** [docs/videos.md](../videos.md)「第 3 周」
 
-- 李宏毅 HW1 RAG：https://youtu.be/0ylc6rnoTOM
+- 李宏毅 HW1 RAG（YouTube，林毓翔 / Ulin Sanga，非官方课）：https://youtu.be/0ylc6rnoTOM
 - 李宏毅 2026 Agent / Context（B 站）：https://www.bilibili.com/video/BV1Sdw7zREka/
 - 课程主页：https://speech.ee.ntu.edu.tw/~hylee/ml/2025-spring.php
 
@@ -83,7 +83,7 @@ flowchart LR
 ```bash
 python code/week3/mini_rag.py --query "第几周写 MCP"
 python code/week3/mini_rag.py --query "岗位地图"
-python code/week3/mini_rag.py --query "工单台有哪些角色"
+python code/week3/mini_rag.py --query "工单三角色出口"
 python -m pytest code/week3 -q
 ```
 
@@ -108,6 +108,17 @@ python -m pytest code/week3 -q
 ```
 
 行号以你机器为准，**文件名必须是 `docs/jobs/roles.md`**。
+
+### 练习：角色查询必须打开词表或三角色纸
+
+上一条 `--query` 的**第一条 hit** 必须是 `docs/cheatsheets/ticketdesk-roles.md`（或词表里的分类员行），不能是 bash 围栏。围栏只是命令，不是可打开的课文。
+
+```text
+[hit] docs/cheatsheets/ticketdesk-roles.md:1  score=…
+[quote] # 工单三角色出口
+```
+
+测试：[`test_ticketdesk_roles_query_hits_glossary_not_fence`](../../code/week3/test_mini_rag.py)。
 
 ## 失败对照 · 空目录
 
@@ -193,7 +204,7 @@ $ python code/week3/mini_rag.py --query "MCP" --docs /tmp/empty-docs
 
 ## 延伸阅读
 
-- 李宏毅 HW1：https://youtu.be/0ylc6rnoTOM
+- 李宏毅 HW1（YouTube，非官方课）：https://youtu.be/0ylc6rnoTOM
 - CiteKit（可选）：https://github.com/SabreKeyZ/citekit
 - hello-agents 记忆相关章（勿搬正文）：https://github.com/datawhalechina/hello-agents
 - HF Agents Course：https://huggingface.co/learn/agents-course/unit1/introduction

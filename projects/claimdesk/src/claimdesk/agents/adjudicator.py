@@ -82,11 +82,11 @@ class Adjudicator:
             letter = (
                 f"材料齐、条款覆盖、金额 ¥{claim.amount_yuan:.2f} 未超限。"
                 f"免赔 ¥{math['deductible']:.2f}。核赔建议：通过。"
-                "payout 须人点执行，演示不打款。"
+                "打款须人点执行，演示不打款。"
             )
 
         if letter:
-            letter = _with_formula(letter, cites, math)
+            letter = _with_formula(letter, cites, math, refused=refused)
         status = case_status(rec, bool(docs.get("complete")))
 
         return {
@@ -109,12 +109,13 @@ class Adjudicator:
         }
 
 
-def _with_formula(letter: str, cites: list[str], math: dict) -> str:
+def _with_formula(letter: str, cites: list[str], math: dict, refused: bool = False) -> str:
     clauses = [c.split(" · ", 1)[0] for c in cites if "条款" in c]
     clause_txt = "、".join(dict.fromkeys(clauses)) if clauses else "（见引用芯片）"
+    payout_line = "建议拒赔，不予赔付。" if refused else f"建议赔付：¥{math['suggested_yuan']:.2f}。"
     return (
         f"{letter}\n条款：{clause_txt}\n计算：{math['formula']}\n"
-        f"建议赔付：¥{math['suggested_yuan']:.2f}。"
+        f"{payout_line}"
     )
 
 

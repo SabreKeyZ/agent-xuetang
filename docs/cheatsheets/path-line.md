@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | 第 3 周 `mini_rag.py` | `docs/weeks/04-mcp-and-skills.md:1` | 仓库根 |
 | 工单台芯片 | `docs/policy/promo-2026-summer.md:12` | `projects/ticketdesk` |
-| 理赔台标签 | `条款 3.2 · docs/policy/qingtu-bao-v2.md:32` | `projects/claimdesk`（先剥 `条款 3.2 · `） |
+| 理赔台标签 | `条款 3.2 · docs/policy/qingtu-bao-v2.md:38` | `projects/claimdesk`（先剥 `条款 3.2 · `） |
 | 分类员相似夹具 | `fixtures/tickets/promo-overrides-sla.json:1` | 工单台项目根 |
 
 ## 允许 / 拒绝

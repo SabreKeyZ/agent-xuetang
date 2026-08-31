@@ -82,6 +82,11 @@ def tokenize(text: str) -> list[str]:
     return raw + extra
 
 
+def _is_fence_chunk(chunk: Chunk) -> bool:
+    stripped = chunk.text.lstrip()
+    return stripped.startswith("```")
+
+
 def score(query: str, chunk: Chunk) -> int:
     q_tokens = set(tokenize(query))
     if not q_tokens:
@@ -102,6 +107,13 @@ def score(query: str, chunk: Chunk) -> int:
             points += 3
         if piece.lower() in path:
             points += 5
+    # 代码围栏不是可打开的课文；第 3 周刚教 path:line 必须能跳到正文。
+    if _is_fence_chunk(chunk):
+        points = max(0, points - 20)
+    if ("角色" in query or "三角色" in query) and (
+        "glossary.md" in path or "cheatsheets/ticketdesk-roles.md" in path
+    ):
+        points += 8
     return points
 
 

@@ -16,6 +16,9 @@ def test_already_refunded_no_double_pay():
     assert out["gate"]["verdict"] == "refuse_exec"
     assert out["gate"]["next_action"] == "no_double_pay"
     assert "重复" in (out["banner"] + out["draft_reply"])
+    assert "qingxia:refund" not in out["draft_reply"]
+    assert "idempotency_key" not in out["draft_reply"]
+    assert "qingxia:refund" in out["internal_note"]
 
 
 def test_p0_night_escalates_to_queue_not_invented_handler():
