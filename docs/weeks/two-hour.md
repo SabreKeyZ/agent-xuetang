@@ -189,3 +189,5 @@ python code/week0/hello_chat.py
 - [ ] **钱不走**：闸门锁「执行」，或钮能点也只记审计。`confirm_required` / `executed=False`。演示不打款。
 
 停。不申请 Key，不跳第 1 周。还要学循环和评测，从 [工期目录](README.md) 的 9 周表接着走。
+
+有余力、还没摸过助手改代码：可选插页 [vibe 章](vibe.md) 大约 20–30 分钟（只走 01 + 看一份 BAD/GOOD diff 也行）。不计入这 120 分钟，不要从工单台源码抄。

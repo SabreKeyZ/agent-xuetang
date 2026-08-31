@@ -34,6 +34,7 @@
 | confirm_required | 退款 / payout 接口存在，演示不接受打款。 | 人点「执行」仍是这条状态。 | [cheatsheet 禁则](cheatsheet.md) |
 | 人在回路 | 打款、改单、删文件必须等人点头。 | 不是「模型说我做完了」。 | [第 4 周](weeks/04-mcp-and-skills.md) |
 | 夹具 | 预先写好的脏工单 / 脏案件。 | 不是当场编一个聪明问题。 | [第 6 周](weeks/06-ticketdesk.md) |
+| vibe 编码 | 对着助手说话改文件，diff 你验收。 | 不是一次贴完全部规格等聊天皮。 | [vibe 章](weeks/vibe.md) |
 | 红条 | 拒绝句：没有引用，就先不答。 | 不是漫画弹窗，也不是「换个模型再试」。 | [第 3 周](weeks/03-memory-rag.md) |
 | 分类员 | 工单台：类型 + 紧急度，不改订单。 | 和闸门员不是同一个出口。 | [三角色](cheatsheets/ticketdesk-roles.md) |
 | 政策员 | 工单台：生效中的 `path:line`，零命中拒绝。 | 活动期不得只用日常「不赔运费」。 | [第 6 周](weeks/06-ticketdesk.md) |

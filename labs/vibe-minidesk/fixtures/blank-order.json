@@ -1,0 +1,13 @@
+{
+  "id": "M-3101",
+  "fixture_id": "blank-order",
+  "shop_id": "huideng",
+  "created_at": "2026-08-24T09:10:00+08:00",
+  "now": "2026-08-24T09:40:00+08:00",
+  "order_id": "",
+  "customer_id": "u_blank",
+  "customer_name": "乔灯",
+  "refund_yuan": 36,
+  "title": "灯油还没到，先退了吧",
+  "body": "昨晚拍的灯油到现在没消息。单号我找不到了，你们看着退。"
+}

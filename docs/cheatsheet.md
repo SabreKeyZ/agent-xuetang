@@ -51,5 +51,9 @@ python code/week5/classroom_lab.py demo
 python code/week5/classroom_lab.py recurse
 python -m ticketdesk serve --port 8000
 python -m claimdesk serve --port 8001
-python -m pytest
+python -m pytest                  # 不含 labs/（空 stub 会红）
+# 可选 vibe 章，学徒自跑：
+# python -m pip install -e labs/vibe-minidesk
+# pytest labs/vibe-minidesk/evals
+# python -m minidesk demo
 ```

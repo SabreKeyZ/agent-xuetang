@@ -220,4 +220,5 @@ payment.status=confirm_required
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
 - HF unit2：https://huggingface.co/learn/agents-course/unit2/introduction
 - hello-agents 多智能体章（勿抄，勿搬五人网）：https://github.com/datawhalechina/hello-agents
+- 第 6 周之前可选：[对着助手搭最小工单台](vibe.md)
 - 下一周：[工单台收完](06-ticketdesk.md)
