@@ -8,7 +8,7 @@
 
 ## 目标
 
-- 跑通 `python -m issueforge demo`，读懂打印出的 Markdown 报告。
+- 跑通 `python -m issueforge demo`，并打开 `python -m issueforge board` 写出的 HTML 值班日志。
 - 分清三个角色各自允许写什么。
 - 写清「为什么不 `eval` Issue 正文」。
 - 知道如何在自己的仓库里打开 Action，以及为什么本教材默认关掉它。
@@ -62,10 +62,12 @@ ls projects/issueforge/fixtures
 ```bash
 python -m issueforge demo
 python -m issueforge demo --fixture bug-empty-docs
+python -m issueforge board
+# 打开 demo-out/duty-report.html —— 盖章、正文摘句、命令先不跑
 python -m pytest projects/issueforge/tests -q
 ```
 
-`demo` 默认把所有夹具跑一遍，或按 README 指定一条。
+`demo` 默认把所有夹具跑一遍，并写出同一份 HTML。`board` 只写日志、少打印。
 你要检查的不是文采，是：
 
 - bug 不会被标成 feature。

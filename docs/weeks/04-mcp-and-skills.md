@@ -49,14 +49,12 @@ sequenceDiagram
 
 ### 为什么要多一个进程
 
-第 2 周的工具和循环写在同一个文件里。换一个编辑器、换一个聊天窗口，那个函数就看不见了。
-MCP 把「能力」留在一个小服务器里。编辑器、命令行、以后的问学堂，理论上可以共用同一份。
-
-本周我们只做 stdio：一边读一行 JSON，一边写一行 JSON。不监听端口，防火墙少一件事。
+第 2 周的工具和循环写在同一个文件里。换一个编辑器，那个函数就看不见了。
+MCP 把能力留在一个小服务器里。本周只做 stdio：一边读一行 JSON，一边写一行 JSON。
 
 ### 协议只实现三支
 
-作业允许「像 MCP 的最小子集」，不必实现官方规范的每一个字段。
+作业允许「像 MCP 的最小子集」。
 
 1. `initialize`
 2. `tools/list` —— 返回 `get_week_goal`，参数是 `week`（0–8 的整数）
@@ -64,21 +62,39 @@ MCP 把「能力」留在一个小服务器里。编辑器、命令行、以后�
 
 读文件失败时返回 JSON-RPC 错误，不要返回模型编的目标。
 
-### 跑起来
+### 对着我们的服务器
+
+| 行 | 它在干什么 |
+| --- | --- |
+| [`50:59:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `get_week_goal`：按周打开文件，切「目标」小节 |
+| [`90:132:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `handle`：三支方法 + 错误通道 |
+| [`135:142:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `serve_stdio`：一行 JSON 进，一行 JSON 出 |
+| [`150:156:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `--once`：给人看的快捷方式，测试仍走 stdin |
 
 ```bash
 python code/week4/week_goal_server.py --once --week 4
 python -m pytest code/week4 -q
 ```
 
-`--once` 是给人类用的快捷方式：不走 stdio，直接打印第 4 周目标。
-测试会走真正的 stdin/stdout，防止你只写了快捷方式。
+本机 `--once --week 4`：
 
-和服务器对话的示意：
+```text
+第 4 周 · 工具、MCP、Skill：三件不同的事
 
+- 用自己的话区分上面三列。
+- 跑一个大约二十行量级的 stdio 服务器，暴露 `get_week_goal`。
+- 写一段可粘贴的 Skill 片段，声明权限。
+- 仍然不引入 LangChain。
 ```
-> {"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}
-< {"jsonrpc":"2.0","id":1,"result":{"tools":[{"name":"get_week_goal",...}]}}
+
+这就是磁盘上「目标」小节的原文，不是模型改写。
+
+和服务器对话（本机 `tools/list`）：
+
+```text
+$ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
+    | python code/week4/week_goal_server.py
+{"jsonrpc": "2.0", "id": 1, "result": {"tools": [{"name": "get_week_goal", "description": "返回 Agent学堂第 N 周的「目标」小节原文。", "inputSchema": {"type": "object", "properties": {"week": {"type": "integer", "minimum": 0, "maximum": 8}}, "required": ["week"]}}, {"name": "list_weeks", "description": "列出 0-8 周标题。", "inputSchema": {"type": "object", "properties": {}}}]}}
 ```
 
 ### Skill 片段（可粘贴）
@@ -100,7 +116,34 @@ description: 当学员问「这周学什么 / 第 N 周目标」时使用。先�
 ```
 
 「先问人」就是人在回路的最小形态。
-learn-claude-code 把套件理解成循环 + 工具 + 权限；我们这周用四行权限把第三项写死。
+
+## 失败对照 · 一行不是 JSON
+
+**现场。** 往 stdin 塞 `not-json`：
+
+```text
+$ printf '%s\n' 'not-json' | python code/week4/week_goal_server.py
+Traceback (most recent call last):
+  File "code/week4/week_goal_server.py", line 162, in <module>
+    raise SystemExit(main())
+  ...
+  File "code/week4/week_goal_server.py", line 140, in serve_stdio
+    message = json.loads(line)
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+```
+
+周数 `99` 走的是另一条、已经包好的错误：
+
+```text
+$ python code/week4/week_goal_server.py --once --week 99
+week 必须是 0-8，收到 99
+```
+
+退出码 `1`。
+
+**原因。** [`140:140:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) 对 stdin 直接 `json.loads`。协议错误（坏 JSON）没有进 [`127:132:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) 的 JSON-RPC `error` 通道。`99` 则是 `get_week_goal` 抛出、被 `handle` 接住。
+
+**修复。** 在 `serve_stdio` 里把 `json.loads` 包进 `try`，解析失败时写回 `{"jsonrpc":"2.0","id":null,"error":{"code":-32700,"message":"parse error: …"}}`，不要让进程炸死。这是练习，不是本周必须改进主分支的作业；你要能讲清「解析失败」和「周数非法」不是同一种错。
 
 ## 对应视频
 
@@ -114,7 +157,7 @@ learn-claude-code 把套件理解成循环 + 工具 + 权限；我们这周用�
 
 ## 练习
 
-1. 给 `tools/list` 再加一个只读工具 `list_weeks`，返回 0–8 的标题行。补测试。
+1. 给 `tools/list` 再加一个只读工具 `list_weeks`，返回 0–8 的标题行。补测试。（函数已经在文件里，缺的是你确认测试覆盖它。）
 2. 把 Skill 里的权限改成「可以写一个 `notes/week4.md`，但不能写别的路径」。你还不需要真的实现写入，先把句子写清楚。
 3. 用错误周数 `99` 调用，确认是协议错误而不是一段假目标。
 

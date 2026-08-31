@@ -29,6 +29,7 @@ Thumbs.db
 logs/
 .askhall/
 .issueforge/
+demo-out/
 
 # Docker
 .docker/

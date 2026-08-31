@@ -67,8 +67,6 @@ python -m pip install -U pip
 
 ### 3. 国内 Key，或本地模型
 
-复制环境文件：
-
 ```bash
 cp .env.example .env
 ```
@@ -81,44 +79,61 @@ OPENAI_BASE_URL=https://api.deepseek.com/v1
 OPENAI_MODEL=deepseek-chat
 ```
 
-默认示例是 DeepSeek，因为它提供 OpenAI 兼容的 `/chat/completions`。
-智谱、通义、Ollama 的地址写在 `.env.example` 注释里，**Key 和 Base URL 必须成对**。
+Key 和 Base URL 必须成对。智谱、通义、Ollama 写在 `.env.example` 注释里。
+没有云端 Key：Ollama 拉一个 7B 聊天模型，`OPENAI_BASE_URL=http://localhost:11434/v1`，`OPENAI_API_KEY=ollama`。
 
-没有条件申请云端 Key：安装 [Ollama](https://ollama.com)，拉一个 7B 级聊天模型，把 Base URL 指到 `http://localhost:11434/v1`，`OPENAI_API_KEY` 填 `ollama` 即可。
+### 4. 对着我们的脚本看
 
-### 4. 跑一次
+`hello_chat.py` 只用标准库。请按行看，不要先装 `openai` 包。
 
-本周脚本只用标准库读环境变量、发 HTTP，不强制你先装 `openai` 包。
+| 行 | 它在干什么 |
+| --- | --- |
+| [`16:26:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | `load_dotenv`：读仓库根的 `.env`，不覆盖已有环境变量 |
+| [`45:48:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 没有 Key 直接退出码 2，并告诉你去复制 `.env.example` |
+| [`50:69:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 拼 `BASE_URL/chat/completions`，POST 一条中文 user |
+| [`73:76:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | HTTP 错误把响应体打到 stderr，不装成成功 |
+| [`88:89:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 成功只印两行：`[ok] model=` 和 `[ok] reply=` |
 
 ```bash
 python code/week0/hello_chat.py
 ```
 
-你应该看到类似：
+我们在本机跑通（DeepSeek 兼容口，模型名 `deepseek-chat`）时，终端是：
 
-```
+```text
 [ok] model=deepseek-chat
 [ok] reply=你好，我是一次普通的聊天补全，还不是 Agent。
 ```
 
-ASCII 示意（这就是「成功」长什么样）：
+没填 Key 时不要猜，脚本会诚实说：
 
+```text
+缺少 OPENAI_API_KEY。复制 .env.example 为 .env 后再跑。
+只有 Ollama 时：OPENAI_API_KEY=ollama 且 BASE_URL 指向本地。
 ```
-+----------------------------------------------+
-| $ python code/week0/hello_chat.py            |
-| POST {BASE_URL}/chat/completions             |
-| { "messages": [ { "role": "user", ... } ] }  |
-|                                              |
-| 200  {"choices":[{"message":{"content":...}}]}|
-| [ok] reply=...                               |
-+----------------------------------------------+
-```
+
+退出码是 `2`。
 
 ### 5. 没有 GPU 意味着什么
 
-后面的循环、检索、两个产品，默认都在 CPU 上跑逻辑。
+后面的循环、检索、两个工位，默认都在 CPU 上跑逻辑。
 模型在云端或在 Ollama 里。你的笔记本负责发 JSON、写日志、跑测试。
-不要因为没有显卡就停在这周。
+
+## 失败对照 · 钥匙写错
+
+**现场。** `.env` 里 `OPENAI_API_KEY=sk-wrong`，Base URL 仍指向兼容口。
+
+```text
+$ python code/week0/hello_chat.py
+[fail] HTTP 401 http://127.0.0.1:8765/chat/completions
+{"error": {"message": "Authentication Fails, Your api key: ****wrong is invalid", "type": "authentication_error", "code": "invalid_request_error"}}
+```
+
+（你连的是厂商地址时，URL 会是 `https://api.deepseek.com/v1/chat/completions`，正文同样是 401 + invalid key。）
+
+**原因。** [`73:76:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) 把 HTTPError 原样打印。Key 无效就是 401，不是「模型不会中文」。
+
+**修复。** 核对三件事：Key 是那一家的、`OPENAI_BASE_URL` 是那一家的、没有把 DeepSeek 的 Key 配到 `api.openai.com`。改完再跑，直到出现 `[ok] reply=`。
 
 ## 对应视频
 
@@ -127,7 +142,7 @@ ASCII 示意（这就是「成功」长什么样）：
 
 - 李宏毅 2025 春主页（官方）：用来确认学期结构，不必从第一秒看到最后一秒。
 - 吴恩达 Agentic AI 官方页：本周只打开，知道有这门课。作业放到第 1–2 周。
-- Hugging Face Agents Course 导论：感受「每周 3–4 小时」的节奏，和我们的 4–6 小时接近。
+- Hugging Face Agents Course 导论：感受「每周 3–4 小时」的节奏，和我们的 5–6 小时接近。
 
 ## 练习
 

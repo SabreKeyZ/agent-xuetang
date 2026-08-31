@@ -7,6 +7,7 @@
 
 RAG（检索再生成）只是长记忆的一种用法：先找出可能有用的段落，再允许模型说话。
 本周你要强制另一件事：**说话必须带引用，格式是 `path:line`。**
+问学堂后来把这句话印在脸上：没有引用，就先不答。
 
 ## 目标
 
@@ -43,8 +44,6 @@ flowchart LR
 ### 短记忆什么时候够用
 
 第 1–2 周的循环，把最近若干步的 thought / observation 塞进 messages，就够了。
-用户改口、工具失败、步数记录，都属于短记忆。
-
 短记忆的死法很具体：你把整本教材粘进提示，账单先死；或者窗口截断，模型忘掉工具刚返回的错误码。
 
 ### 长记忆为什么是文件
@@ -52,28 +51,17 @@ flowchart LR
 问学堂要把「第 4 周的目标」答对，靠的不是模型预训练里有没有这句话，
 而是磁盘上 `docs/weeks/04-mcp-and-skills.md` 还在不在。
 
-文件的好处：你可以 diff，可以在 PR 里被审查，可以在没有 Key 时仍然被检索。
+### 对着我们的检索器
 
-### 分块规则（请保持无聊）
-
-1. 读 `docs/` 下所有 `.md`。
-2. 按空行切开。一块太长（例如超过 80 行）就再按标题切。
-3. 每一块保存：`path`（相对仓库根）、`start_line`、`end_line`、`text`。
-4. 打分：查询里的中文词和英文词，在 `text` 里出现就加分。可用 `sqlite` 建 FTS，也可以纯 Python。本周两种都算合格。
+| 行 | 它在干什么 |
+| --- | --- |
+| [`21:22:code/week3/mini_rag.py`](../../code/week3/mini_rag.py) | `Chunk.citation` → `path:start_line` |
+| [`37:59:code/week3/mini_rag.py`](../../code/week3/mini_rag.py) | 按空行分块，太长再按 80 行切；相对仓库根 |
+| [`85:105:code/week3/mini_rag.py`](../../code/week3/mini_rag.py) | 关键字打分：正文命中 + 路径命中 |
+| [`147:155:code/week3/mini_rag.py`](../../code/week3/mini_rag.py) | 打印 `[hit]` 和 `[quote]`；零命中输出 `{"hits": []}` |
+| [`178:186:code/week3/mini_rag.py`](../../code/week3/mini_rag.py) | 没有块或没有命中 → 退出码 1 |
 
 不要在这周引入向量库。向量会把「我检索失败」变成「我不太理解 embedding」。先把引用做对。
-
-### 引用格式
-
-```
-docs/weeks/04-mcp-and-skills.md:12
-```
-
-行号指向块的起始行即可。问学堂的测试会检查：这个文件存在，且行号不超过文件行数。
-
-没有命中时，诚实说「教材里没找到」，不要生成一段听起来像教材的话。
-
-### 跑起来
 
 ```bash
 python code/week3/mini_rag.py --query "第几周写 MCP"
@@ -81,19 +69,42 @@ python code/week3/mini_rag.py --query "问学堂有哪些角色"
 python -m pytest code/week3 -q
 ```
 
-预期输出类似：
+本机跑「第几周写 MCP」：
 
+```text
+[hit] docs/weeks/04-mcp-and-skills.md:1  score=14
+[quote] # 第 4 周 · 工具、MCP、Skill：三件不同的事
+[hit] docs/weeks/04-mcp-and-skills.md:8  score=14
+[quote] | 词 | 它是什么 | 本周你摸到的实物 |
+[hit] docs/weeks/04-mcp-and-skills.md:14  score=14
+[quote] 不是「MCP 比工具高级」。是「谁在哪个进程里」。
+[hit] docs/weeks/04-mcp-and-skills.md:34  score=14
+[quote] 读 + 画图 1 小时；跑服务器 2 小时；写 Skill 和权限句 1 小时；看 MCP for Beginners 目录 1–2 小时。
 ```
-[hit] docs/weeks/04-mcp-and-skills.md:1  score=3
-[hit] docs/weeks/06-askhall.md:1         score=2
-[quote] 学习者跑一个二十行 MCP stdio 服务器……
-```
+
+分数会随教材改字而变，**路径必须仍是第 4 周文件**。行号要能在编辑器里跳转。
+
+没有命中时，诚实说「教材里没找到」，不要生成一段听起来像教材的话。
 
 ### 可选伙伴：CiteKit
 
-如果你后面想把「引用必须可点」做成更严的库，可以看同作者的
-[CiteKit](https://github.com/SabreKeyZ/citekit)。
-本周**不要求**安装它。本仓库的 `mini_rag.py` 必须独立可跑。
+[CiteKit](https://github.com/SabreKeyZ/citekit) 把「引用必须可点」做更严。本周**不要求**安装。`mini_rag.py` 必须独立可跑。
+
+## 失败对照 · 空目录
+
+**现场。** `--docs` 指到一个没有 `.md` 的目录：
+
+```text
+$ mkdir -p /tmp/empty-docs
+$ python code/week3/mini_rag.py --query "MCP" --docs /tmp/empty-docs
+{"hits": []}
+```
+
+退出码 `1`。
+
+**原因。** [`178:180:code/week3/mini_rag.py`](../../code/week3/mini_rag.py)：corpus 为空就打印 `hits=[]`，不当成「模型没印象」。
+
+**修复。** 作业路径不要传空目录。你要留下这张零命中的输出，第 6 周问学堂的红条「没有引用，就先不答」就是从这里长出来的。
 
 ## 对应视频
 
