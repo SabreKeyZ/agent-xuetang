@@ -1,5 +1,7 @@
 # 第 5 周 · 多个角色，以及何时不要加角色
 
+> **本班属于 1 个月路径的第 2 周**（后半，约 day 5–7）。同周前半是 [03](03-memory-rag.md)、[04](04-mcp-and-skills.md)。
+
 到第 4 周，你已经有一个循环、两只手、一份长记忆、一个对外的小服务器。
 有人会说：下一步当然是「上多智能体」。
 
@@ -27,7 +29,7 @@
 
 **先修。** 第 1–4 周循环和引用。本周教室玩具不打网。
 
-读三种结构 2 小时；算一笔「多一次交接」的账 1 小时；跑教室实验 1 小时；看一节多 Agent 视频 1–2 小时。
+本班约 3 小时（周末一块）。读三种结构 1 小时；算一笔「多一次交接」的账 0.5 小时；跑教室实验 1 小时。框架课放到晚上。同周三班合计约 8–10 小时。
 
 **对应视频：** [docs/videos.md](../videos.md)「第 5–7 周」
 
@@ -220,5 +222,5 @@ payment.status=confirm_required
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
 - HF unit2：https://huggingface.co/learn/agents-course/unit2/introduction
 - hello-agents 多智能体章（勿抄，勿搬五人网）：https://github.com/datawhalechina/hello-agents
-- 第 6 周之前可选：[对着助手搭最小工单台](vibe.md)
-- 下一周：[工单台收完](06-ticketdesk.md)
+- 下一班（日历第 3 周前半）：[对着助手搭最小工单台](vibe.md)
+- 第 3 周后半：[工单台收完](06-ticketdesk.md)

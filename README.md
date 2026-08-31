@@ -12,7 +12,7 @@
 > 看不懂「抽取式 / 队列」先跑通演示，第 1 周再解释循环。
 
 教材就是仓库。两个毕业作品是队列，不是聊天皮。
-A Chinese-first apprenticeship: nine weeks (0–8), two ops desks, one conversation you can defend.
+A Chinese-first apprenticeship: one month (four calendar weeks), two ops desks, one conversation you can defend.
 
 ## 今天就跑通（约 30 分钟）
 
@@ -60,7 +60,7 @@ python -m claimdesk serve
 
 两台都是抽取式，**不需要 Key**。第 0 周的 Key 只为可选的 `hello_chat.py`。没填也能学完夹具和引用芯片。需要模型时：`cp .env.example .env`，按 [第 0 周](docs/weeks/00-setup.md) 填国内 Key。
 
-> 这不是就业保证。两周能讲清循环和评测；九周（含第 0 周）有两个可演示的队列。
+> 这不是就业保证。第一周能讲清循环和评测；一个月有两个可演示的队列。
 
 ## 两张脸：工单台 | 理赔台
 
@@ -101,33 +101,36 @@ python -m claimdesk serve
 
 ## 学徒工期
 
-默认给**有一点 Python 的小白**：一到两个月，每周 5–6 小时。做不完就停在当周验收，不要跳周。
+默认给**有一点 Python 的小白**：**1 个月 / 4 周**，每周约 8–12 小时（工作日晚上 + 周末）。材料仍是原来的班文件 `00`–`08` 和 [vibe](docs/weeks/vibe.md)，一篇不删，只是排得更密。做不完就停在当周验收，不要跳周。
 
-**[只有 2 小时](docs/weeks/two-hour.md)**
+**[只有 2 小时](docs/weeks/two-hour.md)** —— 先见面，不是这 1 个月路径。
 
 | 做什么 | 然后 |
 | --- | --- |
-| 按 [120 分钟脚本](docs/weeks/two-hour.md) 走完：两台 demo → Inbox 三张单 → Payments 通过/拒赔 → 第 0 周失败对照 + 一条 FAQ | 按脚本走完再停。不申请 Key，不跳第 1 周。 |
+| 按 [120 分钟脚本](docs/weeks/two-hour.md) 走完：两台 demo → Inbox 三张单 → Payments 通过/拒赔 → 第 0 班失败对照 + 一条 FAQ | 按脚本走完再停。不申请 Key，不跳第 1 班。 |
 
-**默认 9 周（第 0 周摆桌子 + 第 1–8 周）**
+**默认 1 个月（4 个日历周）**
 
-| 0<br>5h | 1<br>5h | 2<br>6h | 3<br>5h | 4<br>5h | 5<br>5h | 6<br>6h | 7<br>6h | 8<br>5h |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [环境](docs/weeks/00-setup.md) | [循环](docs/weeks/01-what-is-an-agent.md) | [ReAct](docs/weeks/02-tools-and-react.md) | [引用](docs/weeks/03-memory-rag.md) | [MCP](docs/weeks/04-mcp-and-skills.md) | [多角色](docs/weeks/05-multi-agent.md) | [工单台](docs/weeks/06-ticketdesk.md) | [理赔台](docs/weeks/07-claimdesk.md) | [上线](docs/weeks/08-ship-and-job.md) |
-| 芯片或红条 | JSON 日志 | `--eval` 3 条 | `path:line` | 二十行 stdio | 何时不加角色 | 售后队列 | 初审队列 | 作品集谈话 |
+| 月份第 1 周<br>~10h | 月份第 2 周<br>~10h | 月份第 3 周<br>~10h | 月份第 4 周<br>~10h |
+| :---: | :---: | :---: | :---: |
+| 环境 + Agent 循环 + 工具/ReAct | RAG + MCP + 多 Agent | vibe 迷你台 + 客服工单台 | 理赔台 + 上线求职 |
+| [00 环境](docs/weeks/00-setup.md) · [01 循环](docs/weeks/01-what-is-an-agent.md) · [02 ReAct](docs/weeks/02-tools-and-react.md) | [03 引用](docs/weeks/03-memory-rag.md) · [04 MCP](docs/weeks/04-mcp-and-skills.md) · [05 多角色](docs/weeks/05-multi-agent.md) | [vibe](docs/weeks/vibe.md) · [06 工单台](docs/weeks/06-ticketdesk.md) | [07 理赔台](docs/weeks/07-claimdesk.md) · [08 上线](docs/weeks/08-ship-and-job.md) |
+| 芯片或红条 · JSON 日志 · `--eval` 3 条 | `path:line` · 二十行 stdio · 何时不加角色 | 助手验 diff · 售后队列 | 初审队列 · 作品集谈话 |
 
-**压缩 6 格**（合并 1+2、3+4；第 0 周并进第一格）。小时按周表相加，不压缩成「8–10h 塞进 16h 的课」。
+```mermaid
+flowchart LR
+  W1["第 1 周<br/>00 01 02"] --> W2["第 2 周<br/>03 04 05"]
+  W2 --> W3["第 3 周<br/>vibe 06"]
+  W3 --> W4["第 4 周<br/>07 08"]
+```
 
-| 工期 1<br>16h | 工期 2<br>10h | 工期 3<br>5h | 工期 4<br>6h | 工期 5<br>6h | 工期 6<br>5h |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-| 0 + 1 + 2 | 3 + 4 | 5 | 6 | 7 | 8 |
-| 循环写完就能评测 | 检索引用 + 小 MCP | 主管分流 | 工单台收口 | 理赔台收口 | 求职谈话 |
+> 敢慢跟：仍按 `00`–`08` 文件一周一篇。默认是上面这张 4 周表。
 
 视频只放核对过的链接：[docs/videos.md](docs/videos.md)。踩坑：[docs/faq.md](docs/faq.md)。周目录：[docs/weeks/README.md](docs/weeks/README.md)。词表 / 一页纸：[docs/glossary.md](docs/glossary.md) · [docs/cheatsheet.md](docs/cheatsheet.md)。练习先做再看 [docs/weeks/answers](docs/weeks/answers)。
 
-第 5 周写完小脚本、第 6 周走读工单台之前，有一份可选插页：[对着助手搭最小工单台](docs/weeks/vibe.md)。不需要 Key，不要从 `projects/ticketdesk` 开写。
+第 3 周前半是 [对着助手搭最小工单台](docs/weeks/vibe.md)，后半走读工单台。不需要 Key，不要从 `projects/ticketdesk` 开写。
 
-转行、在校、后端转 Agent 都从第 0 周进。已经独立用过 LangGraph 上线的人，这份工期会偏慢，去文末结构参考即可。
+转行、在校、后端转 Agent 都从第 0 班进。已经独立用过 LangGraph 上线的人，这份工期会偏慢，去文末结构参考即可。
 
 ## 两个工位怎么协作
 
@@ -169,7 +172,7 @@ flowchart LR
 
 | | **Agent学堂（本仓）** | [hello-agents](https://github.com/datawhalechina/hello-agents) | [HF Agents Course](https://huggingface.co/learn/agents-course/unit0/introduction) | [吴恩达 Agentic AI](https://www.deeplearning.ai/courses/agentic-ai) | [multi-agent-education](https://github.com/bcefghj/multi-agent-education) | [shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) |
 | --- | --- | --- | --- | --- | --- | --- |
-| 给谁 | 9 周中文小白学徒（含第 0 周），国内 Key 可选 | 系统教材 + 自研框架 | 英文课 + 证书 | 英文短课，四种模式 | 面试包装项目，三语言 / Mesh | LangGraph 问数全栈 |
+| 给谁 | 1 个月中文小白学徒（4 日历周，材料仍是 00–08），国内 Key 可选 | 系统教材 + 自研框架 | 英文课 + 证书 | 英文短课，四种模式 | 面试包装项目，三语言 / Mesh | LangGraph 问数全栈 |
 | 作业长什么样 | 工单台引用芯片 + 理赔台决定书 | 旅行助手、赛博小镇等 | 单元作业 | Notebook | 五人教育 Mesh、BKT/SM-2 | SQL / Qdrant / ES 流水线 |
 | 求职 | [岗位/作品集/面试](docs/jobs/roles.md) 分册，首页不堆题库 | 不是主线 | 不是主线 | 没有 | 简历/STAR 写在首页 | 工程履历 |
 | 评测 | 第 2 周三条 `--eval`；两台闸门夹具 | 后续引入 | 观测作加分 | 课内强调 eval | 常写量化数字 | 问数链路 |
@@ -192,13 +195,13 @@ flowchart LR
 
 ```
 agent-xuetang/
-  docs/weeks/            工期 0–8（9 周）
+  docs/weeks/            班 00–08 + vibe；默认按 1 个月 / 4 周排
   docs/jobs/             岗位 · 作品集 · 面试（STAR 在这里）
-  code/week0–5/          无框架小脚本；第 5 周是可选教室实验
+  code/week0–5/          无框架小脚本；第 5 班是可选教室实验
   projects/ticketdesk/   青匣记工单台
   projects/claimdesk/    青途保理赔台
   labs/week5/            问学堂 / 值班台降级说明
-  labs/vibe-minidesk/    第 5→6 周可选：助手搭最小工单台（评测自跑）
+  labs/vibe-minidesk/    日历第 3 周前半：助手搭最小工单台（评测自跑）
 ```
 
 ## 求职材料

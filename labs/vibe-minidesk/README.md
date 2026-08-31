@@ -3,7 +3,7 @@
 用助手从**几乎空的目录**搭一个最小售后台。CLI 优先，不需要 Key，不要做第二张脸。
 
 **打开本文件夹。不要从 `projects/ticketdesk` 开写，也不要去翻它的源码。**
-第 6 周那份是已经写完的 Inbox 走读。本页是你自己验 diff 的工期。
+走读工单台（日历第 3 周后半）那份是已经写完的 Inbox。本页是你自己验 diff 的工期。
 
 教学正文：[docs/weeks/vibe.md](../../docs/weeks/vibe.md)
 
@@ -13,7 +13,7 @@
 2. 用 Cursor（Agent / Composer）或任何能改文件的编码助手，**打开 `labs/vibe-minidesk`**。Chat 只问答，不会写进仓库。
 3. 一次只贴 `prompts/` 里的**一个**文件。从 `01` 开始。
 4. 每步跑它点名的评测。红了就看 diff，不要改评测。
-5. 五步都绿：`python -m minidesk demo` 应打出芯片或红条。然后去第 6 周。
+5. 五步都绿：`python -m minidesk demo` 应打出芯片或红条。然后去走读工单台（第 3 周后半）。
 
 ```bash
 # 仓库根
@@ -46,4 +46,4 @@ pytest labs/vibe-minidesk/evals -q          # 五步都做完再跑
 
 ## 做完仍缺什么
 
-Inbox 页面、部分退、七天无理由、双重 SLA——这些在 [第 6 周](../../docs/weeks/06-ticketdesk.md)。迷你台绿了 ≠ 工单台收完。
+Inbox 页面、部分退、七天无理由、双重 SLA——这些在 [班 06 / 第 3 周后半](../../docs/weeks/06-ticketdesk.md)。迷你台绿了 ≠ 工单台收完。

@@ -187,4 +187,4 @@ http://127.0.0.1:8001 。这里是 Stripe 味的案件表：案件号 / 险种 /
 
 然后回 [第 0 周](weeks/00-setup.md) 自己敲同一套命令。做不完就停在芯片/红条，不要跳第 1 周。
 
-完整 9 周工期在 [docs/weeks/README.md](weeks/README.md)。别人的课只认 [docs/videos.md](videos.md) 里核对过的链接，不要自己编 BV 号。本页录屏是仓库文件 [videos/walkthrough-30min.webm](videos/walkthrough-30min.webm)，不是外链。
+完整 1 个月工期在 [docs/weeks/README.md](weeks/README.md)。别人的课只认 [docs/videos.md](videos.md) 里核对过的链接，不要自己编 BV 号。本页录屏是仓库文件 [videos/walkthrough-30min.webm](videos/walkthrough-30min.webm)，不是外链。

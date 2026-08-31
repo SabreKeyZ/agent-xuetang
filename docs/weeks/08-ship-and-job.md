@@ -1,5 +1,7 @@
 # 第 8 周 · 发出去，并准备一次诚实的谈话
 
+> **本班属于 1 个月路径的第 4 周**（后半，约 day 4–7）。同周前半是 [07](07-claimdesk.md)。
+
 代码能在你的笔记本上跑，不等于别人能收。
 这周做四件很土的事：容器、日志、闸门评测、作品集。然后看岗位地图，对着场景题开口。
 
@@ -24,7 +26,7 @@
 
 **先修。** 第 6–7 周两台 demo 绿。
 
-Docker 1–2 小时；评测 1 小时；作品集 1.5 小时；对练 1 小时。
+本班约 4–5 小时（后半周）。Docker 1 小时；评测 1 小时；作品集 1.5 小时；对练 1 小时。同周两班合计约 8–10 小时。
 
 **对应视频：** [docs/videos.md](../videos.md)「第 8 周」
 
@@ -203,4 +205,4 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 - HF bonus-unit2：https://huggingface.co/learn/agents-course/bonus-unit2/introduction
 - hello-agents（对照密度，勿抄）：https://github.com/datawhalechina/hello-agents
 
-九周到这里可以停。后面是重复：更干净的日志、更狠的评测、更克制的角色。
+一个月到这里可以停。后面是重复：更干净的日志、更狠的评测、更克制的角色。
