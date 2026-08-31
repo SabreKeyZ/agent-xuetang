@@ -85,4 +85,6 @@ class Supervisor:
         ]
         catalog = {c.fixture_id: c for c in self.catalog()}
         cases = [self.process(catalog[n]) for n in names if n in catalog]
+        if not cases:
+            cases = [self.process(c) for c in self.catalog()[:16]]
         return {"cases": cases}

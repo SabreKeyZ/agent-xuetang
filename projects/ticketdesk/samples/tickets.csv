@@ -1,0 +1,3 @@
+id,channel,created_at,now,order_id,shop_id,customer_id,customer_name,amount_yuan,refund_yuan,attachments,title,body,labels,sla_minutes,priority,fixture_id
+T-IMP-01,在线客服,2026-08-30T10:00:00+08:00,2026-08-30T10:20:00+08:00,QX-202608-9901,qingxia,u_import,导入顾客,88,88,unbox.jpg,墨条缺角,开箱发现墨条缺角，申请退款 88 元。本地 CSV 导入，不是夹具。,质量,480,P2,sample-csv
+T-IMP-02,邮件,2026-08-30T11:00:00+08:00,2026-08-30T11:10:00+08:00,QX-202608-9902,qingxia,u_import2,第二位,36,36,,运费咨询,墨水盒压痕，只想问运费怎么算。,物流,1440,P3,sample-csv

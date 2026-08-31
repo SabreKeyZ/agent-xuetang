@@ -1,0 +1,27 @@
+[
+  {
+    "id": "C-IMP-11",
+    "fixture_id": "sample-json",
+    "product": "freight",
+    "channel": "App",
+    "insured_id": "p_json",
+    "insured_name": "JSON导入",
+    "claimant_id": "p_json",
+    "claimant_name": "JSON导入",
+    "policy_no": "QT-FR-202608-911",
+    "order_id": "QX-202608-9911",
+    "insured_at": "2026-08-05T09:00:00+08:00",
+    "incident_at": "2026-08-28T10:00:00+08:00",
+    "filed_at": "2026-08-29T10:00:00+08:00",
+    "now": "2026-08-29T10:00:00+08:00",
+    "amount_yuan": 12,
+    "attachments": [
+      {"name": "运单.png", "file_id": "att-imp-way", "kind": "运单号"},
+      {"name": "签收.jpg", "file_id": "att-imp-pod", "kind": "物流签收图"},
+      {"name": "支付.png", "file_id": "att-imp-pay", "kind": "发票或支付截图"}
+    ],
+    "prior_actions": [],
+    "narrative": "本地 JSON 导入的运费险小案。外包装破损，材料已齐，申请 12 元。",
+    "tracking": "SF000IMP2"
+  }
+]

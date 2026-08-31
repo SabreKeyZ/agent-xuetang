@@ -121,3 +121,17 @@ flowchart LR
 ```bash
 python -m pytest projects/ticketdesk/tests -q
 ```
+
+## 可选：导入真数据
+
+默认仍读 `fixtures/tickets/`。未设下列项、没有 Token 时演示不变。
+
+- `TICKETDESK_IMPORT_CSV`：CSV，列名对齐现有 Ticket 字段（`samples/tickets.csv`）。
+- `TICKETDESK_IMPORT_DIR`：本地目录里的 `*.json`（`samples/dir/`）。
+- `TICKETDESK_GITHUB_REPO=owner/repo` 且已设 `GITHUB_TOKEN`：只读拉 Issues 映射成 Ticket。没有 Token 就跳过。
+
+缺文件或拉取失败回退夹具，不崩。导入不打开打款：`NEVER_PAY` / `NEVER_EXECUTE` 仍为真。
+
+```bash
+TICKETDESK_IMPORT_CSV=projects/ticketdesk/samples/tickets.csv python -m ticketdesk demo
+```

@@ -1,0 +1,21 @@
+{
+  "id": "T-IMP-11",
+  "fixture_id": "sample-dir",
+  "channel": "在线客服",
+  "created_at": "2026-08-30T12:00:00+08:00",
+  "now": "2026-08-30T12:15:00+08:00",
+  "order_id": "QX-202608-9911",
+  "shop_id": "qingxia",
+  "customer_id": "u_dir",
+  "customer_name": "目录导入",
+  "amount_yuan": 72,
+  "refund_yuan": 72,
+  "attachments": ["crack.jpg"],
+  "prior_actions": [],
+  "title": "砚台裂纹",
+  "body": "本地目录 JSON 导入的质量单。砚台边角裂了，申请退货退款 72 元。",
+  "labels": ["质量"],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

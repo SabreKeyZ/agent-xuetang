@@ -81,3 +81,16 @@ http://127.0.0.1:8001
 ```bash
 python -m pytest projects/claimdesk/tests -q
 ```
+
+## 可选：导入真数据
+
+默认仍读 `fixtures/claims/`。未设下列项时演示不变。
+
+- `CLAIMDESK_IMPORT_CSV`：CSV，列名对齐现有 Claim 字段（`samples/claims.csv`）。
+- `CLAIMDESK_IMPORT_JSON`：JSON 文件或目录（`samples/claims.json`）。
+
+缺文件回退夹具，不崩。导入不打开打款：`NEVER_PAYOUT` 仍为真。
+
+```bash
+CLAIMDESK_IMPORT_JSON=projects/claimdesk/samples/claims.json python -m claimdesk demo
+```
