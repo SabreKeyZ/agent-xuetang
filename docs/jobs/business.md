@@ -1,7 +1,7 @@
 # 面试：业务背景（学徒口述）
 
 面试官坐下说「先介绍这个项目的业务」时，打开这一页。
-[先听五分钟](../../projects/ticketdesk/README.md#先听五分钟售后在干什么) 教店规；README 里的 STAR 四行教一次取舍；[场景题](interview.md) 教被追问怎么答。
+两台 README 的「先听五分钟」（[售后](../../projects/ticketdesk/README.md#先听五分钟售后在干什么) / [初审](../../projects/claimdesk/README.md#先听五分钟初审在干什么)）教店规；STAR 四行教一次取舍；[场景题](interview.md) 教被追问怎么答。
 这一页只教**开场**：店 / 保司是谁、谁来排队、钱从哪走、agent 卡在哪一段。
 
 用学徒口吻。你走读过这两条队列、对着夹具跑过 demo，不是创始人，也不报 GMV、准确率、并发。
