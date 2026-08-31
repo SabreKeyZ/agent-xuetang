@@ -14,30 +14,34 @@ A Chinese-first apprenticeship — not another encyclopedia — from the first a
 
 ## 这是给谁的
 
-- **转行**：你会一点 Python，听过 ChatGPT，但没写过「模型自己决定要不要调用工具」的循环。
+默认读者是**有基础的小白**：会写一点 Python（函数、列表、`if`），用过 ChatGPT，或已经成功调用过一次 LLM API。
+还不会 Python 的人先做 [Week -1](docs/ROADMAP.md)（venv / 函数 / 读报错）。那一周在 8 周日历**外面**。
+
+- **转行**：听过 ChatGPT，但没写过「模型自己决定要不要调用工具」的循环。
 - **在校**：课程里只有调用一次 API，想补一段能放进简历的作品。
 - **后端想做 Agent**：你会写服务，但还不习惯把评测、日志、权限和多角色路由当成一等公民。
 
-Week 0 有一份崩溃级笔记。Week 1 起默认你能读懂函数、列表和 `if`。
 不默认你会深度学习，也不默认你有 GPU。
+已经能独立用 LangGraph 上线过系统的人，这份路线会偏慢，去看文末延伸阅读即可。
 
-如果你已经能独立用 LangGraph 上线过系统，这份路线会偏慢。去看文末的延伸阅读即可。
+## 默认日历：8 周 · 约 43 小时 · 大约两个月
 
-## 八周怎么走
+不要先「自学三个月再来」。就按这张表走。
+节奏：两个工作日晚上各 1.5 小时 + 一个周末块 2–3 小时。
+做完是作品集，**不是**录用通知。完整说明见 [docs/ROADMAP.md](docs/ROADMAP.md)。
 
-每周按 **4–6 小时** 设计。做不完就停在验收标准那一节，下周补，不要跳周硬啃框架。
+| 日历周 | 小时 | 教材 | 做完时手上有什么 |
+| --- | --- | --- | --- |
+| 1 | 3 | [0 环境](docs/weeks/00-setup.md) | `.env` 打通 DeepSeek / 智谱 / Ollama |
+| 2 | 5 | [1 Agent 是循环](docs/weeks/01-what-is-an-agent.md) | `echo_agent.py` + JSON 日志 |
+| 3 | 6 | [2 工具与 ReAct](docs/weeks/02-tools-and-react.md) | 手写 ReAct + 3 条评测 |
+| 4 | 6 | [3 记忆与 RAG](docs/weeks/03-memory-rag.md) | 对本仓库 `docs/` 的引用 |
+| 5 | 5 | [4 MCP 与 Skill](docs/weeks/04-mcp-and-skills.md) | 二十行 MCP + Skill |
+| 6 | 6 | [5 多智能体](docs/weeks/05-multi-agent.md) + 开始 [6 问学堂](docs/weeks/06-askhall.md) | 问学堂 `demo` / `serve` |
+| 7 | 6 | 收完 06 + [7 值班台](docs/weeks/07-issueforge.md) | 夹具报告，可选部署 |
+| 8 | 5 | [8 上线与求职](docs/weeks/08-ship-and-job.md) | Docker、十行评测、作品集、模拟面试 |
 
-| 周 | 主题 | 你手上会多出什么 |
-| --- | --- | --- |
-| [0 环境](docs/weeks/00-setup.md) | Git、venv、国内 API Key | 一次成功的 chat completion |
-| [1 Agent 是循环](docs/weeks/01-what-is-an-agent.md) | 聊天 ≠ Agent，自主程度 | `code/week1/echo_agent.py` + JSON 日志 |
-| [2 工具与 ReAct](docs/weeks/02-tools-and-react.md) | 手写 ReAct，计算器 + 假搜索 | 三用例评测 JSON |
-| [3 记忆与 RAG](docs/weeks/03-memory-rag.md) | 短记忆 / 长记忆，吃自己的 `docs/` | 带 `path:line` 的引用 |
-| [4 MCP 与 Skill](docs/weeks/04-mcp-and-skills.md) | 工具、MCP、Skill 三件事 | 二十行 stdio 服务器 |
-| [5 多智能体](docs/weeks/05-multi-agent.md) | 主管 / 交接 / 辩论，以及何时不要加角色 | 开始搭问学堂 |
-| [6 问学堂](docs/weeks/06-askhall.md) | 毕业作品 1：本课程的学习教练 | `projects/askhall` 可演示、可部署 |
-| [7 开源值班台](docs/weeks/07-issueforge.md) | 毕业作品 2：Issue 值班 | `projects/issueforge` 夹具演示 |
-| [8 上线与求职](docs/weeks/08-ship-and-job.md) | Docker、日志、十行评测、岗位地图 | 作品集 README + 场景面试 |
+每周能稳定拿出约 8 小时：走 [6 周压缩](docs/ROADMAP.md)。
 
 视频课表（只放核对过的链接）：[docs/videos.md](docs/videos.md)。
 怕踩坑：[docs/faq.md](docs/faq.md)。
