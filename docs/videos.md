@@ -25,9 +25,11 @@
 | 中文搬运 | 李宏毅 2025 春 B 站合集 | https://www.bilibili.com/video/BV1aiADewEBC/ |
 | 官方 | 吴恩达 Agentic AI 课程页 | https://www.deeplearning.ai/courses/agentic-ai |
 | 中文搬运 | 吴恩达 Agentic AI 中文搬运 | https://www.bilibili.com/video/BV11Y49zCEuk/ |
+| 中文搬运 | 同上 · 模块1-3 自主性（第 1 周） | https://www.bilibili.com/video/BV11Y49zCEuk/?t=304 |
 | 官方 | Hugging Face Agents Course 导论 | https://huggingface.co/learn/agents-course/unit0/introduction |
 
 第 0 周不必看完李宏毅整学期。用主页找「今天这一讲的标题」，确认自己没走丢即可。
+模块1-3 自主性片段从 05:04 起（`t=304`），给第 1 周对自主谱，不是给第 0 周装环境。
 
 ## 第 2 周 · 工具、作业里的 Agent
 
@@ -36,8 +38,11 @@
 | 官方 | 李宏毅 HW2 Agent（YouTube） | https://youtu.be/o4AT86nLcd0 |
 | 官方 | 吴恩达 Agentic AI（Tool Use / 评测相关周） | https://www.deeplearning.ai/courses/agentic-ai |
 | 中文搬运 | 同上，B 站搬运 | https://www.bilibili.com/video/BV11Y49zCEuk/ |
+| 中文搬运 | 模块3 工具（第 2 周） | https://www.bilibili.com/video/BV11Y49zCEuk/?t=386 |
+| 中文搬运 | 模块4-1 evals（第 2 / 8 周） | https://www.bilibili.com/video/BV11Y49zCEuk/?t=906 |
 
 先自己写出 `code/week2` 的循环，再去看老师怎么布置作业。顺序反了容易变成「我看懂了但写不出来」。
+时间戳只标核对过的：模块3 工具 06:26（`t=386`），模块4-1 evals 15:06（`t=906`）。不要自己编别的分钟数。
 
 ## 第 3 周 · RAG 与上下文
 
@@ -56,8 +61,10 @@
 | 官方 | Microsoft MCP for Beginners | https://github.com/microsoft/mcp-for-beginners |
 | 官方 | LangChain Academy Deep Agents | https://academy.langchain.com/courses/foundation-introduction-to-deepagents |
 | 官方 | Hugging Face Agents Course | https://huggingface.co/learn/agents-course/unit0/introduction |
+| 中文搬运 | 吴恩达搬运 · 模块3 MCP（第 4 周） | https://www.bilibili.com/video/BV11Y49zCEuk/?t=312 |
 
 MCP 官方仓库是给「自己写一个小服务器」用的。看完请回到 `code/week4`，用本仓库的 `get_week_goal` 交差，不要把微软示例整仓粘过来。
+模块3 MCP 片段从 05:12 起（`t=312`）。听完名字就回来写二十行服务器。
 
 ## 第 5–7 周 · 多角色与框架课
 
@@ -78,8 +85,11 @@ MCP 官方仓库是给「自己写一个小服务器」用的。看完请回到 
 | --- | --- | --- |
 | 官方 | 吴恩达 Agentic AI（评测与上线相关讨论） | https://www.deeplearning.ai/courses/agentic-ai |
 | 官方 | Hugging Face Agents Course（观测加分单元） | https://huggingface.co/learn/agents-course/unit0/introduction |
+| 中文搬运 | 模块4-1 evals（和第 2 周同一戳） | https://www.bilibili.com/video/BV11Y49zCEuk/?t=906 |
+| 中文搬运 | 模块4-6 延迟成本（第 8 周） | https://www.bilibili.com/video/BV11Y49zCEuk/?t=247 |
 
 求职材料以本仓库 `docs/jobs/` 为准。视频用来复习「你会怎么评一个 Agent」，不是背名词。
+模块4-6 延迟成本从 04:07 起（`t=247`）。对照本仓抽取式 demo 的墙钟，不要抄别人的准确率。
 
 ## 延伸阅读（文字课，不是本表的视频）
 

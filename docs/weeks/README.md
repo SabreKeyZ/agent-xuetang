@@ -2,6 +2,19 @@
 
 默认 8 周 × 5–6 小时。压缩 6 周见根目录 README 的工期条。做不完就停在验收，不要跳周。
 
+词表：[../glossary.md](../glossary.md) · 一页纸：[../cheatsheet.md](../cheatsheet.md) · 分册：[../cheatsheets/](../cheatsheets/) · 参考答案：[answers/](answers/)（做完题再打开）
+
+## 资料怎么用
+
+顺序反了，这套包会变成「我看懂了但写不出来」。请按这个走：
+
+1. **先打开当周文档的「本周你要带走什么」**，用铅笔在纸上抄勾选框。这是验收，不是目录装饰。
+2. **先做带练命令，再看视频。** 视频课表在 [../videos.md](../videos.md)。口播用来补直觉，作业以本仓库脚本的 stdout 为准。看不完不要自责。
+3. **先自己做练习题，再打开 `answers/`。** 正文故意不写答案。抄答案过验收，第 8 周面试会穿。
+4. **失败对照比成功路径更重要。** 错 Key、空目录、除零、坏 JSON、无条款命中，都是本周要亲手跑的。
+5. **卡超过 40 分钟，去 [FAQ](../faq.md) 搜报错关键字。** 不要先换框架。
+6. **第 6–7 周以两个队列为作业。** 教室玩具、问学堂、五人教育网不是毕业作品。
+
 | 周 | 文档 | 小时 |
 | --- | --- | --- |
 | 0 | [把桌子摆好](00-setup.md) | 5 |
@@ -18,7 +31,7 @@
 
 | 工期 | 打开哪篇 | 改哪份代码 | 手上能演示什么 |
 | --- | --- | --- | --- |
-| 0 | [00-setup](00-setup.md) | `code/week0/hello_chat.py` | `[ok] reply=` |
+| 0 | [00-setup](00-setup.md) | `code/week0/hello_chat.py` | `[ok] reply=` 或诚实的缺 Key |
 | 1 | [01-what-is-an-agent](01-what-is-an-agent.md) | `code/week1/echo_agent.py` | 一行一条 JSON 循环 |
 | 2 | [02-tools-and-react](02-tools-and-react.md) | `code/week2/react_agent.py` | `--eval` 三条 PASS |
 | 3 | [03-memory-rag](03-memory-rag.md) | `code/week3/mini_rag.py` | `path:line` 命中 |

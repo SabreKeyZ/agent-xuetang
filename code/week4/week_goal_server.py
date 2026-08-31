@@ -52,9 +52,11 @@ def get_week_goal(week: int) -> str:
         raise ValueError(f"week 必须是 0-8，收到 {week}")
     path = repo_root() / "docs" / "weeks" / WEEK_FILES[week]
     text = path.read_text(encoding="utf-8")
-    goal = extract_section(text, "目标")
+    goal = extract_section(text, "本周你要带走什么")
     if not goal:
-        raise FileNotFoundError(f"{path} 里没有「目标」小节")
+        goal = extract_section(text, "目标")
+    if not goal:
+        raise FileNotFoundError(f"{path} 里没有「本周你要带走什么」或「目标」小节")
     title = next((ln[2:].strip() for ln in text.splitlines() if ln.startswith("# ")), path.name)
     return f"{title}\n\n{goal}"
 
@@ -72,7 +74,7 @@ def tool_schemas() -> list[dict[str, Any]]:
     return [
         {
             "name": "get_week_goal",
-            "description": "返回 Agent学堂第 N 周的「目标」小节原文。",
+            "description": "返回 Agent学堂第 N 周的「本周你要带走什么」小节原文。",
             "inputSchema": {
                 "type": "object",
                 "properties": {"week": {"type": "integer", "minimum": 0, "maximum": 8}},
