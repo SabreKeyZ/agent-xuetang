@@ -12,9 +12,9 @@
 
 ## 从 0 到 1（三步）
 
-在仓库根目录。
+在仓库根目录。每一步树上多出来的文件，才是你这步该摸的。
 
-**第 1 步 · 抽取式跑通（无 Key）**
+**第 1 步 · 夹具 / 抽取式跑通（无 Key）**
 
 ```
 projects/askhall/
@@ -34,6 +34,14 @@ python -m askhall serve    # http://127.0.0.1:8000
 
 **第 2 步 · 接上国内模型（可选）**
 
+树上多出来的只有根目录 `.env`（从 `.env.example` 复制）。代码不用换。
+
+```
+agent-xuetang/
+  .env                 ← 本步才需要
+  projects/askhall/    ← 仍是上一步那棵树
+```
+
 ```bash
 cp .env.example .env
 # OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
@@ -41,6 +49,13 @@ python -m askhall demo     # llm=on 时讲解可以通顺，引用不能丢
 ```
 
 **第 3 步 · 部署热身**
+
+```
+projects/askhall/
+  Dockerfile
+  docker-compose.yml
+  evals/set10.json
+```
 
 ```bash
 docker compose -f projects/askhall/docker-compose.yml up --build

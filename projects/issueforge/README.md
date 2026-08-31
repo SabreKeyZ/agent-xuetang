@@ -17,7 +17,7 @@ python -m issueforge board
 
 ## 从 0 到 1（三步）
 
-在仓库根目录。
+在仓库根目录。值班台默认**不接 LLM**：夹具就是教材。问学堂才在第 2 步接模型。
 
 **第 1 步 · 夹具跑通**
 
@@ -35,9 +35,15 @@ python -m issueforge demo --fixture bug-empty-docs
 python -m issueforge board --out demo-out/duty-report.html
 ```
 
-眼睛验收：类型盖章、`fixtures/….json` 芯片、正文摘句、「正文含命令，先不跑」、中英两栏。
+眼睛验收：类型盖章、`fixtures/….json` 芯片、正文摘句、「正文含命令，先不跑」、中英两栏。打开 HTML 就能看，不必盯终端。
 
-**第 2 步 · 读一条真 Issue（可选）**
+**第 2 步 · 读一条真 Issue（可选，相当于「接上外网」）**
+
+树上多摸一个文件，业务还是 `process()`。
+
+```
+projects/issueforge/src/issueforge/github_fetch.py
+```
 
 ```bash
 export GITHUB_TOKEN=ghp_...
@@ -46,9 +52,18 @@ python -m issueforge fetch owner/repo#123
 
 仍走同一套角色，不要为真数据写第二套逻辑。
 
-**第 3 步 · 自己的仓才打开 Action**
+**第 3 步 · 部署 / 自己的仓才打开 Action**
 
-示例：[issue-duty.example.yml](../../.github/workflows/issue-duty.example.yml)。默认只有 `workflow_dispatch`。教材仓不要对陌生人开 `issues: opened`。
+```
+projects/issueforge/Dockerfile
+.github/workflows/issue-duty.example.yml
+```
+
+```bash
+docker build -f projects/issueforge/Dockerfile -t issueforge .
+```
+
+示例工作流默认只有 `workflow_dispatch`。教材仓不要对陌生人开 `issues: opened`。
 
 ## 三个角色（流水，不回头互聊）
 

@@ -138,10 +138,10 @@ flowchart LR
 
 定位，不是排名。我们吃自己的 `docs/`，作业是两个工位，不是旅行助手或问数大屏。
 
-| | **Agent学堂** | hello-agents | HF Agents Course | 吴恩达 Agentic AI | 某「面试包装」多 Agent 仓 | 某 LangGraph 问数全栈 |
+| | **Agent学堂（本仓）** | [hello-agents](https://github.com/datawhalechina/hello-agents) | [HF Agents Course](https://huggingface.co/learn/agents-course/unit0/introduction) | [吴恩达 Agentic AI](https://www.deeplearning.ai/courses/agentic-ai) | [multi-agent-education](https://github.com/bcefghj/multi-agent-education) | [shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) |
 | --- | --- | --- | --- | --- | --- | --- |
-| 给谁 | 中文小白，国内 Key 默认 | 系统教材 + 自研框架 | 英文课 + 证书 | 英文短课，四种模式 | 简历项目，三语言/Mesh | 问数工程课 |
-| 作业长什么样 | 问学堂引用芯片 + 值班日志 | 旅行助手、赛博小镇等 | 单元作业 | Notebook | 教育 Mesh 演示 | SQL / 检索流水线 |
+| 给谁 | 8 周中文小白学徒，国内 Key 默认 | 系统教材 + 自研框架 | 英文课 + 证书 | 英文短课，四种模式 | 面试包装项目，三语言 / Mesh | LangGraph 问数全栈 |
+| 作业长什么样 | 问学堂引用芯片 + 值班日志 | 旅行助手、赛博小镇等 | 单元作业 | Notebook | 五人教育 Mesh、BKT/SM-2 | SQL / Qdrant / ES 流水线 |
 | 求职 | [岗位/作品集/面试](docs/jobs/roles.md) 分册，首页不堆题库 | 不是主线 | 不是主线 | 没有 | 简历/STAR 写在首页 | 工程履历 |
 | 评测 | 第 2 周三条 `--eval`；问学堂十行 | 后续引入 | 观测作加分 | 课内强调 eval | 常写量化数字 | 问数链路 |
 | 默认供应商 | DeepSeek / 智谱 / 通义 / Ollama | 多供应商 | HF 与云 | 偏国际云 | 视实现 | 硅基流动等 |
