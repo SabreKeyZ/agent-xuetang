@@ -4,7 +4,6 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from ticketdesk.agents.supervisor import Supervisor
@@ -26,6 +25,11 @@ class ExecBody(BaseModel):
 @app.get("/")
 def index() -> FileResponse:
     return FileResponse(_STATIC / "index.html", media_type="text/html; charset=utf-8")
+
+
+@app.get("/static/ticketdesk.css")
+def stylesheet() -> FileResponse:
+    return FileResponse(_STATIC / "ticketdesk.css", media_type="text/css")
 
 
 @app.get("/api/health")
@@ -81,6 +85,3 @@ def execute(body: ExecBody) -> dict:
     )
     case["executed"] = False
     return {"ok": False, "executed": False, "payment": probe, "message": "演示模式不打款。"}
-
-
-app.mount("/static", StaticFiles(directory=str(_STATIC)), name="static")

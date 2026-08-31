@@ -66,9 +66,11 @@ python -m claimdesk demo
 
 **理赔台 · 青途保 · Payments**
 
-![理赔台：条款芯片与核赔轨](docs/images/claimdesk-citations.png)
+![理赔台：支付表](docs/images/claimdesk-table.png)
 
 材料质检 / 条款员 / 核赔员。支付表 + 巨型 ¥ + blurple。条款标签：`条款 3.2 · path:line`。无命中亮红条。
+
+![理赔台：条款芯片与核赔卷宗](docs/images/claimdesk-citations.png)
 
 ![理赔台：没有引用就先不答](docs/images/claimdesk-refuse.png)
 

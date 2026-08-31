@@ -16,6 +16,8 @@
 
 两屏浅色财务页（Stripe Payments，不是 Inbox）：先是案件表（案件号 / 险种 / ¥ / 状态 / 出险日），点进卷宗后是巨型表格数字金额、金额下的条款标签、时间线、证据缩略图、右侧叠放的核赔键（无芯片则禁用）。圆角 4–6px，字号 13，强调色 blurple。
 
+![理赔台支付表](../images/claimdesk-table.png)
+
 ![理赔台条款芯片](../images/claimdesk-citations.png)
 
 ## 预计 4–6 小时

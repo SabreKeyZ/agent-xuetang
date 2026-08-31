@@ -140,7 +140,7 @@
         <div class="td-fact"><span class="td-k">SLA 倒计时</span>
           <div class="td-timer ${sla.breached ? "td-timer-late" : ""}">${clock(c)}</div></div>
         <div class="td-fact"><span class="td-k">优先级</span><span class="td-v">${esc(t.priority || sla.priority || "—")}</span></div>
-        <div class="td-fact"><span class="td-k">夜班 L2</span><span class="td-v">${sla.l2_empty ? "空岗" : (sla.l2 || "在岗")}</span></div>`;
+        <div class="td-fact"><span class="td-k">夜班 L2</span><span class="td-v">${sla.l2_empty ? "空岗" : ((sla.l2 && sla.l2.name) || "在岗")}</span></div>`;
       $("td-feed").querySelectorAll(".td-cite").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const cite = await (await fetch("/api/cite?ref=" + encodeURIComponent(btn.dataset.ref))).json();
