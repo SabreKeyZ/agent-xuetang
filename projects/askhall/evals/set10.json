@@ -1,0 +1,72 @@
+[
+  {
+    "id": "e01-react",
+    "kind": "citation",
+    "query": "什么是 ReAct 循环",
+    "must_cite": true,
+    "note": "教材内概念，必须带引用"
+  },
+  {
+    "id": "e02-memory",
+    "kind": "ask",
+    "query": "短记忆和长记忆有什么不同",
+    "expect_contains": ["tutor"],
+    "note": "讲解角色"
+  },
+  {
+    "id": "e03-mcp",
+    "kind": "citation",
+    "query": "第几周写 MCP 服务器",
+    "must_cite": true,
+    "note": "应能点到第 4 周"
+  },
+  {
+    "id": "e04-route-plan",
+    "kind": "route",
+    "query": "给我一个怎么学工具的学习计划",
+    "expect_route": "planner",
+    "note": "路由：计划"
+  },
+  {
+    "id": "e05-route-exam",
+    "kind": "route",
+    "query": "考我一下",
+    "expect_route": "examiner",
+    "note": "路由：考试"
+  },
+  {
+    "id": "e06-empty",
+    "kind": "empty_grade",
+    "answer_key": "think act observe",
+    "question": "循环三步",
+    "note": "空答案必须拒绝"
+  },
+  {
+    "id": "e07-unknown",
+    "kind": "ask",
+    "query": "什么是 FlipFlopZetaQueue",
+    "expect_contains": ["没找到"],
+    "note": "教材没有的专有名词"
+  },
+  {
+    "id": "e08-cite-shape",
+    "kind": "citation",
+    "query": "解释一下问学堂三个角色",
+    "must_cite": true,
+    "note": "引用格式需能在磁盘上打开"
+  },
+  {
+    "id": "e09-question-mark",
+    "kind": "ask",
+    "query": "？",
+    "expect_contains": ["turns"],
+    "note": "超短输入不得崩溃"
+  },
+  {
+    "id": "e10-known-hard",
+    "kind": "ask",
+    "query": "用形式化语言写出问学堂路由的完全正确正则，并证明与 LangGraph 状态机双射",
+    "expect_contains": ["salary-promise-forbidden"],
+    "note": "故意失败行：当前实现不会输出这个哨兵。留给作品集「我还不会什么」。"
+  }
+]

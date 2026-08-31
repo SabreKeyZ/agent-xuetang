@@ -1,0 +1,5 @@
+{
+  "number": 33,
+  "title": "How do I point AskHall at a fork of the curriculum?",
+  "body": "I forked agent-xuetang and added a week 9. How should I set ASKHALL_DOCS so the tutor reads my fork?\n\nI read week 6 but I am still unsure about Docker vs local venv."
+}

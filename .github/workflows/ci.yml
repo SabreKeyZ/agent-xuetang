@@ -1,0 +1,44 @@
+name: ci
+
+on:
+  push:
+    branches: [main, "cursor/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install test deps and projects
+        run: |
+          python -m pip install -U pip
+          python -m pip install pytest
+          python -m pip install -e "projects/askhall"
+          python -m pip install -e "projects/issueforge"
+
+      - name: Run offline tests
+        env:
+          # 强制走抽取式 / 夹具路径，CI 不依赖外网模型
+          OPENAI_API_KEY: ""
+          GITHUB_TOKEN: ""
+        run: |
+          python -m pytest -q \
+            code/week1 \
+            code/week2 \
+            code/week3 \
+            code/week4 \
+            projects/askhall/tests \
+            projects/issueforge/tests

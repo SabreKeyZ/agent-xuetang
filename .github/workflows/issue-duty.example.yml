@@ -1,0 +1,44 @@
+# 开源值班台 · 示例工作流（默认不要启用 issues: opened）
+#
+# 复制为 .github/workflows/issue-duty.yml 之后，才能在你自己的仓库里用。
+# 本教材仓库的 CI 只跑 pytest，不跑值班机器人。
+
+name: issueforge-duty
+
+on:
+  workflow_dispatch:
+    inputs:
+      fixture:
+        description: "夹具名，例如 bug-empty-docs；留空则跑全部夹具"
+        required: false
+        default: ""
+  # 若你接受机器人在公开 Issue 上发言，再取消下面三行的注释：
+  # issues:
+  #   types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  duty:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install IssueForge
+        run: python -m pip install -e projects/issueforge
+      - name: Run duty desk on fixtures
+        env:
+          GITHUB_TOKEN: ""
+        run: |
+          if [ -n "${{ github.event.inputs.fixture }}" ]; then
+            python -m issueforge demo --fixture "${{ github.event.inputs.fixture }}"
+          else
+            python -m issueforge demo
+          fi
+      # 若启用了 issues: opened，在这里把报告贴回 Issue。
+      # 先在夹具上丢脸，再对真人说话。
