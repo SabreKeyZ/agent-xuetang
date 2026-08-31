@@ -9,6 +9,7 @@
 - [path:line](cheatsheets/path-line.md)
 - [工单三角色出口](cheatsheets/ticketdesk-roles.md)
 - [理赔三角色禁止项](cheatsheets/claimdesk-roles.md)
+- [业务开场 30 秒](cheatsheets/business-pitch.md)
 
 ## 循环三步
 

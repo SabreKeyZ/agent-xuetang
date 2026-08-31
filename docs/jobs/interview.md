@@ -10,6 +10,12 @@
 
 折页提纲（希望听到）也收在 [weeks/answers/08.md](../weeks/answers/08.md)。
 
+## 先讲业务背景
+
+面试官说「先介绍这个项目的业务」时，**不要先背 STAR**。先打开 [业务背景](business.md)，用 30 秒 / 2 分钟讲清：店 / 保司是谁、谁来排队、人一天在干什么、钱从哪走、agent 卡在分流 + 引用 + 闸门（不打款）。折页也在两台 README 的「面试：业务背景」。一页纸：[business-pitch](../cheatsheets/business-pitch.md)。
+
+讲完业务，再往下用两分钟讲清两个工位和 STAR。
+
 ## 先用两分钟讲清两个工位
 
 对着 [工单台 README](../../projects/ticketdesk/README.md) 和 [理赔台 README](../../projects/claimdesk/README.md) 里的简历三条、STAR 四行说。

@@ -5,7 +5,7 @@
 代码能在你的笔记本上跑，不等于别人能收。
 这周做四件很土的事：容器、日志、闸门评测、作品集。然后看岗位地图，对着场景题开口。
 
-我们不承诺薪资。能讲清一次取舍，比背齐框架名更接近「可被雇用」。STAR 写引用和闸门，不写 Mesh。
+我们不承诺薪资。能讲清一次取舍，比背齐框架名更接近「可被雇用」。STAR 写引用和闸门，不写 Mesh。面试先讲业务 → [docs/jobs/business.md](../jobs/business.md)。
 
 ## 本周你要带走什么
 
@@ -13,7 +13,7 @@
 - [ ] 两台 `evals/set8.json` 跑得出来；你能指出哪些行该红、为什么留着。
 - [ ] 作品集 README 有「我没有做什么」。
 - [ ] 岗位地图里圈了一个方向。
-- [ ] 面试题 A–H 你能不看稿讲完（提纲在 `docs/jobs/interview.md` 和 [answers/08.md](answers/08.md)）。
+- [ ] 能用 30 秒讲清两台业务（[business.md](../jobs/business.md)），再讲 A–H（提纲在 `docs/jobs/interview.md` 和 [answers/08.md](answers/08.md)）。
 
 ## 目标
 
@@ -162,7 +162,7 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 
 ### 6. 面试 A–H
 
-题干在 [interview.md](../jobs/interview.md)。参考提纲（希望听到）折在文内「希望听到」段，以及 [answers/08.md](answers/08.md)。对练 A、D、E 计时。STAR 四行用工单台 README 那张表：情境是大促物流，任务是引用生效中的文件且不打款——不是教室五人网。
+先用 [business.md](../jobs/business.md) 讲 30 秒店 / 保司，再打开 [interview.md](../jobs/interview.md)。参考提纲（希望听到）折在文内「希望听到」段，以及 [answers/08.md](answers/08.md)。对练 A、D、E 计时。STAR 四行用工单台 README 那张表：情境是大促物流，任务是引用生效中的文件且不打款——不是教室五人网。
 
 ### 7. 生产阶段的瘦身版
 
@@ -199,7 +199,7 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 
 ## 延伸阅读
 
-- 岗位 / 作品集 / 面试：[docs/jobs/](../jobs/roles.md)
+- 岗位 / 作品集 / 业务背景 / 面试：[docs/jobs/](../jobs/roles.md) · [business.md](../jobs/business.md)
 - CONTRIBUTING：[CONTRIBUTING.md](../../CONTRIBUTING.md)
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
 - HF bonus-unit2：https://huggingface.co/learn/agents-course/bonus-unit2/introduction
