@@ -1,4 +1,4 @@
-from classroom_lab import handle, route
+from classroom_lab import handle, recurse_supervisor, route
 
 
 def test_route_exam_and_plan():
@@ -22,3 +22,9 @@ def test_plan_has_citation():
     out = handle("怎么学循环")
     assert out["citations"]
     assert all("classroom.md:" in c for c in out["citations"])
+
+
+def test_recurse_supervisor_hits_cap():
+    rows = recurse_supervisor(max_hops=6)
+    assert any("error:supervisor_recurse" in r for r in rows)
+    assert sum(1 for r in rows if r.startswith("hop=")) == 6

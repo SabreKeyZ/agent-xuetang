@@ -3,6 +3,14 @@
 你现在不需要理解 Transformer。
 你只需要：电脑上有 Python 3.11、一个虚拟环境、一把国内厂商的 Key（或本地 Ollama），以及一次你亲眼看见的返回值。
 
+## 本周你要带走什么
+
+- [ ] venv 里 `python --version` 是 3.11+，提示符有 `(.venv)`。
+- [ ] 根目录有 `.env`，且 `git status` 不把它列成已跟踪的密钥文件。
+- [ ] `hello_chat.py` 打出 `[ok] reply=`，或你留下了缺 Key / 401 的诚实输出。
+- [ ] 你能指着终端说：哪一行是 URL，哪一行是模型名，哪一行是用户句子。
+- [ ] 你能说出：这次成功**还不是 Agent**。
+
 ## 目标
 
 - 用 Git 把本仓库放到自己机器上。
@@ -10,12 +18,9 @@
 - 用 OpenAI 兼容协议打通一次 chat completion。
 - 确认：**没有 GPU 也能学后面七周**。
 
-## 你将做出的东西
+## 先修 / 预计时间 / 对应视频
 
-一段能打印模型回复的脚本：`code/week0/hello_chat.py`。
-成功时终端里会出现一句中文，而不是堆栈。
-
-## 预计 4–6 小时
+**先修。** 会在终端里 `cd`、复制命令。不会 Git 的同学先装 Git，不必先学分支。
 
 | 块 | 时间 | 做什么 |
 | --- | --- | --- |
@@ -25,6 +30,20 @@
 | 缓冲 | 1–3 小时 | 代理、镜像、Windows 编码，见 [FAQ](../faq.md) |
 
 卡在 Key 上很正常。这周的验收是「请求出去又回来」，不是「理解计费公式」。
+
+**对应视频**（先做命令，再听口播）：[docs/videos.md](../videos.md)「第 0–1 周」
+
+- 李宏毅 2025 春主页（官方）：https://speech.ee.ntu.edu.tw/~hylee/ml/2025-spring.php
+- 吴恩达 Agentic AI（官方）：https://www.deeplearning.ai/courses/agentic-ai
+- Hugging Face Agents Course 导论：https://huggingface.co/learn/agents-course/unit0/introduction
+
+第 0 周不必看完李宏毅。模块1-3 自主性（05:04）留给第 1 周。
+
+## 概念：定义 + 一个反例
+
+**定义。** 聊天补全 = 对兼容口发一条 messages，拿回一句 `choices[0].message.content`。没有工具、没有观察值回到下一步、没有步数上限。
+
+**反例。** 你打通了 DeepSeek，终端里出现一句中文，就在简历上写「我会 Agent」。那是第 0 周，不是第 1 周。`hello_chat.py` 文件头写着：还不是 Agent。
 
 ## 图文步骤
 
@@ -98,12 +117,18 @@ Key 和 Base URL 必须成对。智谱、通义、Ollama 写在 `.env.example` �
 python code/week0/hello_chat.py
 ```
 
+### 5. 本机实录 · 成功长这样
+
 我们在本机跑通（DeepSeek 兼容口，模型名 `deepseek-chat`）时，终端是：
 
 ```text
 [ok] model=deepseek-chat
 [ok] reply=你好，我是一次普通的聊天补全，还不是 Agent。
 ```
+
+对照图（两行 `[ok]`，不是堆栈）：
+
+![第 0 周成功终端](../images/week0-ok-terminal.png)
 
 没填 Key 时不要猜，脚本会诚实说：
 
@@ -112,9 +137,9 @@ python code/week0/hello_chat.py
 只有 Ollama 时：OPENAI_API_KEY=ollama 且 BASE_URL 指向本地。
 ```
 
-退出码是 `2`。
+退出码是 `2`。`pytest code/week0` 覆盖这条，不打网。
 
-### 5. 没有 GPU 意味着什么
+### 6. 没有 GPU 意味着什么
 
 后面的循环、检索、两个工位，默认都在 CPU 上跑逻辑。
 模型在云端或在 Ollama 里。你的笔记本负责发 JSON、写日志、跑测试。
@@ -135,38 +160,58 @@ $ python code/week0/hello_chat.py
 
 **修复。** 核对三件事：Key 是那一家的、`OPENAI_BASE_URL` 是那一家的、没有把 DeepSeek 的 Key 配到 `api.openai.com`。改完再跑，直到出现 `[ok] reply=`。
 
-## 对应视频
+## 厂商 × BASE_URL × 假 Key
 
-先看课表里「第 0–1 周」那几行，挑一个口播听 20 分钟即可：
-[docs/videos.md](../videos.md)
+只记我们亲手见过的状态，不编「成功率」。
 
-- 李宏毅 2025 春主页（官方）：用来确认学期结构，不必从第一秒看到最后一秒。
-- 吴恩达 Agentic AI 官方页：本周只打开，知道有这门课。作业放到第 1–2 周。
-- Hugging Face Agents Course 导论：感受「每周 3–4 小时」的节奏，和我们的 5–6 小时接近。
+| 厂商口 | `OPENAI_BASE_URL` | Key | 本机状态 |
+| --- | --- | --- | --- |
+| （无） | 任意 | 空 / 未复制 `.env` | **退出码 2**，stderr 两行「缺少 OPENAI_API_KEY」 |
+| DeepSeek | `https://api.deepseek.com/v1` | `sk-wrong` | **HTTP 401** `authentication_error` |
+| 任意国内 Key | `https://api.openai.com/v1` | 国内那把 | **HTTP 401**（钥匙和口不是一家）。测验见练习 4 |
+| 智谱 | `https://open.bigmodel.cn/api/paas/v4` | 空 | 同「缺 Key」，脚本先拦，不发请求 |
+| 通义兼容 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | 空 | 同上 |
+| Ollama | `http://localhost:11434/v1` | `ollama` 但没起服务 | **网络错误**（`URLError`），FAQ「代理和网络」 |
+
+脚本拼 URL 的方式：[`50:50:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) `f"{base}/chat/completions"`。Base 不要重复写 `/chat/completions`。
 
 ## 练习
 
-1. 把 `.env` 里的模型名故意写错，再跑脚本。把报错原文贴进自己的笔记。你会在第 8 周感谢这份笔记。
-2. 把用户那句话改成「用一句话解释什么是工作目录」，确认你知道请求体在哪改。
-3. （可选）换一家国内厂商的 Base URL，同一份脚本再跑通。这就是「供应商中立」的最小体验。
+1. 把 `.env` 里的模型名故意写错，再跑脚本。把报错原文贴进笔记。
+2. 把用户那句话改成「用一句话解释什么是工作目录」，确认你知道请求体在哪改（`hello_chat.py` 约 54–57 行）。
+3. （可选）换一家国内厂商的 Base URL，同一份脚本再跑通。
+4. **配错口。** 把 DeepSeek 的 Key 配到 `OPENAI_BASE_URL=https://api.openai.com/v1`。先在纸上写你预测的 HTTP 状态，再跑。对照 [answers/00.md](answers/00.md) 的希望听到。
 
-## 验收标准
+参考提纲在 `answers/`，正文不写选项对错。
 
-- [ ] `python --version` 在 venv 里显示 3.11+。
-- [ ] `.env` 存在且未被 git 跟踪（`git status` 不应列出已填 Key 的文件）。
-- [ ] `hello_chat.py` 打印 `[ok] reply=`。
-- [ ] 你能指着终端说：哪一行是 URL，哪一行是模型名，哪一行是用户句子。
+## 本周词汇表
+
+| 词 | 一句话 |
+| --- | --- |
+| 聊天补全 | 一问一答，程序结束 |
+| 兼容口 | 同一套 `/chat/completions` JSON，换 BASE_URL |
+| `.env` | 本地密钥，不进 Git |
+| `[ok]` | 本周唯一成功形状 |
+
+更多：[../glossary.md](../glossary.md)
+
+## 面试追问
+
+「你们第 0 周就接通模型了，为什么还不叫 Agent？」
+
+希望听到：指 [`code/week0/hello_chat.py:50`](../../code/week0/hello_chat.py) 只 POST 一次，没有 `MAX_STEPS`，没有把工具结果喂回下一步。对比第 1 周 [`echo_agent.py:47`](../../code/week1/echo_agent.py)。
 
 ## 常见坑
 
 - 把 DeepSeek 的 Key 配到 `api.openai.com`。
-- 用记事本保存 `.env` 存成 UTF-16，脚本读到一个奇怪的键名。
-- 系统装了三个 Python，你激活了 venv 却用 `pip install` 装到了外面。永远写 `python -m pip`。
+- 用记事本保存 `.env` 存成 UTF-16。
+- 激活了 venv 却用 `pip install` 装到外面。永远写 `python -m pip`。
 - 其余见 [FAQ](../faq.md) 的「Key 填错」「代理和网络」。
 
 ## 延伸阅读
 
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
 - Hugging Face Agents Course 导论：https://huggingface.co/learn/agents-course/unit0/introduction
-- DeepSeek OpenAI 兼容说明（以官网当前文档为准）：https://api-docs.deepseek.com
-- 本仓库 FAQ： [docs/faq.md](../faq.md)
+- hello-agents 仓库（先读他们怎么介绍 Agent，勿抄正文）：https://github.com/datawhalechina/hello-agents
+- DeepSeek OpenAI 兼容说明：https://api-docs.deepseek.com
+- 本仓库 FAQ：[docs/faq.md](../faq.md)

@@ -88,10 +88,24 @@ def demo() -> list[dict]:
     ]
 
 
+def recurse_supervisor(max_hops: int = 6) -> list[str]:
+    """反例：主管提示写「可以再调用自己」。没有步数上限就会一直分给自己。"""
+    rows = ["[week5] recurse 反例：主管只把活扔回主管，没有第四个角色。"]
+    dest = "supervisor"
+    for hop in range(1, max_hops + 1):
+        rows.append(f"hop={hop} dest={dest} thought=我再分一次")
+    rows.append("error:supervisor_recurse 停在硬上限。没有 MAX_STEPS 会一直刷。")
+    return rows
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="第 5 周教室实验")
     parser.add_argument("cmd", nargs="?", default="demo")
     args = parser.parse_args(argv)
+    if args.cmd == "recurse":
+        for line in recurse_supervisor():
+            print(line)
+        return 1
     if args.cmd != "demo":
         return 2
     print("[week5] 教室玩具，不是毕业作品。公开产品：工单台 / 理赔台。")

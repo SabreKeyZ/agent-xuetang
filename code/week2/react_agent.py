@@ -255,7 +255,29 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--query", default="")
     parser.add_argument("--eval", action="store_true", dest="do_eval")
+    parser.add_argument(
+        "--parse",
+        default="",
+        help="把一段 ReAct 原文交给解析器；失败打印 error:parse",
+    )
     args = parser.parse_args(argv)
+
+    if args.parse:
+        decision = parse_react_block(args.parse)
+        if decision is None:
+            print("error:parse")
+            return 1
+        print(
+            json.dumps(
+                {
+                    "thought": decision.thought,
+                    "action": decision.action,
+                    "action_input": decision.action_input,
+                },
+                ensure_ascii=False,
+            )
+        )
+        return 0
 
     if args.do_eval:
         rows = evaluate()

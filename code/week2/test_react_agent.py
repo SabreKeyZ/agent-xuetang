@@ -37,6 +37,21 @@ def test_eval_json_has_three_cases():
     assert len(data) == 3
 
 
+def test_parse_flag_prints_error_parse():
+    from react_agent import main
+
+    assert main(["--parse", "我想算一下但是忘了字段"]) == 1
+
+
+def test_parse_flag_accepts_fullwidth():
+    from react_agent import main
+
+    assert (
+        main(["--parse", "Thought：要算一下\nAction：calculator\nAction Input：1+1"])
+        == 0
+    )
+
+
 def test_mix_uses_both_tools():
     trace = ReactAgent().run("工单台是什么？另外 2 + 5 等于多少")
     actions = [row["action"] for row in trace.log]
