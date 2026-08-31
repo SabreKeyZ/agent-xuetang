@@ -8,6 +8,8 @@
 > 2. [docs/weeks/00-setup.md](docs/weeks/00-setup.md)（桌子）
 > 3. [docs/weeks/README.md](docs/weeks/README.md)（工期目录）
 >
+> [跟学：30 分钟点哪里](docs/walkthrough.md)（本仓截图，代替还没有的录屏）
+>
 > 看不懂「抽取式 / 队列」先跑通演示，第 1 周再解释循环。
 
 教材就是仓库。两个毕业作品是队列，不是聊天皮。

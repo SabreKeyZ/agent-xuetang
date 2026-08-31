@@ -52,6 +52,8 @@
 
 ## 图文步骤
 
+**先看[跟学：30 分钟点哪里](../walkthrough.md)，再自己敲。** 跟学是本仓 Inbox / 支付表的点法；本页是你自己敲同一套命令。
+
 ```mermaid
 flowchart LR
   A[克隆仓库] --> B[Python 3.11 + venv]
