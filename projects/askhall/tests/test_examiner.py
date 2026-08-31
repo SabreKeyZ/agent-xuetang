@@ -2,6 +2,12 @@ from askhall.agents.examiner import REFUSE_EMPTY, Examiner, grade_answer
 from askhall.agents.supervisor import Supervisor
 
 
+def test_empty_answer_via_pending_quiz_is_refused():
+    quiz = Supervisor().handle("考我循环三步")
+    out = Supervisor().handle("", pending_quiz=quiz["pending_quiz"])
+    assert out["turns"][0]["refused"] is True
+
+
 def test_empty_answer_is_refused():
     result = grade_answer("", "think act observe", "循环三步是什么")
     assert result["refused"] is True

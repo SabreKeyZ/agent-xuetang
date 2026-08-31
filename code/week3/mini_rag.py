@@ -6,8 +6,7 @@ import argparse
 import json
 import re
 import sqlite3
-import sys
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from pathlib import Path
 
 
@@ -75,7 +74,12 @@ _TOKEN = re.compile(r"[A-Za-z]{2,}|\d+|[一-龥]{2,}")
 
 
 def tokenize(text: str) -> list[str]:
-    return [m.group(0).lower() for m in _TOKEN.finditer(text)]
+    raw = [m.group(0).lower() for m in _TOKEN.finditer(text)]
+    extra: list[str] = []
+    for tok in raw:
+        if re.fullmatch(r"[一-龥]{2,}", tok) and len(tok) >= 3:
+            extra.extend(tok[i : i + 2] for i in range(len(tok) - 1))
+    return raw + extra
 
 
 def score(query: str, chunk: Chunk) -> int:
@@ -83,17 +87,21 @@ def score(query: str, chunk: Chunk) -> int:
     if not q_tokens:
         return 0
     blob = chunk.text.lower()
+    path = chunk.path.lower()
     points = 0
     for tok in q_tokens:
         if tok in blob:
             points += 2 if len(tok) >= 3 else 1
-    # 整词加分：查询里较长的中文片段
+        if tok in path:
+            points += 4
     for piece in re.findall(r"[一-龥]{2,}", query):
         if piece in chunk.text:
             points += 3
     for piece in re.findall(r"[A-Za-z]{3,}", query):
         if piece.lower() in blob:
-            points += 2
+            points += 3
+        if piece.lower() in path:
+            points += 5
     return points
 
 

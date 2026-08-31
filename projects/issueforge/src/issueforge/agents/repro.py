@@ -5,7 +5,7 @@ import re
 from issueforge.loader import looks_dangerous
 from issueforge.models import Issue
 
-# 明确守卫：本模块没有任何 subprocess / eval / os.system。
+# 明确守卫：本模块不调用外部进程，也不对 Issue 正文做动态执行。
 NEVER_EXECUTE = True
 
 

@@ -57,7 +57,8 @@ class Supervisor:
     def handle(self, message: str, pending_quiz: dict | None = None) -> dict[str, Any]:
         started = time.perf_counter()
         text = (message or "").strip()
-        if pending_quiz and text and not any(h in text for h in EXAMINER_HINTS + PLANNER_HINTS):
+        answering_quiz = pending_quiz and not any(h in text for h in EXAMINER_HINTS + PLANNER_HINTS)
+        if answering_quiz:
             payload = grade_answer(
                 text,
                 pending_quiz.get("answer_key", ""),

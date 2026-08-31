@@ -54,7 +54,14 @@ def _extractive_steps(question: str, weeks: list[Hit], hits: list[Hit]) -> list[
             "打开第 1 周，确认循环的三步还记得。",
             "把原话改写成教材里出现过的词再问一次。",
         ]
-    source = weeks or hits
+    source = list(weeks)
+    for hit in hits:
+        if len(source) >= 3:
+            break
+        if hit.chunk.path not in {h.chunk.path for h in source}:
+            source.append(hit)
+    if len(source) < 3:
+        source = (weeks or hits)[:3]
     labels = [
         "读标题和「目标」小节，圈出你还不认识的词",
         "对着「你将做出的东西」把命令跑一遍",
@@ -63,7 +70,7 @@ def _extractive_steps(question: str, weeks: list[Hit], hits: list[Hit]) -> list[
     steps = []
     for i, hit in enumerate(source[:3]):
         title = next((ln.lstrip("# ").strip() for ln in hit.chunk.text.splitlines() if ln.strip()), hit.chunk.path)
-        steps.append(f"看 {hit.chunk.citation}（{title}）：{labels[i]}")
+        steps.append(f"看 {hit.chunk.citation}（{title[:40]}）：{labels[min(i, 2)]}")
     while len(steps) < 3:
-        steps.append(f"回到问题「{question[:20]}」，用考试官出一道题检查自己。")
+        steps.append("打开 docs/weeks/README.md，按当周验收标准打勾。")
     return steps[:3]

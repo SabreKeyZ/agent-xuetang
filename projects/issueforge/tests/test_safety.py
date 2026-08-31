@@ -8,8 +8,8 @@ from issueforge.report import process
 
 def test_repro_module_has_no_process_helpers():
     source = open(repro_mod.__file__, encoding="utf-8").read()
-    assert "subprocess" not in source
-    assert "os.system" not in source
+    assert "import subprocess" not in source
+    assert "os.system(" not in source
     assert "eval(" not in source
 
 

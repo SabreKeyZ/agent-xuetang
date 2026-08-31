@@ -4,6 +4,12 @@
 
 没有 API Key 时走抽取式：只检索、只引用。`python -m askhall demo` 必须能离线跑完。
 
+我们自己跑出来的页面（深色、中文、引用芯片）：
+
+![抽取式讲解与 path:line 引用](../../docs/images/askhall-tutor-citations.png)
+
+![考试官出题并批改「我不知道」](../../docs/images/askhall-examiner-grade.png)
+
 ## 15 分钟从 0 到 1
 
 在仓库根目录：

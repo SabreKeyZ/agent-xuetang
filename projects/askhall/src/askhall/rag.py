@@ -44,7 +44,12 @@ class Corpus:
 
 
 def tokenize(text: str) -> list[str]:
-    return [m.group(0).lower() for m in _TOKEN.finditer(text)]
+    raw = [m.group(0).lower() for m in _TOKEN.finditer(text)]
+    extra: list[str] = []
+    for tok in raw:
+        if re.fullmatch(r"[一-龥]{2,}", tok) and len(tok) >= 3:
+            extra.extend(tok[i : i + 2] for i in range(len(tok) - 1))
+    return raw + extra
 
 
 def load_corpus(root: Path | None = None) -> Corpus:
@@ -78,15 +83,20 @@ def load_corpus(root: Path | None = None) -> Corpus:
 def _score(query: str, chunk: Chunk) -> int:
     points = 0
     blob = chunk.text.lower()
+    path = chunk.path.lower()
     for tok in set(tokenize(query)):
         if tok in blob:
             points += 2 if len(tok) >= 3 else 1
+        if tok in path:
+            points += 4
     for piece in re.findall(r"[一-龥]{2,}", query):
         if piece in chunk.text:
             points += 3
     for piece in re.findall(r"[A-Za-z]{3,}", query):
         if piece.lower() in blob:
-            points += 2
+            points += 3
+        if piece.lower() in path:
+            points += 5
     return points
 
 
@@ -96,8 +106,8 @@ def retrieve(query: str, corpus: Corpus | None = None, k: int = 4) -> list[Hit]:
     ranked = [h for h in ranked if h.score > 0]
     ranked.sort(key=lambda h: (-h.score, h.chunk.path, h.chunk.start_line))
     top = ranked[:k]
-    # 查询里很长的专有名词若从未出现在语料中，宁可空，也不用「什么是」这种停用词硬凑命中。
-    rare = [t for t in tokenize(query) if len(t) >= 10]
+    # 只把很长的拉丁专有名词当「必须命中」。中文整句会被正则吞成一个长 token，不能当哨兵。
+    rare = [t for t in tokenize(query) if re.fullmatch(r"[a-z]{10,}", t)]
     if rare and top:
         blob = "\n".join(h.chunk.text.lower() for h in top)
         if not any(r in blob for r in rare):
