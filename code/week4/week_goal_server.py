@@ -16,8 +16,8 @@ WEEK_FILES = {
     3: "03-memory-rag.md",
     4: "04-mcp-and-skills.md",
     5: "05-multi-agent.md",
-    6: "06-askhall.md",
-    7: "07-issueforge.md",
+    6: "06-ticketdesk.md",
+    7: "07-claimdesk.md",
     8: "08-ship-and-job.md",
 }
 

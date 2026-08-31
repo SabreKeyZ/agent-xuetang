@@ -1,0 +1,23 @@
+{
+  "id": "C-2009",
+  "fixture_id": "valid-low",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_hefa",
+  "insured_name": "合法低额",
+  "claimant_id": "p_hefa",
+  "claimant_name": "合法低额",
+  "policy_no": "QT-FR-202608-300",
+  "order_id": "QX-202608-3309",
+  "insured_at": "2026-08-05T09:00:00+08:00",
+  "incident_at": "2026-08-23T09:00:00+08:00",
+  "filed_at": "2026-08-24T09:00:00+08:00",
+  "now": "2026-08-24T09:00:00+08:00",
+  "amount_yuan": 12,
+  "attachments": [
+    {"name": "签收破角.jpg", "file_id": "att-pod-3309b", "kind": "物流签收图"},
+    {"name": "支付截图.png", "file_id": "att-pay-3309b", "kind": "支付截图"}
+  ],
+  "prior_actions": [],
+  "narrative": "外包装明显破损，货未丢失。申请运费险 12 元，材料已齐。"
+}

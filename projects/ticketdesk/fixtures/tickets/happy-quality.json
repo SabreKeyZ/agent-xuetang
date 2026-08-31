@@ -1,0 +1,21 @@
+{
+  "id": "T-1902",
+  "fixture_id": "happy-quality",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T12:10:00+08:00",
+  "now": "2026-08-28T12:40:00+08:00",
+  "order_id": "QX-202608-8801",
+  "shop_id": "qingxia",
+  "customer_id": "u_quality",
+  "customer_name": "卫砚",
+  "amount_yuan": 72,
+  "refund_yuan": 72,
+  "attachments": ["unbox-crack.jpg"],
+  "prior_actions": [],
+  "title": "砚台小样运输破损",
+  "body": "砚台小样边角裂了，有开箱照片。请按质量破损起草退货退款，金额 72 元。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

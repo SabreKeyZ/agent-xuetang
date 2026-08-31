@@ -1,0 +1,12 @@
+services:
+  ticketdesk:
+    build:
+      context: ../..
+      dockerfile: projects/ticketdesk/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      TICKETDESK_ROOT: /app/projects/ticketdesk
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.deepseek.com/v1}
+      OPENAI_MODEL: ${OPENAI_MODEL:-deepseek-chat}

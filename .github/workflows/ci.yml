@@ -26,12 +26,11 @@ jobs:
         run: |
           python -m pip install -U pip
           python -m pip install pytest
-          python -m pip install -e "projects/askhall"
-          python -m pip install -e "projects/issueforge"
+          python -m pip install -e "projects/ticketdesk"
+          python -m pip install -e "projects/claimdesk"
 
       - name: Run offline tests
         env:
-          # 强制走抽取式 / 夹具路径，CI 不依赖外网模型
           OPENAI_API_KEY: ""
           GITHUB_TOKEN: ""
         run: |
@@ -40,5 +39,6 @@ jobs:
             code/week2 \
             code/week3 \
             code/week4 \
-            projects/askhall/tests \
-            projects/issueforge/tests
+            code/week5 \
+            projects/ticketdesk/tests \
+            projects/claimdesk/tests

@@ -1,0 +1,24 @@
+{
+  "id": "C-2010",
+  "fixture_id": "wrong-claimant",
+  "product": "accident",
+  "channel": "电话转写",
+  "insured_id": "p_benren",
+  "insured_name": "投保人本人",
+  "claimant_id": "p_daili",
+  "claimant_name": "表亲代办",
+  "policy_no": "QT-AC-202607-221",
+  "order_id": "",
+  "insured_at": "2026-07-15T09:00:00+08:00",
+  "incident_at": "2026-08-12T08:00:00+08:00",
+  "filed_at": "2026-08-13T08:00:00+08:00",
+  "now": "2026-08-13T08:00:00+08:00",
+  "amount_yuan": 200,
+  "attachments": [
+    {"name": "出险说明.pdf", "file_id": "att-note-221", "kind": "出险说明"},
+    {"name": "回执.pdf", "file_id": "att-hz-221", "kind": "医疗票据或回执"},
+    {"name": "表亲身份证.jpg", "file_id": "att-id-daili", "kind": "身份证明"}
+  ],
+  "prior_actions": [],
+  "narrative": "表亲代为申请小额意外。投保人本人这周出差，先帮他报。"
+}

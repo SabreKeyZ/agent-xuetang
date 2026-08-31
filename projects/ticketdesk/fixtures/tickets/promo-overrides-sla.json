@@ -1,0 +1,21 @@
+{
+  "id": "T-1201",
+  "fixture_id": "promo-overrides-sla",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T09:30:00+08:00",
+  "now": "2026-08-28T10:00:00+08:00",
+  "order_id": "QX-202608-8812",
+  "shop_id": "qingxia",
+  "customer_id": "u_linxiaoqiu",
+  "customer_name": "林小秋",
+  "amount_yuan": 68,
+  "refund_yuan": 0,
+  "attachments": ["tracking-yt846.png"],
+  "prior_actions": [],
+  "title": "大促买的墨水，快递五天没动",
+  "body": "8 月 20 日下单的青松墨水，轨迹停在揽收。已经超过 48 小时了。日常你们说 72 小时才催，但页面写着盛夏大促 48 小时可补运费。请按现在还生效的那份政策处理。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

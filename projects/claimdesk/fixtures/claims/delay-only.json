@@ -1,0 +1,23 @@
+{
+  "id": "C-2011",
+  "fixture_id": "delay-only",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_yanwu",
+  "insured_name": "延误不赔客",
+  "claimant_id": "p_yanwu",
+  "claimant_name": "延误不赔客",
+  "policy_no": "QT-FR-202608-555",
+  "order_id": "QX-202608-1103",
+  "insured_at": "2026-08-01T09:00:00+08:00",
+  "incident_at": "2026-08-29T10:00:00+08:00",
+  "filed_at": "2026-08-30T10:00:00+08:00",
+  "now": "2026-08-30T10:00:00+08:00",
+  "amount_yuan": 10,
+  "attachments": [
+    {"name": "完好签收.jpg", "file_id": "att-pod-1103", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-1103", "kind": "发票"}
+  ],
+  "prior_actions": [],
+  "narrative": "货已完好签收，只是延误了两天。申请运费险补偿等待时间。"
+}

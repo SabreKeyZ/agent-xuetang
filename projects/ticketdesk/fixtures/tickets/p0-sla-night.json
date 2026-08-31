@@ -1,0 +1,21 @@
+{
+  "id": "T-1501",
+  "fixture_id": "p0-sla-night",
+  "channel": "在线客服",
+  "created_at": "2026-08-29T21:10:00+08:00",
+  "now": "2026-08-29T22:40:00+08:00",
+  "order_id": "QX-202608-1103",
+  "shop_id": "qingxia",
+  "customer_id": "u_p0night",
+  "customer_name": "夜间值班空",
+  "amount_yuan": 88,
+  "refund_yuan": 88,
+  "attachments": [],
+  "prior_actions": [],
+  "title": "支付显示重复扣款，P0",
+  "body": "笔尖替换件付款成功两次。这是支付风险，一小时内必须有人看。现在已经超时。",
+  "labels": [],
+  "sla_minutes": 60,
+  "priority": "P0",
+  "unread": true
+}

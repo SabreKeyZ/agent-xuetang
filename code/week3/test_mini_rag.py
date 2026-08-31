@@ -32,7 +32,7 @@ def test_empty_corpus_no_hits():
 
 def test_citation_format():
     chunks = build_corpus()
-    hits = retrieve("问学堂有哪些角色", chunks, k=3)
+    hits = retrieve("工单台有哪些角色", chunks, k=3)
     assert hits
     cite = hits[0][1].citation
     assert ":" in cite

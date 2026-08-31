@@ -1,0 +1,21 @@
+{
+  "id": "T-1901",
+  "fixture_id": "happy-logistics",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T11:00:00+08:00",
+  "now": "2026-08-28T11:18:00+08:00",
+  "order_id": "QX-202608-3309",
+  "shop_id": "qingxia",
+  "customer_id": "u_happy",
+  "customer_name": "江可查",
+  "amount_yuan": 54,
+  "refund_yuan": 0,
+  "attachments": ["waybill-3309.png"],
+  "prior_actions": [],
+  "title": "查一下青松墨水的物流",
+  "body": "订单 QX-202608-3309，8 月 22 日寄出，轨迹好久没动。如果已经超过活动 48 小时，按盛夏大促运费补偿规则处理就行，不用退货。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

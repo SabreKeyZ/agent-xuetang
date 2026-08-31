@@ -1,0 +1,22 @@
+{
+  "id": "C-2001",
+  "fixture_id": "missing-docs",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_suwan",
+  "insured_name": "苏晚",
+  "claimant_id": "p_suwan",
+  "claimant_name": "苏晚",
+  "policy_no": "QT-FR-202608-771",
+  "order_id": "QX-202608-3309",
+  "insured_at": "2026-08-01T10:00:00+08:00",
+  "incident_at": "2026-08-22T18:00:00+08:00",
+  "filed_at": "2026-08-24T09:10:00+08:00",
+  "now": "2026-08-24T09:10:00+08:00",
+  "amount_yuan": 18,
+  "attachments": [
+    {"name": "运单截图.png", "file_id": "att-waybill-3309", "kind": "运单"}
+  ],
+  "prior_actions": [],
+  "narrative": "青松墨水外盒压扁。有运单，还没拍签收图，发票也找不到。"
+}

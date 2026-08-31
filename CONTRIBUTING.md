@@ -6,7 +6,7 @@
 ## 我们欢迎什么
 
 - 把某一步写得更短、命令更能复制。
-- 补一张我们自己跑出来的截图（问学堂 / 值班台 / 本周脚本）。
+- 补一张我们自己跑出来的截图（工单台 / 理赔台 / 本周脚本）。
 - 给练习加一条会失败的反例，让验收标准更硬。
 - 修死链、修 Windows / macOS / 国内镜像的坑。
 - 给求职文档补真实岗位观察（注明日期和来源链接）。
@@ -33,16 +33,16 @@ python3.11 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 python -m pip install -U pip
 python -m pip install pytest
-python -m pip install -e "projects/askhall"
-python -m pip install -e "projects/issueforge"
-python -m pytest code projects/askhall/tests projects/issueforge/tests
+python -m pip install -e "projects/ticketdesk"
+python -m pip install -e "projects/claimdesk"
+python -m pytest code projects/ticketdesk/tests projects/claimdesk/tests
 ```
 
-问学堂和值班台的演示必须能在**没有 API Key** 时跑通（抽取式 / 夹具）。
+工单台和理赔台的演示必须能在**没有 API Key** 时跑通（抽取式 / 夹具）。
 
 ```bash
-python -m askhall demo
-python -m issueforge demo
+python -m ticketdesk demo
+python -m claimdesk demo
 ```
 
 ## 改一周教材时请对一下清单

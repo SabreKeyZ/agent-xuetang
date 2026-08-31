@@ -69,7 +69,7 @@ MCP 官方仓库是给「自己写一个小服务器」用的。看完请回到 
 | 实战向 | LangGraph 多智能体实战（B 站） | https://www.bilibili.com/video/BV13roYBXELs/ |
 | 实战向 | LangGraph 入门到实战（B 站） | https://www.bilibili.com/video/BV1EGc7zwEkR/ |
 
-问学堂和值班台的 v1 **不要求** LangGraph。第 5 周先用字典状态机把路由讲清楚。
+工单台和理赔台的 v1 **不要求** LangGraph。第 5 周先用字典状态机把路由讲清楚。
 想对照框架课，放到第 6 周晚上当加餐。
 
 ## 第 8 周 · 收尾时回看

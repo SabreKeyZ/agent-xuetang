@@ -1,0 +1,23 @@
+{
+  "id": "C-2007",
+  "fixture_id": "shared-photo-a",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_tu1",
+  "insured_name": "图甲",
+  "claimant_id": "p_tu1",
+  "claimant_name": "图甲",
+  "policy_no": "QT-FR-202608-011",
+  "order_id": "QX-202608-5501",
+  "insured_at": "2026-08-01T09:00:00+08:00",
+  "incident_at": "2026-08-20T10:00:00+08:00",
+  "filed_at": "2026-08-21T10:00:00+08:00",
+  "now": "2026-08-21T10:00:00+08:00",
+  "amount_yuan": 15,
+  "attachments": [
+    {"name": "现场图.jpg", "file_id": "sha256-scene-77ab", "kind": "物流签收图"},
+    {"name": "支付截图.png", "file_id": "att-pay-5501", "kind": "支付截图"}
+  ],
+  "prior_actions": [],
+  "narrative": "墨囊外盒破损，附现场图。"
+}

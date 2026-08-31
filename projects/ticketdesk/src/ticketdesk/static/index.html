@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>青匣记 · 工单台</title>
+  <style>
+    :root {
+      --bg: #0f1011;
+      --bg-2: #161618;
+      --bg-3: #1c1c1f;
+      --line: #232326;
+      --line-2: #2e2e33;
+      --ink: #ececee;
+      --muted: #8a8f98;
+      --faint: #6b6f76;
+      --accent: #5e6ad2;
+      --accent-2: #6f9cff;
+      --sky: #82aaff;
+      --ok: #4cb782;
+      --warn: #d19a45;
+      --rose: #e5484d;
+      --rose-bg: #2a1518;
+      --chip: #2a2d3a;
+      --radius: 6px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 13px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    .app { display: grid; grid-template-columns: 320px 1fr; height: 100%; }
+    aside {
+      border-right: 1px solid var(--line);
+      background: var(--bg-2);
+      display: flex; flex-direction: column; min-width: 0;
+    }
+    .brand {
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand h1 {
+      margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    }
+    .brand h1 span { color: var(--muted); font-weight: 500; margin-left: 6px; }
+    .rule {
+      margin: 8px 0 0; color: var(--rose); font-size: 11px; letter-spacing: 0.02em;
+    }
+    .search {
+      margin: 10px 12px 8px;
+      background: var(--bg-3);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 7px 10px;
+      color: var(--ink);
+      width: calc(100% - 24px);
+    }
+    .search::placeholder { color: var(--faint); }
+    .filters { display: flex; gap: 6px; padding: 0 12px 8px; }
+    .filters button {
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px 8px; font-size: 11px; cursor: pointer;
+    }
+    .filters button.on { color: var(--ink); border-color: var(--line-2); background: var(--bg-3); }
+    .list { overflow: auto; flex: 1; }
+    .row {
+      display: grid; grid-template-columns: 1fr auto; gap: 8px;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      cursor: pointer;
+    }
+    .row:hover { background: var(--bg-3); }
+    .row.active { background: #1a1b22; box-shadow: inset 2px 0 0 var(--accent); }
+    .row .t { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row .meta { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .pills { display: flex; gap: 4px; align-items: flex-start; }
+    .pill {
+      font-variant-numeric: tabular-nums;
+      font-size: 10px; letter-spacing: 0.02em;
+      border: 1px solid var(--line-2); border-radius: 4px;
+      padding: 1px 5px; color: var(--muted); height: fit-content;
+    }
+    .pill.p0 { color: #ffb4b0; border-color: #5a2a2d; }
+    .pill.breach { color: var(--rose); border-color: #5a2a2d; }
+    .pill.ok { color: var(--ok); border-color: #244436; }
+    main { display: flex; flex-direction: column; min-width: 0; }
+    .top {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px; border-bottom: 1px solid var(--line);
+    }
+    .top h2 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+    .top .id { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
+    .mode { margin-left: auto; color: var(--faint); font-size: 11px; }
+    .body { display: grid; grid-template-columns: 1fr 300px; flex: 1; min-height: 0; }
+    .case { overflow: auto; padding: 16px 18px 28px; }
+    .facts {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px; margin: 0 0 14px;
+    }
+    .fact {
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 8px 10px;
+    }
+    .fact b { display: block; color: var(--faint); font-size: 11px; font-weight: 500; margin-bottom: 3px; }
+    .fact span { font-variant-numeric: tabular-nums; }
+    .banner {
+      background: var(--rose-bg); color: #ffc1c1;
+      border: 1px solid #5a2a2d; border-radius: var(--radius);
+      padding: 8px 10px; font-size: 12px; margin: 0 0 12px;
+    }
+    .section { margin: 16px 0 8px; color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .msg {
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: 8px; padding: 10px 12px; white-space: pre-wrap;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip {
+      border: 1px solid #34364a; background: var(--chip); color: var(--sky);
+      border-radius: 999px; padding: 2px 8px; font-size: 11px;
+      font-variant-numeric: tabular-nums; cursor: pointer;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .drawer {
+      display: none; margin-top: 8px; padding: 8px 10px;
+      background: #121214; border-left: 2px solid var(--accent);
+      color: #c9cdd6; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px; white-space: pre-wrap;
+    }
+    .drawer.open { display: block; }
+    .timeline { list-style: none; margin: 0; padding: 0; }
+    .timeline li {
+      position: relative; padding: 0 0 12px 16px;
+      border-left: 1px solid var(--line);
+    }
+    .timeline li::before {
+      content: ""; position: absolute; left: -4px; top: 4px;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    }
+    .timeline .who { color: var(--ink); font-size: 12px; }
+    .timeline .when { color: var(--faint); font-size: 11px; }
+    .rail {
+      border-left: 1px solid var(--line); background: var(--bg-2);
+      padding: 14px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .composer {
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: 8px; padding: 10px; min-height: 120px; white-space: pre-wrap;
+      color: var(--ink); font-size: 13px;
+    }
+    .exec {
+      background: var(--accent); color: white; border: 0;
+      border-radius: var(--radius); padding: 8px 10px; cursor: pointer; font-weight: 600;
+    }
+    .exec[disabled] { opacity: 0.45; cursor: not-allowed; }
+    .hint { color: var(--faint); font-size: 11px; }
+    .empty {
+      margin: 48px auto; max-width: 360px; color: var(--muted); text-align: left;
+    }
+    .empty h3 { color: var(--ink); font-size: 16px; margin: 0 0 8px; }
+    @media (max-width: 960px) {
+      .app { grid-template-columns: 1fr; }
+      aside { height: 40vh; }
+      .body { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <h1>工单台 <span>Agent学堂 · 青匣记</span></h1>
+        <p class="rule">没有引用，就先不答</p>
+      </div>
+      <input class="search" id="q" placeholder="搜索工单、单号、顾客" />
+      <div class="filters">
+        <button type="button" class="on" data-f="all">全部</button>
+        <button type="button" data-f="breach">超时</button>
+        <button type="button" data-f="p0">P0</button>
+      </div>
+      <div class="list" id="list"></div>
+    </aside>
+    <main>
+      <div class="top">
+        <h2 id="title">队列</h2>
+        <span class="id" id="caseId"></span>
+        <span class="mode" id="mode">检查中…</span>
+      </div>
+      <div class="body">
+        <section class="case" id="case">
+          <div class="empty" id="empty">
+            <h3>从左侧打开一张工单</h3>
+            <p>分类员打标，政策员给 <code>path:line</code>，闸门员停在人点执行。演示不打款。</p>
+          </div>
+        </section>
+        <aside class="rail">
+          <div class="section">Composer</div>
+          <div class="composer" id="draft">选中工单后出现回复草稿。</div>
+          <button class="exec" id="exec" disabled>执行（须人确认）</button>
+          <p class="hint" id="execHint">支付接口存在，演示永远返回 confirm_required。</p>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <script>
+    const listEl = document.getElementById("list");
+    const caseEl = document.getElementById("case");
+    const draftEl = document.getElementById("draft");
+    const titleEl = document.getElementById("title");
+    const idEl = document.getElementById("caseId");
+    let cases = [];
+    let filter = "all";
+    let active = null;
+
+    const yuan = (n) => "¥" + Number(n || 0).toFixed(2);
+    const slaText = (s) => {
+      if (!s) return "—";
+      const m = s.remaining_minutes;
+      if (s.breached) return "超时 " + Math.abs(m) + "m";
+      return m + "m";
+    };
+
+    async function boot() {
+      try {
+        const h = await (await fetch("/api/health")).json();
+        document.getElementById("mode").textContent = h.llm ? "模型已开" : "抽取式 · 无 Key";
+      } catch { document.getElementById("mode").textContent = "后端未连接"; }
+      const data = await (await fetch("/api/queue")).json();
+      cases = data.cases || [];
+      renderList();
+      const want = new URLSearchParams(location.search).get("case");
+      const pick = cases.find((c) => c.case_id === want || (c.ticket || {}).fixture_id === want) || cases[0];
+      if (pick) openCase(pick.case_id);
+    }
+
+    function visible() {
+      const q = document.getElementById("q").value.trim();
+      return cases.filter((c) => {
+        const t = c.ticket || {};
+        const s = c.sla || {};
+        if (filter === "breach" && !s.breached) return false;
+        if (filter === "p0" && t.priority !== "P0") return false;
+        if (!q) return true;
+        const blob = [t.id, t.title, t.order_id, t.customer_name, t.body].join(" ");
+        return blob.includes(q);
+      });
+    }
+
+    function renderList() {
+      listEl.innerHTML = "";
+      visible().forEach((c) => {
+        const t = c.ticket || {};
+        const s = c.sla || {};
+        const el = document.createElement("div");
+        el.className = "row" + (active === c.case_id ? " active" : "");
+        el.innerHTML = `
+          <div>
+            <div class="t">${esc(t.title || c.case_id)}</div>
+            <div class="meta">${esc(t.customer_name || "")} · ${esc(t.order_id || "无单号")} · ${esc(t.channel || "")}</div>
+          </div>
+          <div class="pills">
+            <span class="pill ${t.priority === "P0" ? "p0" : ""}">${esc(t.priority || "P2")}</span>
+            <span class="pill ${s.breached ? "breach" : "ok"}">${esc(slaText(s))}</span>
+          </div>`;
+        el.addEventListener("click", () => openCase(c.case_id));
+        listEl.appendChild(el);
+      });
+    }
+
+    async function openCase(id) {
+      active = id;
+      renderList();
+      const data = await (await fetch("/api/case/" + encodeURIComponent(id))).json();
+      const t = data.ticket || {};
+      const s = data.sla || {};
+      titleEl.textContent = t.title || id;
+      idEl.textContent = t.id || "";
+      const refuse = data.refused || (data.policy && data.policy.refused);
+      const chips = (data.citations || []).map((c) => `<button type="button" class="chip" data-ref="${esc(c)}">${esc(c)}</button>`).join("");
+      const audit = (data.audit || []).map((a) =>
+        `<li><div class="who">${esc(roleZh(a.role))} · ${esc(a.action)}</div><div class="when">${esc(a.detail || "")}</div></li>`
+      ).join("");
+      const banner = data.banner
+        ? `<div class="banner">${esc(data.banner)}</div>`
+        : "";
+      caseEl.innerHTML = `
+        ${banner}
+        <div class="facts">
+          <div class="fact"><b>顾客</b><span>${esc(t.customer_name)} · ${esc(t.customer_id)}</span></div>
+          <div class="fact"><b>订单</b><span>${esc(t.order_id || "（缺）")}</span></div>
+          <div class="fact"><b>建议退款</b><span>${yuan(t.refund_yuan)}</span></div>
+          <div class="fact"><b>SLA</b><span>${esc(slaText(s))} · ${s.l2_empty ? "二线空" : "二线在班"}</span></div>
+        </div>
+        <div class="section">Incoming</div>
+        <div class="msg">${esc(t.body || "")}</div>
+        <div class="section">政策引用</div>
+        <div class="chips">${chips || "<span class='hint'>无芯片</span>"}</div>
+        <pre class="drawer" id="drawer"></pre>
+        <div class="section">Audit</div>
+        <ul class="timeline">${audit}</ul>
+        <p class="hint">idempotency_key ${esc(data.idempotency_key || "")} · executed=${data.executed}</p>
+      `;
+      draftEl.textContent = data.draft_reply || (refuse ? "（拒绝自动回复）" : "");
+      document.getElementById("exec").disabled = true;
+      document.getElementById("execHint").textContent =
+        "闸门已锁。人点执行也会被演示接口挡下：confirm_required。";
+      const drawer = document.getElementById("drawer");
+      caseEl.querySelectorAll(".chip").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const ref = btn.getAttribute("data-ref");
+          const cite = await (await fetch("/api/cite?ref=" + encodeURIComponent(ref))).json();
+          drawer.classList.add("open");
+          drawer.textContent = cite.ok ? cite.snippet : (cite.error || "打不开这段引用");
+        });
+      });
+    }
+
+    function roleZh(r) {
+      return ({classifier:"分类员", policy:"政策员", gate:"闸门员", store:"账本", human:"同事"}[r] || r);
+    }
+    function esc(s) {
+      return String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+    }
+
+    document.getElementById("q").addEventListener("input", renderList);
+    document.querySelectorAll(".filters button").forEach((b) => {
+      b.addEventListener("click", () => {
+        filter = b.getAttribute("data-f");
+        document.querySelectorAll(".filters button").forEach((x) => x.classList.toggle("on", x === b));
+        renderList();
+      });
+    });
+    document.getElementById("exec").addEventListener("click", async () => {
+      if (!active) return;
+      const out = await (await fetch("/api/execute", {
+        method: "POST", headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({case_id: active, confirm: true})
+      })).json();
+      document.getElementById("execHint").textContent = out.message || "未打款";
+    });
+    boot();
+  </script>
+</body>
+</html>

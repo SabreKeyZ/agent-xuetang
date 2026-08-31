@@ -1,0 +1,21 @@
+{
+  "id": "T-1601",
+  "fixture_id": "abuse-legal",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T16:02:00+08:00",
+  "now": "2026-08-28T16:08:00+08:00",
+  "order_id": "QX-202608-5501",
+  "shop_id": "qingxia",
+  "customer_id": "u_angry",
+  "customer_name": "焦律",
+  "amount_yuan": 42,
+  "refund_yuan": 42,
+  "attachments": [],
+  "prior_actions": [],
+  "title": "垃圾客服，我去找消协和律师",
+  "body": "墨囊少发两支。你们这帮垃圾客服再拖，我就找消协、找律师，再写律师函。今晚必须退，否则曝光你们。",
+  "labels": [],
+  "sla_minutes": 60,
+  "priority": "P0",
+  "unread": true
+}

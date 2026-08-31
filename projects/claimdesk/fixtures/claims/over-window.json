@@ -1,0 +1,23 @@
+{
+  "id": "C-2005",
+  "fixture_id": "over-window",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_chi",
+  "insured_name": "迟窗",
+  "claimant_id": "p_chi",
+  "claimant_name": "迟窗",
+  "policy_no": "QT-FR-202607-881",
+  "order_id": "QX-202608-2201",
+  "insured_at": "2026-07-20T09:00:00+08:00",
+  "incident_at": "2026-07-22T10:00:00+08:00",
+  "filed_at": "2026-08-20T10:00:00+08:00",
+  "now": "2026-08-20T10:00:00+08:00",
+  "amount_yuan": 20,
+  "attachments": [
+    {"name": "签收图.jpg", "file_id": "att-pod-2201", "kind": "物流签收图"},
+    {"name": "支付截图.png", "file_id": "att-pay-2201", "kind": "支付截图"}
+  ],
+  "prior_actions": [],
+  "narrative": "便签外盒破损。出险在 7 月 22 日，今天 8 月 20 日才申请。请按出险日 v2 的 15 日窗口审，不要用投保日借口。"
+}

@@ -14,8 +14,8 @@
 4. 智谱、通义的兼容地址必须带它们文档里写的路径后缀，不要只写到域名。
 5. 改完 `.env` 要**重新开**终端里的进程。已经在跑的 `serve` 读不到你后写的文件。
 
-测 Key 用第 0 周的 `code/week0/hello_chat.py`，不要一上来就开问学堂。
-问学堂在 Key 为空时会走抽取式，看起来「能跑」，容易让你误以为 Key 已经生效。
+测 Key 用第 0 周的 `code/week0/hello_chat.py`，不要一上来就开工单台。
+工单台在 Key 为空时会走抽取式，看起来「能跑」，容易让你误以为 Key 已经生效。
 
 ## 代理和网络
 
@@ -67,13 +67,13 @@
 ## `pip install -e` 失败
 
 - 先升级 pip：`python -m pip install -U pip setuptools`。
-- 确认你在仓库根目录，路径是 `projects/askhall` 而不是你自己新建的空文件夹。
-- 公司镜像若缺 `fastapi`，临时切到官方源：`pip install -e projects/askhall -i https://pypi.org/simple`。
+- 确认你在仓库根目录，路径是 `projects/ticketdesk` 而不是你自己新建的空文件夹。
+- 公司镜像若缺 `fastapi`，临时切到官方源：`pip install -e projects/ticketdesk -i https://pypi.org/simple`。
 
 ## 演示能跑、服务起不来
 
-- 8000 端口被占用：`python -m askhall serve --port 8010`。
+- 8000 端口被占用：`python -m ticketdesk serve --port 8010`。理赔台默认 8001。
 - 浏览器打开的是 `https://` 而服务是 `http://`。
-- Docker 里要映射端口，见问学堂 README 的 compose 段。
+- Docker 里要映射端口，见工单台 README 的 compose 段。
 
 还是不行：开 Issue，附操作系统、Python 版本、完整命令和完整报错。不要只贴「跑不起来」。

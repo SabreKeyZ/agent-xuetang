@@ -1,0 +1,23 @@
+{
+  "id": "C-2008",
+  "fixture_id": "shared-photo-b",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_tu2",
+  "insured_name": "图乙",
+  "claimant_id": "p_tu2",
+  "claimant_name": "图乙",
+  "policy_no": "QT-FR-202608-012",
+  "order_id": "QX-202608-6602",
+  "insured_at": "2026-08-02T09:00:00+08:00",
+  "incident_at": "2026-08-21T11:00:00+08:00",
+  "filed_at": "2026-08-22T11:00:00+08:00",
+  "now": "2026-08-22T11:00:00+08:00",
+  "amount_yuan": 16,
+  "attachments": [
+    {"name": "现场图-副本.jpg", "file_id": "sha256-scene-77ab", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-6602", "kind": "发票"}
+  ],
+  "prior_actions": [],
+  "narrative": "封蜡套装破损。上传的现场图其实和另一案同一张。"
+}

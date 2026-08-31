@@ -1,0 +1,24 @@
+{
+  "id": "C-2004",
+  "fixture_id": "over-limit",
+  "product": "accident",
+  "channel": "App",
+  "insured_id": "p_gaoe",
+  "insured_name": "高额",
+  "claimant_id": "p_gaoe",
+  "claimant_name": "高额",
+  "policy_no": "QT-AC-202607-009",
+  "order_id": "",
+  "insured_at": "2026-07-02T09:00:00+08:00",
+  "incident_at": "2026-08-08T19:30:00+08:00",
+  "filed_at": "2026-08-09T11:00:00+08:00",
+  "now": "2026-08-09T11:00:00+08:00",
+  "amount_yuan": 3000,
+  "attachments": [
+    {"name": "出险说明.pdf", "file_id": "att-note-009", "kind": "出险说明"},
+    {"name": "门诊票据.pdf", "file_id": "att-med-009", "kind": "医疗票据或回执"},
+    {"name": "身份证.jpg", "file_id": "att-id-009", "kind": "身份证明"}
+  ],
+  "prior_actions": [],
+  "narrative": "小额意外险，门诊 3000 元。保额只有 500，申请全额。"
+}

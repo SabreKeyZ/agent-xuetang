@@ -1,0 +1,25 @@
+{
+  "id": "C-2006",
+  "fixture_id": "shop-already-refunded",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_heqing",
+  "insured_name": "何青",
+  "claimant_id": "p_heqing",
+  "claimant_name": "何青",
+  "policy_no": "QT-FR-202607-990",
+  "order_id": "QX-202607-9901",
+  "insured_at": "2026-07-01T12:00:00+08:00",
+  "incident_at": "2026-08-01T09:00:00+08:00",
+  "filed_at": "2026-08-03T09:00:00+08:00",
+  "now": "2026-08-03T09:00:00+08:00",
+  "amount_yuan": 12,
+  "attachments": [
+    {"name": "签收图.jpg", "file_id": "att-pod-9901", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-9901", "kind": "发票"}
+  ],
+  "prior_actions": [
+    {"type": "shop_refund", "amount_yuan": 128, "at": "2026-08-02T11:08:00+08:00", "idempotency_key": "qingxia:refund:T-0888:12800"}
+  ],
+  "narrative": "店铺已经把货款退完了。我再申一笔运费险，算保险该出的。"
+}
