@@ -16,6 +16,23 @@ def test_queue_cite_and_no_payout():
     assert paid["executed"] is False
 
 
+def test_pass_case_page_enables_payout_and_hides_keys():
+    client = TestClient(app)
+    html = client.get("/").text
+    assert "paintActs" in html
+    assert "canPay" in html
+    assert "data-case" in html
+    assert "idempotency_key" not in html.split("<script>", 1)[0]
+    assert "confirm_required" not in html
+    assert "cd-toast" in html
+    queue = client.get("/api/queue").json()["cases"]
+    case = next(c for c in queue if c["claim"]["fixture_id"] == "valid-low")
+    assert case["decision"]["recommendation"] == "通过"
+    paid = client.post("/api/execute", json={"case_id": case["case_id"], "confirm": True}).json()
+    assert paid["executed"] is False
+    assert paid["payment"]["status"] == "confirm_required"
+
+
 def test_payments_page_and_stylesheet():
     client = TestClient(app)
     page = client.get("/")

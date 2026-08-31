@@ -1,6 +1,6 @@
 """第 1 周：think → act → observe。无框架。
 
-默认用规则脑，不访问网络。传入 --llm 且环境里有 Key 时才打兼容接口。
+默认用规则脑，不访问网络。本周作业没有 --llm；有 Key 也不打兼容口，避免账单。
 """
 
 from __future__ import annotations

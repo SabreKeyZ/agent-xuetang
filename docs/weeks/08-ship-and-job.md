@@ -7,7 +7,7 @@
 
 ## 本周你要带走什么
 
-- [ ] `docker compose up --build` 能打开工单台，或笔记里写明本机无 Docker 以及替代。
+- [ ] `docker compose -f projects/ticketdesk/docker-compose.yml up --build` 能打开工单台，或笔记里写明本机无 Docker 以及替代。
 - [ ] 两台 `evals/set8.json` 跑得出来；你能指出哪些行该红、为什么留着。
 - [ ] 作品集 README 有「我没有做什么」。
 - [ ] 岗位地图里圈了一个方向。
@@ -29,8 +29,8 @@ Docker 1–2 小时；评测 1 小时；作品集 1.5 小时；对练 1 小时�
 **对应视频：** [docs/videos.md](../videos.md)「第 8 周」
 
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
-- 模块4-1 evals 15:06：https://www.bilibili.com/video/BV11Y49zCEuk/?t=906
-- 模块4-6 延迟成本 04:07：https://www.bilibili.com/video/BV11Y49zCEuk/?t=247
+- 模块4-1 evals（第 19 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=19
+- 模块4-6 延迟成本（第 24 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=24
 - HF Agents Course：https://huggingface.co/learn/agents-course/unit0/introduction
 - HF bonus 观测：https://huggingface.co/learn/agents-course/bonus-unit2/introduction
 

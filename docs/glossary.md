@@ -7,6 +7,9 @@
 | --- | --- | --- | --- |
 | Agent | 会停下来的循环：think → act → observe。 | 一次 chat completion 不是 Agent。 | [第 1 周](weeks/01-what-is-an-agent.md) |
 | 聊天补全 | `POST /chat/completions` 一问一答就结束。 | 加长系统提示不会把它变成循环。 | [第 0 周](weeks/00-setup.md) |
+| 兼容口 | 同一套 `/chat/completions` JSON，换 `OPENAI_BASE_URL` 即换厂商。 | 不是「只有官方 OpenAI 才叫兼容」。 | [第 0 周](weeks/00-setup.md) |
+| MAX_STEPS | 循环硬上限，到了必须 `finish`。`echo_agent` 默认 6。 | 不是「模型说做完了」。 | [第 1 周](weeks/01-what-is-an-agent.md) |
+| CoT | 只想不伸手，没有 Action。 | 和 ReAct 差一只手；工单台政策员不能只 CoT。 | [第 2 周](weeks/02-tools-and-react.md) |
 | ReAct | 把循环写成 Thought / Action / Action Input / Observation 字段。 | 不是信仰，是解析器要抠的键。 | [第 2 周](weeks/02-tools-and-react.md) · [字段纸](cheatsheets/react-fields.md) |
 | Thought | 这一步为什么选这个动作。 | 不是给用户看的最终答。 | [第 1 周](weeks/01-what-is-an-agent.md) |
 | Action | 工具名或 `finish`。 | 空 Action 又没有 Final Answer → `error:parse`。 | [第 2 周](weeks/02-tools-and-react.md) |

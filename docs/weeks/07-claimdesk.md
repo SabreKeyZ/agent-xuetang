@@ -65,9 +65,9 @@ flowchart LR
 
 ![理赔台支付表](../images/claimdesk-table.png)
 
-![理赔台条款芯片](../images/claimdesk-citations.png)
+![理赔台通过案芯片（C-2009，不是条款 3.2）](../images/claimdesk-citations.png)
 
-![理赔台没有引用就先不答](../images/claimdesk-refuse.png)
+![理赔台条款 3.2 除外拒赔（C-2002）](../images/claimdesk-refuse.png)
 
 ```bash
 python -m pip install -e projects/claimdesk
@@ -120,7 +120,7 @@ python -m claimdesk demo --fixture no-clause
 idempotency_key=qingtu:payout:C-2012:100 executed=False
 ```
 
-[`clause.py:12`](../../projects/claimdesk/src/claimdesk/agents/clause.py)。卷宗右侧核赔键应锁定。对照 [claimdesk-refuse.png](../images/claimdesk-refuse.png)。
+[`clause.py:12`](../../projects/claimdesk/src/claimdesk/agents/clause.py)。卷宗右侧核赔键应锁定。红条原文是「没有引用，就先不答」。条款 3.2 的拒赔脸在 [claimdesk-refuse.png](../images/claimdesk-refuse.png)（C-2002），不要拿 C-2009 通过图冒充 3.2。
 
 ### 3. `valid-low` · 通过建议仍不打款
 
@@ -257,7 +257,7 @@ set8 仍是 8 行闸门评测；新夹具由 `pytest projects/claimdesk/tests` �
 2. 把同一 `file_id` 贴进第三起案件，测试是否仍升级人工。
 3. 把决定书里的「通过」改成直接打款函数调用，看 `test_valid_low_recommend_pass_no_payout` 是否失败。
 4. 对照 `wrong-policy-version` 的引用列表，用笔划掉任何带 `v1` 的路径（应当没有）。
-5. 打开卷宗截一张条款芯片、一张红条。打码姓名，留下 `条款 3.2`。
+5. 打开卷宗：C-2002 截一张带 `条款 3.2` 的拒赔脸（对照 [claimdesk-refuse.png](../images/claimdesk-refuse.png)）；C-2012 截一张红条。不要用 C-2009 通过图冒充 3.2。打码姓名，留下引用。
 
 ## 本周词汇表
 

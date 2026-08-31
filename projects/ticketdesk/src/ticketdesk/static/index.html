@@ -36,6 +36,7 @@
         <div class="td-blank">从左侧打开一条顾客会话。这里是对话气泡，不是案件卡片，也没有支付表。</div>
       </div>
       <footer class="td-dock">
+        <div class="td-quote" id="td-quote" hidden></div>
         <textarea class="td-box" id="td-box" placeholder="回复草稿会出现在这里。点「执行」只记审计，不会真退款。"></textarea>
         <div class="td-dockrow">
           <span class="td-note" id="td-note">闸门：执行只写审计，不打款。</span>
@@ -57,9 +58,9 @@
           <div class="td-l2box" id="td-l2">辱骂/风控只写在这里，不进气泡。</div>
         </div>
       </div>
-      <div class="td-foot">浅色 Inbox · 白/灰气泡 · 不是青绿</div>
     </aside>
   </div>
+  <div class="td-toast" id="td-toast" hidden></div>
   <script>
     const CHANNEL = { "在线客服": "IM", "邮件": "APP", "电话转写": "12315" };
     let cases = [];
@@ -74,28 +75,53 @@
     const slaOf = (c) => c.sla || {};
     const ch = (c) => CHANNEL[ticketOf(c).channel] || ticketOf(c).channel || "";
     const lastLine = (c) => (ticketOf(c).body || "").replace(/\s+/g, " ").trim().slice(0, 48) || "（空）";
-    const needsYou = (c) => ["wait_human_confirm", "draft_only"].includes(c.next_action)
-      || ((c.gate || {}).verdict === "draft_ok");
+    const canExec = (c) => !c.refused && c.next_action === "wait_human_confirm";
+    const needsYou = (c) => canExec(c);
     const overdue = (c) => Boolean(slaOf(c).breached);
     const visible = () => cases.filter((c) => {
       if (filter === "overdue") return overdue(c);
       if (filter === "todo") return needsYou(c);
       return true;
     });
-    const clock = (c) => {
+    const slaMinutes = (c) => {
       const sla = slaOf(c);
       if (sla.breached) return "已超时";
-      const m = sla.remaining_minutes ?? 0;
-      const h = Math.floor(Math.max(m, 0) / 60);
-      const mm = String(Math.max(m, 0) % 60).padStart(2, "0");
-      return h + ":" + mm;
+      const m = sla.remaining_minutes;
+      if (m == null) return "?";
+      return Math.max(0, Number(m)) + "m";
+    };
+    const execLockReason = (c) => {
+      if (canExec(c)) return "";
+      const map = {
+        draft_only: "超 ¥200，只许草稿，执行已锁定。",
+        ask_order_id: "缺单号，只许追问。",
+        refuse: "没有引用，就先不答。",
+        human_queue: "已进人工队列。",
+        no_double_pay: "已退过款，不再执行。",
+        cite_only: "正文含命令，只引用不执行。",
+        merge: "重复单已合并。",
+        risk_queue: "刷单嫌疑，已挂起。",
+        exchange_only: "换货不退现金。",
+        ask_return: "退货未入库，只许追问。",
+        deny_seven_day: "七天无理由已过。",
+        cap_paid: "超过实付，不得按原价。",
+        partial_line: "部分退不得整单。",
+      };
+      return map[c.next_action] || c.banner || "当前状态不能执行。";
+    };
+    const showToast = (text) => {
+      const el = $("td-toast");
+      el.hidden = false;
+      el.textContent = text;
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => { el.hidden = true; }, 4200);
     };
 
     function renderList() {
       $("td-threads").innerHTML = visible().map((c) => {
         const t = ticketOf(c);
         const late = overdue(c);
-        return `<div class="td-row ${active === c.case_id ? "td-row-on" : ""}" data-id="${esc(c.case_id)}">
+        return `<div class="td-row ${active === c.case_id ? "td-row-on" : ""}" data-case="${esc(c.case_id)}">
           <div class="td-face">${esc((t.customer_name || "?").slice(0, 1))}</div>
           <div>
             <div><span class="td-who">${esc(t.customer_name || c.case_id)}</span>
@@ -109,7 +135,7 @@
         </div>`;
       }).join("");
       $("td-threads").querySelectorAll(".td-row").forEach((el) => {
-        el.addEventListener("click", () => openCase(el.dataset.id));
+        el.addEventListener("click", () => openCase(el.dataset.case));
       });
     }
 
@@ -135,7 +161,6 @@
         html += `<div class="td-turn td-turn-desk">
           <div class="td-balloon">${esc(c.draft_reply)}</div>
           ${chips ? `<div class="td-cites">${chips}</div>` : ""}
-          <div class="td-quote" id="td-quote" hidden></div>
           <div class="td-stamp">客服草稿 · 闸门未打款</div>
         </div>`;
       } else if (!c.refused) {
@@ -143,10 +168,14 @@
       }
       $("td-feed").innerHTML = html;
       $("td-feed").scrollTop = $("td-feed").scrollHeight;
+      $("td-quote").hidden = true;
+      $("td-quote").textContent = "";
       $("td-box").value = c.draft_reply || "";
-      const canExec = !c.refused && ["wait_human_confirm", "draft_only"].includes(c.next_action);
-      $("td-go").disabled = !canExec;
-      $("td-note").textContent = `下一动：${c.next_action || "—"} · ${c.idempotency_key || ""}`;
+      const locked = !canExec(c);
+      $("td-go").disabled = locked;
+      $("td-note").textContent = locked
+        ? execLockReason(c)
+        : "下一动：须人确认。点执行只记审计，不打款。";
       const sla = slaOf(c);
       $("td-cus").textContent = c.draft_reply || "（无对客草稿）";
       $("td-l2").textContent = c.internal_note || "（无对内备注）";
@@ -155,7 +184,7 @@
         <div class="td-fact"><span class="td-k">售后</span><span class="td-v">${esc(c.after_sales_type || "—")}</span></div>
         <div class="td-fact"><span class="td-k">金额</span><span class="td-v">¥${esc(t.amount_yuan ?? "—")}</span></div>
         <div class="td-fact"><span class="td-k">首次响应</span>
-          <div class="td-timer ${sla.first_response_breached ? "td-timer-late" : ""}">${clock(c)}</div></div>
+          <div class="td-timer ${sla.first_response_breached ? "td-timer-late" : ""}">${slaMinutes(c)}</div></div>
         <div class="td-fact"><span class="td-k">完结时钟</span><span class="td-v">${sla.resolution_breached ? "已超时" : ((sla.resolution_remaining ?? "?") + "m")}</span></div>
         <div class="td-fact"><span class="td-k">优先级</span><span class="td-v">${esc(t.priority || sla.priority || "—")}</span></div>
         <div class="td-fact"><span class="td-k">夜班 L2</span><span class="td-v">${sla.l2_empty ? "空岗" : ((sla.l2 && sla.l2.name) || "在岗")}</span></div>`;
@@ -166,6 +195,7 @@
           if (!q) return;
           q.hidden = false;
           q.textContent = cite.ok ? cite.snippet : (cite.error || "打不开");
+          q.scrollIntoView({ block: "nearest" });
         });
       });
     }
@@ -191,12 +221,30 @@
       else if (cases[0]) await openCase(cases[0].case_id);
     }
 
-    $("td-filters").addEventListener("click", (e) => {
+    $("td-filters").addEventListener("click", async (e) => {
       const t = e.target.closest(".td-pilltab");
       if (!t) return;
       filter = t.dataset.filter;
       $("td-filters").querySelectorAll(".td-pilltab").forEach((x) => x.classList.toggle("td-pilltab-on", x === t));
       renderList();
+      const shown = visible();
+      if (!shown.length) {
+        active = null;
+        $("td-subject").textContent = "这一栏没有会话";
+        $("td-context").textContent = "换一个筛选，或点「全部」。";
+        $("td-feed").innerHTML = `<div class="td-blank">当前筛选没有工单。</div>`;
+        $("td-box").value = "";
+        $("td-go").disabled = true;
+        $("td-note").textContent = "没有可执行的工单。";
+        $("td-facts").innerHTML = `<span class="td-note">筛选后右侧会跟着刷新。</span>`;
+        $("td-cus").textContent = "（无）";
+        $("td-l2").textContent = "（无）";
+        $("td-quote").hidden = true;
+        return;
+      }
+      if (!shown.some((c) => c.case_id === active)) {
+        await openCase(shown[0].case_id);
+      }
     });
     $("td-reload").addEventListener("click", boot);
     $("td-go").addEventListener("click", async () => {
@@ -206,8 +254,13 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ case_id: active, confirm: true }),
       })).json();
-      $("td-note").textContent = out.message || "未打款";
+      showToast(out.message || "演示模式不打款，已记审计。");
       await openCase(active);
+      const rows = ((cases.find((x) => x.case_id === active) || {}).audit) || [];
+      const last = rows[rows.length - 1];
+      if (last) {
+        $("td-l2").textContent = (last.detail || last.action || "已记审计") + "（只写审计，不打款）";
+      }
     });
     boot();
   </script>

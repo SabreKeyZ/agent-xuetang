@@ -39,13 +39,17 @@ DEMO_FORBIDS_CONFIRM = True
 ```bash
 python code/week0/hello_chat.py
 python code/week1/echo_agent.py --query "今天星期几"
+python code/week1/echo_agent.py --max-steps 1
 python code/week2/react_agent.py --eval
 python code/week2/react_agent.py --parse "我想算一下但是忘了字段"
 python code/week3/mini_rag.py --query "第几周写 MCP"
+python code/week3/mini_rag.py --query "第几周写 MCP" --docs docs --k 4 --sqlite
 python code/week4/week_goal_server.py --once --week 4
 python code/week5/classroom_lab.py demo
 python code/week5/classroom_lab.py recurse
 python -m ticketdesk demo
 python -m claimdesk demo
+python -m ticketdesk serve --port 8000
+python -m claimdesk serve --port 8001
 python -m pytest
 ```

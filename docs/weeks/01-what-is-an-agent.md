@@ -30,7 +30,7 @@
 **对应视频：** [docs/videos.md](../videos.md)「第 0–1 周」
 
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
-- 中文搬运 · 模块1-3 自主性 05:04：https://www.bilibili.com/video/BV11Y49zCEuk/?t=304
+- 中文搬运 · 模块1-3 自主性（第 3 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=3
 - HF Agents Course 导论：https://huggingface.co/learn/agents-course/unit0/introduction
 - HF unit1（循环字段）：https://huggingface.co/learn/agents-course/unit1/introduction
 
