@@ -14,3 +14,20 @@ def test_queue_cite_and_no_payout():
     assert cite["ok"] is True
     paid = client.post("/api/execute", json={"case_id": case["case_id"], "confirm": True}).json()
     assert paid["executed"] is False
+
+
+def test_payments_page_and_stylesheet():
+    client = TestClient(app)
+    page = client.get("/")
+    assert page.status_code == 200
+    html = page.text
+    assert "claimdesk.css" in html
+    assert "<table" in html.lower()
+    assert "cd-yen" in html
+    assert "td-balloon" not in html
+    css = client.get("/static/claimdesk.css")
+    assert css.status_code == 200
+    body = css.text.lower()
+    assert "#f6f9fc" in body
+    assert "#635bff" in body
+    assert "tabular-nums" in body

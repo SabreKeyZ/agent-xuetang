@@ -14,9 +14,9 @@
 
 ## 你将做出的东西
 
-一台跑在 localhost 的深色队列页（Linear / Inbox 密度），以及一段你可以录给作品集的演示。
+一台跑在 localhost 的浅色 Inbox（Intercom 会话，不是黑底 Linear，也不是理赔台那张支付表），以及一段你可以录给作品集的演示。
 
-打开页面应当看见字标「工单台」、副题「没有引用，就先不答」、左侧工单列表、右侧案件与 `path:line` 芯片。闸门拒绝时是冷静的玫瑰色条，不是漫画弹窗。
+打开页面应当看见字标「Agent学堂」、副题「没有引用，就先不答」、左侧会话列表（头像、最后一句、SLA 药丸）、中间顾客/客服气泡、底部回复框。引用芯片贴在气泡下面。闸门拒绝时是玫瑰色系统句，不是漫画弹窗。背景是 `#F4F6F8`，强调色是 teal，不是 Stripe blurple。
 
 ![工单台引用芯片](../images/ticketdesk-citations.png)
 
@@ -70,14 +70,14 @@ python -m ticketdesk demo --fixture promo-overrides-sla
 python -m ticketdesk serve
 ```
 
-打开 http://127.0.0.1:8000 。这是队列，不是对话框。点一张 P0 夜间单，看二线空、转人工。点芯片应打开政策片段。
+打开 http://127.0.0.1:8000 。这是 Inbox 会话，不是案件卷宗，也不是对话框机器人。点一张 P0 夜间单，看二线空、转人工。点气泡下的芯片应打开政策片段。
 
 ### 3. 读代码的顺序
 
 1. `ticketdesk/rag.py` —— 第 3 周的产品版，带生效窗口。
 2. `ticketdesk/agents/supervisor.py` —— 字典状态，不是 Mesh。
 3. `ticketdesk/agents/gate.py` 与 `tools/payment.py` —— 人点执行。
-4. `static/index.html` —— 列表 + 案件 + composer。
+4. `static/ticketdesk.css` + `index.html` —— 会话列表 + 气泡 + 底部回复框。不要和理赔台共用 class。
 
 ### 4. 测试
 

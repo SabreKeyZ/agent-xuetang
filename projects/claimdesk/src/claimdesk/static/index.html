@@ -4,233 +4,159 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>青途保 · 理赔台</title>
-  <style>
-    :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --line: #e3e8ef;
-      --ink: #0a2540;
-      --muted: #5c6b7a;
-      --faint: #8898aa;
-      --blurple: #635bff;
-      --emerald: #0d9488;
-      --emerald-bg: #ecfdf7;
-      --rose: #e5484d;
-      --rose-bg: #fff1f1;
-      --amber: #b45309;
-      --radius: 8px;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; background: var(--bg); color: var(--ink);
-      font: 13px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    }
-    button, input { font: inherit; }
-    header {
-      background: var(--card); border-bottom: 1px solid var(--line);
-      padding: 12px 20px; display: flex; align-items: baseline; gap: 12px;
-    }
-    header h1 { margin: 0; font-size: 14px; font-weight: 600; }
-    header h1 span { color: var(--muted); font-weight: 500; margin-left: 8px; }
-    .rule { margin: 0; color: var(--rose); font-size: 11px; }
-    .mode { margin-left: auto; color: var(--faint); font-size: 11px; }
-    .shell { display: grid; grid-template-columns: 260px 1fr 280px; height: calc(100% - 49px); }
-    .queue { border-right: 1px solid var(--line); background: var(--card); overflow: auto; }
-    .qrow { padding: 10px 14px; border-bottom: 1px solid var(--line); cursor: pointer; }
-    .qrow:hover { background: #f4f6fb; }
-    .qrow.on { box-shadow: inset 2px 0 0 var(--blurple); background: #f4f6ff; }
-    .qrow .t { font-size: 13px; }
-    .qrow .m { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; margin-top: 2px; }
-    .main { overflow: auto; padding: 18px 20px 40px; }
-    .hero {
-      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 16px 18px; display: flex; gap: 16px; align-items: flex-start;
-    }
-    .amt { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-    .meta { color: var(--muted); font-size: 11px; margin-top: 4px; }
-    .pill {
-      border-radius: 999px; padding: 2px 8px; font-size: 11px; border: 1px solid var(--line);
-      background: #f8fafc;
-    }
-    .pill.pass { color: var(--emerald); background: var(--emerald-bg); border-color: #c7f0e4; }
-    .pill.deny, .pill.refuse { color: var(--rose); background: var(--rose-bg); border-color: #ffd4d4; }
-    .pill.sup { color: var(--amber); background: #fff7ed; border-color: #fed7aa; }
-    .banner {
-      margin: 12px 0 0; padding: 8px 10px; border-radius: 6px;
-      background: var(--rose-bg); color: #9f1239; border: 1px solid #ffd4d4; font-size: 12px;
-    }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-    .card {
-      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px;
-    }
-    .card h3 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-    .ev { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f3f7; font-size: 12px; }
-    .ok { color: var(--emerald); } .no { color: var(--rose); }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip {
-      border: 1px solid #d6d3ff; background: #f4f3ff; color: #4338ca;
-      border-radius: 999px; padding: 2px 8px; font-size: 11px; cursor: pointer;
-      font-variant-numeric: tabular-nums;
-    }
-    .drawer {
-      display: none; margin-top: 8px; padding: 8px; background: #0a2540; color: #e6edf5;
-      font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap;
-      border-radius: 6px;
-    }
-    .drawer.open { display: block; }
-    .letter { white-space: pre-wrap; font-size: 13px; }
-    .audit { list-style: none; margin: 0; padding: 0; }
-    .audit li { padding: 6px 0; border-bottom: 1px solid #f0f3f7; font-size: 12px; }
-    .rail { border-left: 1px solid var(--line); background: var(--card); padding: 16px; }
-    .rail h2 { margin: 0 0 10px; font-size: 13px; }
-    .choice {
-      width: 100%; margin: 0 0 8px; padding: 9px 10px; border-radius: 6px;
-      border: 1px solid var(--line); background: #fff; text-align: left; cursor: not-allowed;
-      color: var(--muted);
-    }
-    .choice[data-on="1"] { border-color: var(--blurple); color: var(--ink); box-shadow: inset 2px 0 0 var(--blurple); }
-    .choice:disabled { opacity: 0.55; }
-    .pay {
-      width: 100%; margin-top: 12px; padding: 9px 10px; border: 0; border-radius: 6px;
-      background: var(--blurple); color: #fff; font-weight: 600; cursor: pointer;
-    }
-    .pay:disabled { opacity: 0.4; cursor: not-allowed; }
-    .hint { color: var(--faint); font-size: 11px; margin-top: 8px; }
-    .empty { color: var(--muted); padding: 40px 8px; }
-    @media (max-width: 980px) {
-      .shell { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="/static/claimdesk.css" />
 </head>
-<body>
-  <header>
-    <h1>理赔台 <span>Agent学堂 · 青途保</span></h1>
-    <p class="rule">没有引用，就先不答</p>
-    <span class="mode" id="mode">检查中…</span>
+<body class="cd-body">
+  <header class="cd-bar">
+    <div class="cd-mark">理赔台 <em>Agent学堂 · 青途保</em></div>
+    <p class="cd-law">没有引用，就先不答</p>
+    <span class="cd-env" id="cd-env">检查中…</span>
   </header>
-  <div class="shell">
-    <aside class="queue" id="queue"></aside>
-    <section class="main" id="main">
-      <div class="empty">从左侧打开一份案件。核赔按钮在有条款芯片之前保持禁用。</div>
-    </section>
-    <aside class="rail">
-      <h2>核赔建议</h2>
-      <button class="choice" id="c-pass" disabled>通过</button>
-      <button class="choice" id="c-sup" disabled>补件</button>
-      <button class="choice" id="c-deny" disabled>拒赔</button>
-      <button class="pay" id="pay" disabled>执行打款</button>
-      <p class="hint" id="hint">无条款命中时整列锁定。演示 payout 只回 confirm_required。</p>
-    </aside>
-  </div>
+
+  <section class="cd-board" id="cd-board">
+    <p class="cd-caption">Payments · 案件表。点一行打开卷宗。这里没有会话气泡。</p>
+    <table class="cd-grid">
+      <thead>
+        <tr>
+          <th>案件号</th>
+          <th>险种</th>
+          <th class="cd-num">金额</th>
+          <th>状态</th>
+          <th>出险日</th>
+        </tr>
+      </thead>
+      <tbody id="cd-rows"></tbody>
+    </table>
+  </section>
+
+  <section class="cd-file" id="cd-file">
+    <button class="cd-back" id="cd-back" type="button">← 支付表</button>
+    <div class="cd-split">
+      <div class="cd-main" id="cd-main"></div>
+      <aside class="cd-col">
+        <h2>核赔</h2>
+        <button class="cd-act" id="cd-pass" disabled>通过</button>
+        <button class="cd-act" id="cd-sup" disabled>补件</button>
+        <button class="cd-act" id="cd-deny" disabled>拒赔</button>
+        <button class="cd-cash" id="cd-cash" disabled>执行打款</button>
+        <p class="cd-fine" id="cd-fine">无条款命中时整列锁定。演示 payout 只回 confirm_required。</p>
+      </aside>
+    </div>
+  </section>
+
   <script>
     let cases = [], active = null;
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+    }[c]));
     const yuan = (n) => "¥" + Number(n || 0).toFixed(2);
-    const recClass = (r) => ({"通过":"pass","补件":"sup","拒赔":"deny","拒审":"refuse"}[r] || "");
+    const product = (p) => p === "accident" ? "意外险" : "运费险";
+    const recClass = (r) => ({ "通过": "cd-st-ok", "补件": "cd-st-hold", "拒赔": "cd-st-no", "拒审": "cd-st-no" }[r] || "");
+    const role = (r) => ({ docs_check: "材料质检", clause: "条款员", adjudicator: "核赔员", store: "账本", human: "同事" }[r] || r);
 
-    async function boot() {
-      try {
-        const h = await (await fetch("/api/health")).json();
-        document.getElementById("mode").textContent = h.llm ? "模型已开" : "抽取式 · 无 Key";
-      } catch { document.getElementById("mode").textContent = "后端未连接"; }
-      cases = (await (await fetch("/api/queue")).json()).cases || [];
-      renderQueue();
-      const want = new URLSearchParams(location.search).get("case");
-      const pick = cases.find((c) => c.case_id === want || (c.claim || {}).fixture_id === want) || cases[0];
-      if (pick) openCase(pick.case_id);
+    function showBoard() {
+      $("cd-board").style.display = "block";
+      $("cd-file").classList.remove("cd-file-on");
+      active = null;
+      history.replaceState(null, "", location.pathname);
+      renderRows();
     }
 
-    function renderQueue() {
-      const el = document.getElementById("queue");
-      el.innerHTML = "";
-      cases.forEach((c) => {
+    function showFile() {
+      $("cd-board").style.display = "none";
+      $("cd-file").classList.add("cd-file-on");
+    }
+
+    function renderRows() {
+      $("cd-rows").innerHTML = cases.map((c) => {
         const cl = c.claim || {};
-        const rec = (c.decision || {}).recommendation || "";
-        const div = document.createElement("div");
-        div.className = "qrow" + (active === c.case_id ? " on" : "");
-        div.innerHTML = `<div class="t">${esc(cl.insured_name || c.case_id)} · ${esc(cl.product === "freight" ? "运费险" : "意外险")}</div>
-          <div class="m">${yuan(cl.amount_yuan)} · ${esc(rec)} · ${esc(c.policy_version || "")}</div>`;
-        div.addEventListener("click", () => openCase(c.case_id));
-        el.appendChild(div);
+        const rec = (c.decision || {}).recommendation || "待审";
+        return `<tr class="cd-tr" data-id="${esc(c.case_id)}">
+          <td>${esc(cl.id || c.case_id)}</td>
+          <td>${esc(product(cl.product))}</td>
+          <td class="cd-num">${yuan(cl.amount_yuan)}</td>
+          <td><span class="cd-st ${recClass(rec)}">${esc(rec)}</span></td>
+          <td>${esc((cl.incident_at || "").slice(0, 10))}</td>
+        </tr>`;
+      }).join("");
+      $("cd-rows").querySelectorAll(".cd-tr").forEach((tr) => {
+        tr.addEventListener("click", () => openCase(tr.dataset.id));
       });
     }
 
     async function openCase(id) {
       active = id;
-      renderQueue();
+      showFile();
       const d = await (await fetch("/api/case/" + encodeURIComponent(id))).json();
+      if (d.ok === false) return;
       const cl = d.claim || {};
       const rec = (d.decision || {}).recommendation || "";
       const cites = d.citations || [];
-      const checks = ((d.docs || {}).checklist || []).map((x) =>
-        `<div class="ev"><span>${esc(x.item)}</span><span class="${x.ok ? "ok" : "no"}">${x.ok ? "已交" : "缺"}</span></div>`
+      const tags = cites.map((x) => `<button class="cd-tag" type="button" data-ref="${esc(x)}">${esc(x)}</button>`).join("");
+      const thumbs = (cl.attachments || []).map((a) => {
+        const name = a.name || a.file_id || "文件";
+        const kind = a.kind || a.file_id || "";
+        return `<div class="cd-thumb"><div class="cd-thumb-mark">${esc(String(name).slice(0, 1))}</div>${esc(name)}<br>${esc(kind)}</div>`;
+      }).join("");
+      const log = (d.audit || []).map((a) =>
+        `<li class="cd-logitem"><b>${esc(role(a.role))}</b> · ${esc(a.detail || a.action)}</li>`
       ).join("");
-      const chips = cites.map((c) => `<button class="chip" data-ref="${esc(c)}">${esc(c)}</button>`).join("");
-      const atts = (cl.attachments || []).map((a) =>
-        `<div class="ev"><span>${esc(a.name || a.file_id)}</span><span class="m">${esc(a.file_id || "")}</span></div>`
-      ).join("");
-      const audit = (d.audit || []).map((a) => `<li>${esc(role(a.role))} · ${esc(a.detail || a.action)}</li>`).join("");
-      document.getElementById("main").innerHTML = `
-        <div class="hero">
-          <div>
-            <div class="amt">${yuan(cl.amount_yuan)}</div>
-            <div class="meta">${esc(cl.id)} · ${esc(cl.policy_no)} · 出险 ${esc((cl.incident_at || "").slice(0,10))}</div>
-          </div>
-          <span class="pill ${recClass(rec)}">${esc(rec || "待审")}</span>
-          <span class="pill">条款 ${esc(d.policy_version || "—")}</span>
-        </div>
-        ${d.banner ? `<div class="banner">${esc(d.banner)}</div>` : ""}
-        <div class="grid">
-          <div class="card"><h3>材料质检</h3>${checks || "<div class='empty'>无清单</div>"}</div>
-          <div class="card"><h3>证据</h3>${atts || "<div class='empty'>未列附件</div>"}</div>
-        </div>
-        <div class="card" style="margin-top:12px"><h3>条款引用</h3>
-          <div class="chips">${chips || "<span class='hint'>无芯片 · 核赔锁定</span>"}</div>
-          <pre class="drawer" id="drawer"></pre>
-        </div>
-        <div class="card" style="margin-top:12px"><h3>决定书草稿</h3>
-          <div class="letter">${esc(d.draft_reply || "")}</div>
-        </div>
-        <div class="card" style="margin-top:12px"><h3>Audit</h3>
-          <ul class="audit">${audit}</ul>
-          <p class="hint">idempotency_key ${esc(d.idempotency_key || "")}</p>
-        </div>`;
+      $("cd-main").innerHTML = `
+        <div class="cd-yen">${yuan(cl.amount_yuan)}</div>
+        <div class="cd-sub">${esc(cl.id)} · ${esc(cl.policy_no)} · 出险 ${esc((cl.incident_at || "").slice(0, 10))} · <span class="cd-st ${recClass(rec)}">${esc(rec || "待审")}</span> · ${esc(d.policy_version || "—")}</div>
+        <div class="cd-tags">${tags || `<span class="cd-fine">无条款标签</span>`}</div>
+        ${d.banner ? `<div class="cd-alert">${esc(d.banner)}</div>` : ""}
+        <ol class="cd-log">${log}</ol>
+        ${d.draft_reply ? `<div class="cd-letter">${esc(d.draft_reply)}</div>` : ""}
+        <div class="cd-thumbs">${thumbs || `<span class="cd-fine">无证据缩略图</span>`}</div>
+        <pre class="cd-snip" id="cd-snip"></pre>
+        <p class="cd-fine">idempotency_key ${esc(d.idempotency_key || "")}</p>`;
       const locked = cites.length === 0;
-      ["c-pass","c-sup","c-deny"].forEach((id) => {
-        const b = document.getElementById(id);
+      ["cd-pass", "cd-sup", "cd-deny"].forEach((bid) => {
+        const b = $(bid);
         b.disabled = locked;
-        b.dataset.on = "0";
+        b.classList.remove("cd-act-on");
       });
-      const map = {"通过":"c-pass","补件":"c-sup","拒赔":"c-deny"};
-      if (map[rec]) document.getElementById(map[rec]).dataset.on = "1";
-      document.getElementById("pay").disabled = true;
-      document.getElementById("hint").textContent = locked
+      const map = { "通过": "cd-pass", "补件": "cd-sup", "拒赔": "cd-deny" };
+      if (map[rec]) $(map[rec]).classList.add("cd-act-on");
+      $("cd-cash").disabled = true;
+      $("cd-fine").textContent = locked
         ? "没有引用，就先不答。核赔列已锁定。"
         : "建议已写出。打款键对人开放，演示仍返回 confirm_required。";
-      const drawer = document.getElementById("drawer");
-      document.querySelectorAll(".chip").forEach((btn) => {
+      $("cd-main").querySelectorAll(".cd-tag").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const cite = await (await fetch("/api/cite?ref=" + encodeURIComponent(btn.dataset.ref))).json();
-          drawer.classList.add("open");
-          drawer.textContent = cite.ok ? cite.snippet : (cite.error || "打不开");
+          const snip = $("cd-snip");
+          snip.classList.add("cd-snip-on");
+          snip.textContent = cite.ok ? cite.snippet : (cite.error || "打不开");
         });
       });
+      history.replaceState(null, "", "?case=" + encodeURIComponent(id));
     }
 
-    function role(r) {
-      return ({docs_check:"材料质检", clause:"条款员", adjudicator:"核赔员", store:"账本", human:"同事"}[r] || r);
+    async function boot() {
+      try {
+        const h = await (await fetch("/api/health")).json();
+        $("cd-env").textContent = h.llm ? "模型已开" : "抽取式 · 无 Key";
+      } catch { $("cd-env").textContent = "后端未连接"; }
+      cases = ((await (await fetch("/api/queue")).json()).cases) || [];
+      renderRows();
+      const want = new URLSearchParams(location.search).get("case");
+      const pick = cases.find((c) => c.case_id === want || (c.claim || {}).fixture_id === want || (c.claim || {}).id === want);
+      if (want && pick) await openCase(pick.case_id);
+      else showBoard();
     }
-    function esc(s) {
-      return String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
-    }
-    document.getElementById("pay").addEventListener("click", async () => {
+
+    $("cd-back").addEventListener("click", showBoard);
+    $("cd-cash").addEventListener("click", async () => {
       if (!active) return;
       const out = await (await fetch("/api/execute", {
-        method: "POST", headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({case_id: active, confirm: true})
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case_id: active, confirm: true }),
       })).json();
-      document.getElementById("hint").textContent = out.message || "未打款";
+      $("cd-fine").textContent = out.message || "未打款";
     });
     boot();
   </script>

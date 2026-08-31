@@ -4,6 +4,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from ticketdesk.agents.supervisor import Supervisor
@@ -80,3 +81,6 @@ def execute(body: ExecBody) -> dict:
     )
     case["executed"] = False
     return {"ok": False, "executed": False, "payment": probe, "message": "演示模式不打款。"}
+
+
+app.mount("/static", StaticFiles(directory=str(_STATIC)), name="static")
