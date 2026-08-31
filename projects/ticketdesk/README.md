@@ -40,7 +40,7 @@ src/ticketdesk/tools/payment.py
 src/ticketdesk/store.py
 ```
 
-超过 ¥200、政策零命中、已赔过、夜间二线空，都停在人。`idempotency_key` 相同的第二次处理不二次补偿。
+超过 ¥200、超过实付、退货未入库、七天无理由、部分退整单、政策零命中、已赔过、完结 SLA 且夜间二线空，都停在人。`idempotency_key` 相同的第二次处理不二次补偿。换货不退现金。活动物流发券，不发现金。
 
 **第 4 步 · Docker**
 
@@ -80,18 +80,18 @@ flowchart LR
 
 ## 简历三条
 
-- 客服队列吃结构化工单（单号、金额、附件、prior_actions），写出标签、SLA、草稿和 `path:line`。
-- 退款接口存在但必须人确认；同一 `idempotency_key` 不二次补偿。
+- 客服队列吃结构化工单（单号、多 SKU 行、实付、messages、prior_actions），写出标签、双 SLA、对客草稿 / 对内备注和 `path:line`。
+- 退款接口存在但必须人确认；部分退只退损坏行实付；同一 `idempotency_key` 不二次补偿。
 - 无 Key 抽取式 `python -m ticketdesk demo` 打印芯片或红条。
 
 ## STAR
 
 | | |
 | --- | --- |
-| 情境 | 大促期物流延误，日常政策写「不赔运费」，活动政策写 48 小时可补 ¥12。 |
-| 任务 | Agent 必须引用**生效中**的那份，且不能自动打款。 |
-| 行动 | 政策检索带生效窗口；闸门员对退款调用 `confirm=false`；账本记 idempotency_key。 |
-| 结果 | 夹具 `promo-overrides-sla` 打到活动文件；支付探测永远 `confirm_required`。无准确率口号。 |
+| 情境 | 大促期物流延误要现金；另一张三件套只坏砚台却要整单退。 |
+| 任务 | 活动必须点名生效文件且发券不发现金；部分退只许损坏行实付。都不能自动打款。 |
+| 行动 | 政策检索带生效窗口；闸门看 `lines[].paid_yuan` 与 `paid_yuan`；退款/发券 `confirm=false`。 |
+| 结果 | `promo-coupon-not-cash` 打到 `promo-2026-summer.md` 并写券；`partial-refund-one-line` 只建议砚台小样 ¥72。无准确率口号。 |
 
 ## 我拒绝的设计
 

@@ -1,0 +1,15 @@
+{
+  "order_id": "QX-202608-2101",
+  "shop_id": "qingxia",
+  "customer_id": "u_return_wait",
+  "placed_at": "2026-08-18T11:00:00+08:00",
+  "amount_yuan": 86.0,
+  "paid_yuan": 86.0,
+  "sku": "青松墨水",
+  "tracking": "YT21010818",
+  "last_scan_at": "2026-08-20T09:00:00+08:00",
+  "status": "delivered",
+  "signed_at": "2026-08-20T09:00:00+08:00",
+  "inbound_at": "",
+  "return_tracking": ""
+}

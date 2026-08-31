@@ -1,0 +1,27 @@
+{
+  "id": "C-2116",
+  "fixture_id": "appeal-after-deny",
+  "product": "freight",
+  "channel": "邮件",
+  "insured_id": "p_appeal",
+  "insured_name": "复议客",
+  "claimant_id": "p_appeal",
+  "claimant_name": "复议客",
+  "policy_no": "QT-FR-202608-216",
+  "order_id": "QX-202608-2105",
+  "tracking": "YT-SIGNED-2114",
+  "insured_at": "2026-08-02T09:00:00+08:00",
+  "incident_at": "2026-08-18T12:00:00+08:00",
+  "filed_at": "2026-08-19T09:00:00+08:00",
+  "now": "2026-08-27T09:00:00+08:00",
+  "amount_yuan": 22,
+  "attachments": [
+    {"name": "签收破损-新.jpg", "file_id": "att-pod-2116", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-2116", "kind": "发票"},
+    {"name": "新证据-外箱压痕.jpg", "file_id": "att-new-2116", "kind": "新证据"}
+  ],
+  "prior_actions": [
+    {"type": "deny", "at": "2026-08-20T11:00:00+08:00", "reason": "当时缺外箱照", "amount_yuan": 0}
+  ],
+  "narrative": "上次拒赔。现复议并提交新证据：外箱压痕照片。请按复议条款重审，不要无引用就改判通过。"
+}

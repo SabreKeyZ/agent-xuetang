@@ -62,6 +62,10 @@ def within_minutes(a: str, b: str, window: int) -> bool:
     return abs((parse_dt(a) - parse_dt(b)).total_seconds()) <= window * 60
 
 
+def days_between(start: str, end: str) -> int:
+    return (parse_dt(end).date() - parse_dt(start).date()).days
+
+
 def plus_minutes(stamp: str, minutes: int) -> str:
     return (parse_dt(stamp) + timedelta(minutes=minutes)).isoformat()
 

@@ -239,6 +239,16 @@ html, body { height: 100%; }
 }
 .cd-cash:disabled { opacity: 0.35; cursor: not-allowed; }
 .cd-fine { color: var(--cd-faint); font-size: 11px; margin: 0; }
+.cd-math {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--cd-line);
+  border-radius: 4px;
+  background: #fafbfc;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--cd-navy);
+}
 
 .cd-snip {
   display: none;

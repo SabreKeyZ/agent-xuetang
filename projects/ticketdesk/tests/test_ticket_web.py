@@ -26,6 +26,10 @@ def test_inbox_page_and_stylesheet():
     assert "ticketdesk.css" in html
     assert "td-balloon" in html
     assert "td-dock" in html
+    assert "td-cusbox" in html
+    assert "td-l2box" in html
+    assert "对客" in html
+    assert "对内" in html
     assert "#0a0a0a" not in html
     css = client.get("/static/ticketdesk.css")
     assert css.status_code == 200

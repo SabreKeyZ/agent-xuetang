@@ -47,6 +47,16 @@
     <aside class="td-side">
       <p class="td-side-label">订单事实</p>
       <div id="td-facts"><span class="td-note">选中会话后看单号、金额、SLA。</span></div>
+      <div class="td-faces">
+        <div>
+          <span class="td-viewlabel">对客草稿</span>
+          <div class="td-cusbox" id="td-cus">选中后出现给顾客的句子。</div>
+        </div>
+        <div>
+          <span class="td-viewlabel">对内备注 · L2</span>
+          <div class="td-l2box" id="td-l2">辱骂/风控只写在这里，不进气泡。</div>
+        </div>
+      </div>
       <div class="td-foot">浅色 Inbox · 白/灰气泡 · 不是青绿</div>
     </aside>
   </div>
@@ -106,11 +116,15 @@
     function renderThread(c) {
       const t = ticketOf(c);
       $("td-subject").textContent = t.title || c.case_id;
-      $("td-context").textContent = `${c.case_id} · ${t.customer_name || ""} · ${ch(c)}`;
-      let html = `<div class="td-turn td-turn-guest">
-        <div class="td-balloon">${esc(t.body)}</div>
-        <div class="td-stamp">${esc(t.customer_name)} · ${esc(ch(c))} · ${esc((t.created_at || "").replace("T", " ").slice(0, 16))}</div>
-      </div>`;
+      $("td-context").textContent = `${c.case_id} · ${t.customer_name || ""} · ${ch(c)} · ${esc(c.after_sales_type || "")}`;
+      const turns = (t.messages && t.messages.length) ? t.messages : [{ role: "顾客", body: t.body, at: t.created_at }];
+      let html = turns.map((m) => {
+        const desk = ["客服", "agent", "desk", "cs"].includes(m.role);
+        return `<div class="td-turn ${desk ? "td-turn-desk" : "td-turn-guest"}">
+          <div class="td-balloon">${esc(m.body || "")}</div>
+          <div class="td-stamp">${esc(desk ? "客服" : (t.customer_name || "顾客"))} · ${esc((m.at || "").replace("T", " ").slice(0, 16))}</div>
+        </div>`;
+      }).join("");
       if (c.banner && c.refused) {
         html += `<div class="td-turn td-turn-note"><div class="td-balloon">${esc(c.banner)}</div></div>`;
       }
@@ -134,11 +148,15 @@
       $("td-go").disabled = !canExec;
       $("td-note").textContent = `下一动：${c.next_action || "—"} · ${c.idempotency_key || ""}`;
       const sla = slaOf(c);
+      $("td-cus").textContent = c.draft_reply || "（无对客草稿）";
+      $("td-l2").textContent = c.internal_note || "（无对内备注）";
       $("td-facts").innerHTML = `
         <div class="td-fact"><span class="td-k">单号</span><span class="td-v">${esc(t.order_id || "—")}</span></div>
+        <div class="td-fact"><span class="td-k">售后</span><span class="td-v">${esc(c.after_sales_type || "—")}</span></div>
         <div class="td-fact"><span class="td-k">金额</span><span class="td-v">¥${esc(t.amount_yuan ?? "—")}</span></div>
-        <div class="td-fact"><span class="td-k">SLA 倒计时</span>
-          <div class="td-timer ${sla.breached ? "td-timer-late" : ""}">${clock(c)}</div></div>
+        <div class="td-fact"><span class="td-k">首次响应</span>
+          <div class="td-timer ${sla.first_response_breached ? "td-timer-late" : ""}">${clock(c)}</div></div>
+        <div class="td-fact"><span class="td-k">完结时钟</span><span class="td-v">${sla.resolution_breached ? "已超时" : ((sla.resolution_remaining ?? "?") + "m")}</span></div>
         <div class="td-fact"><span class="td-k">优先级</span><span class="td-v">${esc(t.priority || sla.priority || "—")}</span></div>
         <div class="td-fact"><span class="td-k">夜班 L2</span><span class="td-v">${sla.l2_empty ? "空岗" : ((sla.l2 && sla.l2.name) || "在岗")}</span></div>`;
       $("td-feed").querySelectorAll(".td-cite").forEach((btn) => {

@@ -48,6 +48,10 @@ def cmd_demo(name: str) -> int:
             print("没有引用，就先不答")
         d = case["decision"]
         print(f"[adjudicator] {d['recommendation']}  {d['title']}")
+        print(f"状态: {d.get('case_status') or case.get('case_status')}")
+        math = d.get("settlement") or case.get("settlement") or {}
+        if math.get("formula"):
+            print(f"试算: {math['formula']}")
         if case.get("banner"):
             print("红条: " + case["banner"])
         if d.get("decision_letter"):

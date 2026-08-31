@@ -9,6 +9,7 @@
 
 - [ ] `python -m claimdesk demo` 对夹具退出码 0。
 - [ ] `wrong-policy-version` 引用 v2、不引用 v1；`no-clause` 红条；`valid-low` 建议通过且 `executed=false`。
+- [ ] 新夹具对照过：免赔试算、店铺部分退差额、复议（有 8.1 也不默示通过）。
 - [ ] 你能指出「按出险日滤版本」的 path:line。
 - [ ] 你能说出决定书几个字段，以及 `confirm=True` 会挂哪条 pytest。
 - [ ] `pytest projects/claimdesk/tests` 绿。
@@ -60,7 +61,7 @@ flowchart LR
 | --- | --- | --- | --- |
 | 材料质检 | 应交清单 vs 附件 | 缺件勾选 | 缺件还审结 |
 | 条款员 | 出险日 + 叙述 | `条款 3.2 · path:line` | 用投保日版本 |
-| 核赔员 | 前两步结构 | 通过 / 补件 / 拒赔 | 调用成功 payout |
+| 核赔员 | 前两步结构 | 通过 / 补件 / 拒赔 / 差额 / 复议 + 试算 | 调用成功 payout |
 
 ![理赔台支付表](../images/claimdesk-table.png)
 
@@ -87,9 +88,14 @@ python -m claimdesk demo --fixture wrong-policy-version
 ===== C-2002  wrong-policy-version  ¥40.0 =====
 [docs] 材料齐全 missing=[]
 [clause] 适用 v2 · 出险日
-引用: 条款 3.2 · docs/policy/qingtu-bao-v2.md:32, 条款 4.1 · docs/policy/qingtu-bao-v2.md:41, docs/policy/qingtu-bao-v2.md:34, docs/policy/qingtu-bao-v2.md:1, docs/policy/qingtu-bao-v2.md:8
+引用: 条款 3.2 · docs/policy/qingtu-bao-v2.md:36, 条款 2.3 · docs/policy/qingtu-bao-v2.md:27, docs/policy/qingtu-bao-v2.md:38, 条款 4.1 · docs/policy/qingtu-bao-v2.md:53, docs/policy/qingtu-bao-v2.md:1
 [adjudicator] 拒赔  除外责任 · 易碎
+状态: 结案
+试算: max(0, 40.00 - 0.00 - 0.00) = 40.00（保额¥80）
 决定书: 出险叙述命中除外（易碎）。建议拒赔，须人确认。
+条款：条款 3.2、条款 2.3、条款 4.1
+计算：max(0, 40.00 - 0.00 - 0.00) = 40.00（保额¥80）
+建议赔付：¥40.00。
 idempotency_key=qingtu:payout:C-2002:4000 executed=False
 ```
 
@@ -109,6 +115,7 @@ python -m claimdesk demo --fixture no-clause
 [clause] 没有引用，就先不答
 没有引用，就先不答
 [adjudicator] 拒审  没有引用，就先不答
+状态: 结案
 红条: 没有引用，就先不答
 idempotency_key=qingtu:payout:C-2012:100 executed=False
 ```
@@ -125,17 +132,63 @@ python -m claimdesk demo --fixture valid-low
 ===== C-2009  valid-low  ¥12.0 =====
 [docs] 材料齐全 missing=[]
 [clause] 适用 v2 · 出险日
-引用: 条款 4.1 · docs/policy/qingtu-bao-v2.md:41, ...
+引用: 条款 2.3 · docs/policy/qingtu-bao-v2.md:27, 条款 4.1 · docs/policy/qingtu-bao-v2.md:53, ...
 [adjudicator] 通过  通过建议 · 仍不打款
-决定书: 材料齐、条款覆盖、金额 ¥12.00 未超限。核赔建议：通过。payout 须人点执行，演示不打款。
+状态: 待人打款
+试算: max(0, 12.00 - 0.00 - 0.00) = 12.00（保额¥80）
+决定书: 材料齐、条款覆盖、金额 ¥12.00 未超限。免赔 ¥0.00。核赔建议：通过。payout 须人点执行，演示不打款。
+条款：条款 2.3、条款 4.1、条款 2.2
+计算：max(0, 12.00 - 0.00 - 0.00) = 12.00（保额¥80）
+建议赔付：¥12.00。
 idempotency_key=qingtu:payout:C-2009:1200 executed=False
 ```
 
 `executed=False` 不是漏写，是纪律。
 
-扫一眼即可：`missing-docs` 补件清单；`shop-already-refunded` 双重受偿；`shared-photo-b` 重复图 `sha256-scene-77ab`。
+扫一眼即可：`missing-docs` 补件清单；`shop-already-refunded` 足额退仍拒（试算冲减至 0）；`shared-photo-b` 重复图 `sha256-scene-77ab`。
 
-本机 `claimdesk demo` 墙钟约 **193 ms**，token = 0。
+token = 0。墙钟以你机器为准。
+
+## 夹具实录 · 初审缺口
+
+### 4. `accident-deductible` · 免赔试算
+
+```bash
+python -m claimdesk demo --fixture accident-deductible
+```
+
+```text
+===== C-2111  accident-deductible  ¥80.0 =====
+[docs] 材料齐全 missing=[]
+[clause] 适用 v2 · 出险日
+引用: 条款 2.3 · docs/policy/qingtu-bao-v2.md:27, ...
+[adjudicator] 通过  通过建议 · 仍不打款
+状态: 待人打款
+试算: max(0, 80.00 - 50.00 - 0.00) = 30.00（保额¥500）
+决定书: …免赔 ¥50.00。核赔建议：通过。
+条款：条款 2.3、条款 4.1
+计算：max(0, 80.00 - 50.00 - 0.00) = 30.00（保额¥500）
+建议赔付：¥30.00。
+idempotency_key=qingtu:payout:C-2111:3000 executed=False
+```
+
+**芯片必须含条款 2.3。** 公式在 [`settle.py:10`](../../projects/claimdesk/src/claimdesk/settle.py)。支付表巨型 ¥ 显示建议赔付，下面有 `cd-math` 试算。
+
+### 5. `shop-partial-offset` · 部分退不是整单拒
+
+店铺退 ¥8、申请 ¥20 → 差额 ¥12，状态「待人打款」，仍不打款。对照 `shop-already-refunded`：店铺退 ¥128 ≥ 申请 ¥12，仍拒赔、冲减至 0。
+
+### 6. `appeal-after-deny` · 有复议条款也不默示通过
+
+```text
+===== C-2116  appeal-after-deny  ¥22.0 =====
+引用: 条款 2.3 · …, 条款 8.1 · docs/policy/qingtu-bao-v2.md:77, …
+[adjudicator] 复议  复议受理 · 待核赔
+状态: 待核赔
+决定书: 已引用复议条款。进入待核赔，不因新证据默示改判通过。须人审。
+```
+
+再扫：`reject-unsigned` 芯片 3.4；`signed-damaged` 芯片 3.5；`delay-only` 仍除外；`supplement-returned` 补件回传入「待人打款」；`photo-signed-track-unsigned` 轨迹 `in_transit` → 补件，不通过。
 
 ## 出险日 vs 投保日（path:line）
 
@@ -146,18 +199,21 @@ idempotency_key=qingtu:payout:C-2009:1200 executed=False
 | [`rag.py:108-117`](../../projects/claimdesk/src/claimdesk/rag.py) | `_in_force` 用出险日滤生效/失效 |
 | [`clause.py:16-18`](../../projects/claimdesk/src/claimdesk/agents/clause.py) | 再钉一次，丢掉 `version != expected` |
 | v2 条款 0.2 [`qingtu-bao-v2.md:10`](../../projects/claimdesk/docs/policy/qingtu-bao-v2.md) | 适用出险当日，投保日不得主张 v1 易碎赔付 |
+| v2 条款 2.3 [`qingtu-bao-v2.md:27`](../../projects/claimdesk/docs/policy/qingtu-bao-v2.md) | 免赔：运费 0 / 意外 50 |
 
 投保日字段 `insured_at` 在夹具里存在，**检索函数不读它**。
 
 ## 决定书草稿字段
 
-核赔员返回值 [`adjudicator.py:63-77`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)：
+核赔员返回值 [`adjudicator.py:92-109`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)：
 
 | 字段 | 含义 | `valid-low` | `no-clause` |
 | --- | --- | --- | --- |
 | `recommendation` | 通过 / 补件 / 拒赔 / 拒审 | 通过 | 拒审 |
 | `title` | 一行结论 | 通过建议 · 仍不打款 | 没有引用，就先不答 |
-| `decision_letter` | 给人看的草稿 | 材料齐…演示不打款 | （空，红条优先） |
+| `decision_letter` | 给人看的草稿，须带条款号+计算式 | 材料齐…建议赔付 ¥12 | （空，红条优先） |
+| `case_status` | 状态机 | 待人打款 | 结案 |
+| `settlement.formula` | 免赔试算 | max(0, 12-0-0)=12 | 有数但不审 |
 | `next_action` | 下一步 | `wait_human_confirm` | `refuse` |
 | `banner` | 红条 | 空 | 没有引用，就先不答 |
 | `idempotency_key` | `qingtu:payout:{id}:{分}` | `…C-2009:1200` | `…C-2012:100` |
@@ -186,14 +242,14 @@ v1 禁止为了「自动赔付」去把 `confirm=True` 写进核赔员。
 python -m claimdesk serve
 ```
 
-http://127.0.0.1:8001 。先支付表（案件号 / 险种 / ¥ / 状态 / 出险日），再点进卷宗。巨型金额、条款标签、核赔三键在无芯片时是灰的。强调色 blurple，不是 Inbox 蓝。
+http://127.0.0.1:8001 。先支付表（案件号 / 险种 / ¥ / 状态机 / 出险日），再点进卷宗。巨型金额（建议赔付）、试算式、条款标签、核赔三键在无芯片时是灰的。强调色 blurple，不是 Inbox 蓝。状态机：已报案 → 立案 → 补件中 → 待核赔 → 待人打款 / 结案。
 
 ```bash
 python -m pytest projects/claimdesk/tests -q
 python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 ```
 
-本机 8/8。Docker：`docker compose -f projects/claimdesk/docker-compose.yml up --build`
+set8 仍是 8 行闸门评测；新夹具由 `pytest projects/claimdesk/tests` 钉死。Docker：`docker compose -f projects/claimdesk/docker-compose.yml up --build`
 
 ## 练习
 
@@ -210,7 +266,9 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 | 出险日 | 检索 `at=` 的那天 |
 | 条款版本 | v1 / v2，不是投保日印象 |
 | 拒审 | 无芯片，不给建议 |
-| 决定书 | `decision_letter`，不是打款回执 |
+| 决定书 | `decision_letter`，须条款号 + 计算式 |
+| 免赔试算 | `max(0, 申请 - 免赔 - 冲减)`，运费 0 / 意外 50 |
+| 状态机 | 补件中 / 待核赔 / 待人打款 / 结案 |
 
 [禁止项纸](../cheatsheets/claimdesk-roles.md)
 

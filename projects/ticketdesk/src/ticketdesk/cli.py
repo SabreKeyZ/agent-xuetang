@@ -56,8 +56,17 @@ def cmd_demo(name: str) -> int:
         if case.get("banner"):
             print(f"红条: {case['banner']}")
         if gate.get("draft_reply"):
-            print("草稿: " + gate["draft_reply"])
-        print(f"payment.status={gate['payment']['status']}")
+            print("对客草稿: " + gate["draft_reply"])
+        if gate.get("internal_note"):
+            print("对内备注: " + gate["internal_note"])
+        if gate.get("after_sales_type"):
+            print(f"售后类型: {gate['after_sales_type']}")
+        sla = case.get("sla") or {}
+        print(
+            f"SLA 首次={sla.get('first_response_remaining')}m 完结={sla.get('resolution_remaining')}m "
+            f"夜间L2={'空' if sla.get('l2_empty') else '在'}"
+        )
+        print(f"payment.status={gate['payment']['status']} kind={gate.get('compensation_kind') or gate['payment'].get('kind') or 'cash'}")
     print()
     print("[ticketdesk] demo 结束。下一步: python -m ticketdesk serve")
     return 0

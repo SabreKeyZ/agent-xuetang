@@ -1,0 +1,13 @@
+{
+  "order_id": "QX-202608-2104",
+  "shop_id": "qingxia",
+  "customer_id": "u_seven",
+  "placed_at": "2026-08-10T09:00:00+08:00",
+  "amount_yuan": 54.0,
+  "paid_yuan": 54.0,
+  "sku": "宣纸册",
+  "tracking": "YT21040810",
+  "last_scan_at": "2026-08-12T10:00:00+08:00",
+  "status": "delivered",
+  "signed_at": "2026-08-12T10:00:00+08:00"
+}

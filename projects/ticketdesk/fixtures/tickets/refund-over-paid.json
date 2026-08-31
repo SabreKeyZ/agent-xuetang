@@ -1,0 +1,22 @@
+{
+  "id": "T-2105",
+  "fixture_id": "refund-over-paid",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T14:30:00+08:00",
+  "now": "2026-08-28T14:45:00+08:00",
+  "order_id": "QX-202608-2105",
+  "shop_id": "qingxia",
+  "customer_id": "u_overpaid",
+  "customer_name": "按原价要",
+  "amount_yuan": 128,
+  "refund_yuan": 128,
+  "after_sales_type": "退货退款",
+  "attachments": ["unbox-mold.jpg"],
+  "prior_actions": [],
+  "title": "云店季订发霉，按原价全额退",
+  "body": "云店季订发霉了，质量不行。标价 128，请按原价全额退 128 元，不要按优惠后的数。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

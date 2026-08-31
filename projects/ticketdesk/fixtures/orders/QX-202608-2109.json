@@ -1,0 +1,12 @@
+{
+  "order_id": "QX-202608-2109",
+  "shop_id": "qingxia",
+  "customer_id": "u_dualsla",
+  "placed_at": "2026-08-27T10:00:00+08:00",
+  "amount_yuan": 54.0,
+  "paid_yuan": 54.0,
+  "sku": "宣纸册",
+  "tracking": "YT21090827",
+  "last_scan_at": "2026-08-28T11:00:00+08:00",
+  "status": "in_transit"
+}

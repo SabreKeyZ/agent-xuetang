@@ -1,0 +1,24 @@
+{
+  "id": "C-2117",
+  "fixture_id": "photo-signed-track-unsigned",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_fake_pod",
+  "insured_name": "轨迹未签",
+  "claimant_id": "p_fake_pod",
+  "claimant_name": "轨迹未签",
+  "policy_no": "QT-FR-202608-217",
+  "order_id": "QX-202608-2106",
+  "tracking": "YT-TRANSIT-2117",
+  "insured_at": "2026-08-10T09:00:00+08:00",
+  "incident_at": "2026-08-24T09:00:00+08:00",
+  "filed_at": "2026-08-25T09:00:00+08:00",
+  "now": "2026-08-25T09:00:00+08:00",
+  "amount_yuan": 14,
+  "attachments": [
+    {"name": "所谓签收图.jpg", "file_id": "att-pod-2117", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-2117", "kind": "发票"}
+  ],
+  "prior_actions": [],
+  "narrative": "外包装破损，照片称已签收。请按运费险赔 14 元。"
+}

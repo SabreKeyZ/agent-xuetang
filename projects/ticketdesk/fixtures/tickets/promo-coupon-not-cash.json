@@ -1,0 +1,21 @@
+{
+  "id": "T-2106",
+  "fixture_id": "promo-coupon-not-cash",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T10:10:00+08:00",
+  "now": "2026-08-28T10:30:00+08:00",
+  "order_id": "QX-202608-2106",
+  "shop_id": "qingxia",
+  "customer_id": "u_coupon",
+  "customer_name": "只要券",
+  "amount_yuan": 68,
+  "refund_yuan": 0,
+  "attachments": ["tracking-yt2106.png"],
+  "prior_actions": [],
+  "title": "大促墨水轨迹停了，补运费",
+  "body": "8 月 20 日大促买的青松墨水，快递揽收后没动，已超 48 小时。按盛夏大促要 12 元运费补偿，请打到微信。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

@@ -1,0 +1,15 @@
+{
+  "order_id": "QX-202608-2105",
+  "shop_id": "qingxia",
+  "customer_id": "u_overpaid",
+  "placed_at": "2026-08-19T11:00:00+08:00",
+  "amount_yuan": 128.0,
+  "paid_yuan": 98.0,
+  "sku": "云店季订",
+  "tracking": "YT21050819",
+  "last_scan_at": "2026-08-21T15:00:00+08:00",
+  "status": "delivered",
+  "signed_at": "2026-08-21T15:00:00+08:00",
+  "inbound_at": "2026-08-27T11:00:00+08:00",
+  "return_tracking": "SF21050827"
+}

@@ -44,6 +44,8 @@ class Supervisor:
             "labels": [claim.product, decision["recommendation"]],
             "next_action": decision["next_action"],
             "draft_reply": decision["decision_letter"],
+            "case_status": decision.get("case_status") or "",
+            "settlement": decision.get("settlement") or {},
             "citations": clause.get("citations") or [],
             "executed": False,
             "requires_human": True,
@@ -73,6 +75,13 @@ class Supervisor:
             "valid-low",
             "wrong-claimant",
             "no-clause",
+            "accident-deductible",
+            "shop-partial-offset",
+            "reject-unsigned",
+            "signed-damaged",
+            "supplement-returned",
+            "appeal-after-deny",
+            "photo-signed-track-unsigned",
         ]
         catalog = {c.fixture_id: c for c in self.catalog()}
         cases = [self.process(catalog[n]) for n in names if n in catalog]

@@ -9,6 +9,8 @@ REQUIRED = {
 }
 
 LIMITS = {"freight": 80.0, "accident": 500.0}
+DEDUCTIBLE = {"freight": 0.0, "accident": 50.0}
+STATUSES = ("已报案", "立案", "补件中", "待核赔", "待人打款", "结案")
 
 
 @dataclass
@@ -31,6 +33,7 @@ class Claim:
     prior_actions: list[dict[str, Any]]
     narrative: str
     fixture_id: str = ""
+    tracking: str = ""
 
     @classmethod
     def from_dict(cls, data: dict[str, Any], fixture_id: str = "") -> "Claim":
@@ -60,6 +63,7 @@ class Claim:
             prior_actions=list(data.get("prior_actions") or []),
             narrative=str(data.get("narrative") or data.get("body") or ""),
             fixture_id=fixture_id or str(data.get("fixture_id") or ""),
+            tracking=str(data.get("tracking") or ""),
         )
 
     def as_dict(self) -> dict[str, Any]:

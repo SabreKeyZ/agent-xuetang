@@ -21,7 +21,7 @@
           <th>案件号</th>
           <th>险种</th>
           <th class="cd-num">金额</th>
-          <th>状态</th>
+          <th>状态机</th>
           <th>出险日</th>
         </tr>
       </thead>
@@ -52,7 +52,8 @@
     }[c]));
     const yuan = (n) => "¥" + Number(n || 0).toFixed(2);
     const product = (p) => p === "accident" ? "意外险" : "运费险";
-    const recClass = (r) => ({ "通过": "cd-st-ok", "补件": "cd-st-hold", "拒赔": "cd-st-no", "拒审": "cd-st-no" }[r] || "");
+    const recClass = (r) => ({ "通过": "cd-st-ok", "补件": "cd-st-hold", "拒赔": "cd-st-no", "拒审": "cd-st-no", "差额": "cd-st-ok", "复议": "cd-st-hold" }[r] || "");
+    const statusOf = (c) => c.case_status || (c.decision || {}).case_status || (c.decision || {}).recommendation || "立案";
     const role = (r) => ({ docs_check: "材料质检", clause: "条款员", adjudicator: "核赔员", store: "账本", human: "同事" }[r] || r);
 
     function showBoard() {
@@ -72,11 +73,12 @@
       $("cd-rows").innerHTML = cases.map((c) => {
         const cl = c.claim || {};
         const rec = (c.decision || {}).recommendation || "待审";
+        const st = statusOf(c);
         return `<tr class="cd-tr" data-id="${esc(c.case_id)}">
           <td>${esc(cl.id || c.case_id)}</td>
           <td>${esc(product(cl.product))}</td>
           <td class="cd-num">${yuan(cl.amount_yuan)}</td>
-          <td><span class="cd-st ${recClass(rec)}">${esc(rec)}</span></td>
+          <td><span class="cd-st ${recClass(rec)}">${esc(st)}</span></td>
           <td>${esc((cl.incident_at || "").slice(0, 10))}</td>
         </tr>`;
       }).join("");
@@ -102,9 +104,11 @@
       const log = (d.audit || []).map((a) =>
         `<li class="cd-logitem"><b>${esc(role(a.role))}</b> · ${esc(a.detail || a.action)}</li>`
       ).join("");
+      const math = d.settlement || {};
       $("cd-main").innerHTML = `
-        <div class="cd-yen">${yuan(cl.amount_yuan)}</div>
-        <div class="cd-sub">${esc(cl.id)} · ${esc(cl.policy_no)} · 出险 ${esc((cl.incident_at || "").slice(0, 10))} · <span class="cd-st ${recClass(rec)}">${esc(rec || "待审")}</span> · ${esc(d.policy_version || "—")}</div>
+        <div class="cd-yen">${yuan(math.suggested_yuan != null ? math.suggested_yuan : cl.amount_yuan)}</div>
+        <div class="cd-sub">${esc(cl.id)} · ${esc(cl.policy_no)} · 出险 ${esc((cl.incident_at || "").slice(0, 10))} · <span class="cd-st ${recClass(rec)}">${esc(statusOf(d))}</span> · ${esc(rec || "待审")} · ${esc(d.policy_version || "—")}</div>
+        ${math.formula ? `<div class="cd-math">试算 ${esc(math.formula)}</div>` : ""}
         <div class="cd-tags">${tags || `<span class="cd-fine">无条款标签</span>`}</div>
         ${d.banner ? `<div class="cd-alert">${esc(d.banner)}</div>` : ""}
         <ol class="cd-log">${log}</ol>
@@ -118,7 +122,7 @@
         b.disabled = locked;
         b.classList.remove("cd-act-on");
       });
-      const map = { "通过": "cd-pass", "补件": "cd-sup", "拒赔": "cd-deny" };
+      const map = { "通过": "cd-pass", "差额": "cd-pass", "补件": "cd-sup", "拒赔": "cd-deny", "复议": "cd-sup" };
       if (map[rec]) $(map[rec]).classList.add("cd-act-on");
       $("cd-cash").disabled = true;
       $("cd-fine").textContent = locked

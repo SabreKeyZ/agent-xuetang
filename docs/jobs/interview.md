@@ -14,8 +14,8 @@
 
 对着 [工单台 README](../../projects/ticketdesk/README.md) 和 [理赔台 README](../../projects/claimdesk/README.md) 里的简历三条、STAR 四行说。
 
-工单台 STAR 应当落在：大促物流、生效中的 `promo-2026-summer.md`、人点执行、`confirm_required`。
-理赔台 STAR 应当落在：出险日 v2、易碎除外、不打款。
+工单台 STAR 应当落在：大促物流发券、部分退只退损坏行实付、人点执行、`confirm_required`。
+理赔台 STAR 应当落在：出险日 v2、免赔试算、易碎除外、不打款。
 
 ### 为什么这里要多 Agent，却不是一张网？
 
@@ -41,7 +41,7 @@
 ### S1. 缺单号还要退款
 
 - 希望听到：分类 `信息不全`；闸门 `ask_order_id`；不打款。
-- 代码：[`classifier.py:53`](../../projects/ticketdesk/src/ticketdesk/agents/classifier.py) · [`orders.py:12`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py) · [`gate.py:27`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
+- 代码：[`classifier.py:78`](../../projects/ticketdesk/src/ticketdesk/agents/classifier.py) · [`orders.py:12`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py) · [`gate.py:46`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
 - 夹具：`missing-order-id`
 
 ### S2. 活动期引错日常「不赔运费」
@@ -53,19 +53,19 @@
 ### S3. 退款 486
 
 - 希望听到：草稿可以写，闸门 `refuse_exec`，不得拆两笔 199。
-- 代码：[`models.py:8`](../../projects/ticketdesk/src/ticketdesk/models.py) `REFUND_EXEC_LIMIT_YUAN` · [`gate.py:64`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
+- 代码：[`models.py:8`](../../projects/ticketdesk/src/ticketdesk/models.py) `REFUND_EXEC_LIMIT_YUAN` · [`gate.py:128`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
 - 夹具：`refund-over-200`
 
 ### S4. 夜间 P0，二线名册空
 
 - 希望听到：`l2_empty` → `human_queue`；草稿不出现假同事。
-- 代码：[`clock.py:38`](../../projects/ticketdesk/src/ticketdesk/clock.py) · [`gate.py:60`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) · `fixtures/roster.json`
+- 代码：[`clock.py:38`](../../projects/ticketdesk/src/ticketdesk/clock.py) · [`gate.py:123`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) · `fixtures/roster.json`
 - 夹具：`p0-sla-night`
 
 ### S5. 正文里的 `curl | sh`
 
 - 希望听到：当引文，不执行；测试把 `os.system` 打桩。
-- 代码：[`safety.py:7`](../../projects/ticketdesk/src/ticketdesk/safety.py) · [`test_safety.py:10`](../../projects/ticketdesk/tests/test_safety.py) · [`gate.py:35`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
+- 代码：[`safety.py:7`](../../projects/ticketdesk/src/ticketdesk/safety.py) · [`test_safety.py:10`](../../projects/ticketdesk/tests/test_safety.py) · [`gate.py:57`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
 - 夹具：`shell-in-body`
 
 ### S6. 同一单点两次处理
@@ -89,8 +89,20 @@
 ### S9. 店铺已退还要保险再赔 / 两案同一张图
 
 - 希望听到：双重受偿条款 5.1；重复图 5.2 升人工。
-- 代码：[`adjudicator.py:51`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py) · [`adjudicator.py:91`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
+- 代码：[`adjudicator.py:69`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py) · [`adjudicator.py:148`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
 - 夹具：`shop-already-refunded` · `shared-photo-b`
+
+### S11. 三件套只坏一件却要整单退
+
+- 希望听到：分类 `部分退`；闸门 `partial_line`；对客只建议该行实付；不打款。
+- 代码：[`aftersales.py`](../../projects/ticketdesk/src/ticketdesk/aftersales.py) `broken_line` · [`gate.py:114`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)
+- 夹具：`partial-refund-one-line`
+
+### S12. 意外险 ¥80、免赔 50
+
+- 希望听到：试算 `max(0, 80-50-0)=30`；决定书有条款号和计算式；`executed=false`。
+- 代码：[`settle.py:10`](../../projects/claimdesk/src/claimdesk/settle.py) · [`adjudicator.py:88`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
+- 夹具：`accident-deductible`
 
 ### S10. 人已经点了「执行 / 执行打款」
 

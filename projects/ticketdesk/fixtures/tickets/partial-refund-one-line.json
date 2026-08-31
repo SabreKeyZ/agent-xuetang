@@ -1,0 +1,22 @@
+{
+  "id": "T-2103",
+  "fixture_id": "partial-refund-one-line",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T13:00:00+08:00",
+  "now": "2026-08-28T13:20:00+08:00",
+  "order_id": "QX-202608-2103",
+  "shop_id": "qingxia",
+  "customer_id": "u_partial",
+  "customer_name": "只坏一件",
+  "amount_yuan": 198,
+  "refund_yuan": 198,
+  "after_sales_type": "退货退款",
+  "attachments": ["yan-crack.jpg"],
+  "prior_actions": [],
+  "title": "三件里砚台裂了，整单退",
+  "body": "套装三件：青松墨水、砚台小样、宣纸册。只有砚台小样裂了，一件坏。请把整单 198 元都退了。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}
