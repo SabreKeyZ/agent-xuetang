@@ -2,6 +2,8 @@
 
 默认 **9 周**（第 0 周摆桌子 + 第 1–8 周）× 5–6 小时，合计约 48 小时。压缩 6 格见根目录 README：第一格是 0+1+2 = 16 小时，不是 8–10。做不完就停在验收，不要跳周。
 
+只有 2 小时、不走完整 9 周：走 [2 小时路径](two-hour.md)。那是走读脚本，不是替换下面的周表。
+
 词表：[../glossary.md](../glossary.md) · 一页纸：[../cheatsheet.md](../cheatsheet.md) · 分册：[../cheatsheets/](../cheatsheets/) · 参考答案：[answers/](answers/)（做完题再打开）
 
 ## 资料怎么用
