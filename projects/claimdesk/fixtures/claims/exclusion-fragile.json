@@ -1,0 +1,23 @@
+{
+  "id": "C-2003",
+  "fixture_id": "exclusion-fragile",
+  "product": "freight",
+  "channel": "邮件",
+  "insured_id": "p_ciqi",
+  "insured_name": "瓷青",
+  "claimant_id": "p_ciqi",
+  "claimant_name": "瓷青",
+  "policy_no": "QT-FR-202607-440",
+  "order_id": "QX-202608-8801",
+  "insured_at": "2026-07-08T11:00:00+08:00",
+  "incident_at": "2026-08-25T12:00:00+08:00",
+  "filed_at": "2026-08-26T09:00:00+08:00",
+  "now": "2026-08-26T09:00:00+08:00",
+  "amount_yuan": 72,
+  "attachments": [
+    {"name": "签收图.jpg", "file_id": "att-pod-8801", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-8801", "kind": "发票"}
+  ],
+  "prior_actions": [],
+  "narrative": "陶瓷砚台小样易碎，运输中裂开。知道条款 3.2 写了易碎除外，还是想试着报。"
+}

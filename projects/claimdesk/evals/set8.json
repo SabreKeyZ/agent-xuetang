@@ -1,0 +1,10 @@
+[
+  {"id": "cd-1", "fixture": "missing-docs", "expect_rec": "补件", "executed_must_be_false": true, "note": "缺件"},
+  {"id": "cd-2", "fixture": "wrong-policy-version", "expect_rec": "拒赔", "must_cite": true, "executed_must_be_false": true, "note": "出险日 v2"},
+  {"id": "cd-3", "fixture": "exclusion-fragile", "expect_rec": "拒赔", "must_cite": true, "note": "除外"},
+  {"id": "cd-4", "fixture": "over-limit", "expect_rec": "拒赔", "note": "超保额"},
+  {"id": "cd-5", "fixture": "over-window", "expect_rec": "拒赔", "note": "超窗口"},
+  {"id": "cd-6", "fixture": "shop-already-refunded", "expect_rec": "拒赔", "note": "双重受偿"},
+  {"id": "cd-7", "fixture": "valid-low", "expect_rec": "通过", "must_cite": true, "executed_must_be_false": true, "note": "低额通过建议"},
+  {"id": "cd-8", "fixture": "no-clause", "expect_rec": "拒审", "executed_must_be_false": true, "note": "无引用红条"}
+]

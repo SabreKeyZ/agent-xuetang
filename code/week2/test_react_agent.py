@@ -38,7 +38,7 @@ def test_eval_json_has_three_cases():
 
 
 def test_mix_uses_both_tools():
-    trace = ReactAgent().run("问学堂是什么？另外 2 + 5 等于多少")
+    trace = ReactAgent().run("工单台是什么？另外 2 + 5 等于多少")
     actions = [row["action"] for row in trace.log]
     assert "search" in actions
     assert "calculator" in actions

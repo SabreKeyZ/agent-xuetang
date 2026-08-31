@@ -16,9 +16,9 @@ HERE = Path(__file__).resolve().parent
 
 SEARCH_TABLE: list[tuple[tuple[str, ...], str]] = [
     (("mcp", "MCP"), "Agent学堂在第4周写一个很小的 MCP 服务器。"),
-    (("问学堂", "askhall"), "问学堂是毕业作品，吃本仓库文档当知识库。"),
+    (("工单台", "ticketdesk"), "工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。"),
     (("react", "ReAct"), "ReAct 是一种把思考和行动写成字段的循环写法。"),
-    (("值班台", "issueforge"), "开源值班台在第7周：分流、复现清单、双语回复。"),
+    (("理赔台", "claimdesk"), "理赔台在第7周：材料质检、条款引用、核赔建议不打款。"),
 ]
 
 
@@ -157,7 +157,7 @@ def rule_brain(query: str, log: list[dict[str, Any]]) -> Decision:
     used = {row["action"] for row in log}
     math = extract_math(query)
     want_search = any(
-        key in query for key in ("第几周", "问学堂", "MCP", "mcp", "ReAct", "值班台", "Agent学堂")
+        key in query for key in ("第几周", "工单台", "MCP", "mcp", "ReAct", "理赔台", "Agent学堂")
     )
     want_calc = math is not None or "等于多少" in query
 

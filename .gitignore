@@ -29,6 +29,8 @@ Thumbs.db
 logs/
 .askhall/
 .issueforge/
+.ticketdesk/
+.claimdesk/
 demo-out/
 
 # Docker

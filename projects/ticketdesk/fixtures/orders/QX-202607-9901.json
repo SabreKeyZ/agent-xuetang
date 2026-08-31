@@ -1,0 +1,11 @@
+{
+  "order_id": "QX-202607-9901",
+  "shop_id": "qingxia",
+  "customer_id": "u_heqing",
+  "placed_at": "2026-07-30T14:20:00+08:00",
+  "amount_yuan": 128.0,
+  "sku": "青匣云店 季订",
+  "tracking": "JDVE09901",
+  "last_scan_at": "2026-08-01T10:00:00+08:00",
+  "status": "refunded"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "T-1002",
+  "fixture_id": "wrong-shop-order",
+  "channel": "邮件",
+  "created_at": "2026-08-28T11:10:00+08:00",
+  "now": "2026-08-28T11:40:00+08:00",
+  "order_id": "OTHER-SHOP-991",
+  "shop_id": "qingxia",
+  "customer_id": "u_wrongshop",
+  "customer_name": "阮错店",
+  "amount_yuan": 199,
+  "refund_yuan": 199,
+  "attachments": ["screenshot-taobao.png"],
+  "prior_actions": [],
+  "title": "这个电饭煲不加热，要退款",
+  "body": "单号 OTHER-SHOP-991，是我从别的页复制过来的。青匣记客服你帮我退了。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

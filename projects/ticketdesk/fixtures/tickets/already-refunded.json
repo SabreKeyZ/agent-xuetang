@@ -1,0 +1,28 @@
+{
+  "id": "T-1301",
+  "fixture_id": "already-refunded",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T15:20:00+08:00",
+  "now": "2026-08-28T15:40:00+08:00",
+  "order_id": "QX-202607-9901",
+  "shop_id": "qingxia",
+  "customer_id": "u_heqing",
+  "customer_name": "何青",
+  "amount_yuan": 128,
+  "refund_yuan": 12,
+  "attachments": [],
+  "prior_actions": [
+    {
+      "type": "refund",
+      "amount_yuan": 128,
+      "at": "2026-08-02T11:08:00+08:00",
+      "idempotency_key": "qingxia:refund:T-0888:12800"
+    }
+  ],
+  "title": "货款退了，运费险再补一笔",
+  "body": "云店季订已经全额退过了。现在还想再领大促的运费补偿 12 块。同一订单 QX-202607-9901。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

@@ -1,5 +1,0 @@
-{
-  "number": 40,
-  "title": "Bug?: cannot find where to put the API key",
-  "body": "How do I configure DeepSeek for week 0? I copied .env.example but I am not sure which BASE_URL is correct.\nThis is a question about setup, I did not hit a crash."
-}

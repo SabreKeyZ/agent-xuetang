@@ -1,0 +1,21 @@
+{
+  "id": "T-1401",
+  "fixture_id": "refund-over-200",
+  "channel": "电话转写",
+  "created_at": "2026-08-28T13:00:00+08:00",
+  "now": "2026-08-28T13:25:00+08:00",
+  "order_id": "QX-202608-4408",
+  "shop_id": "qingxia",
+  "customer_id": "u_zhaomu",
+  "customer_name": "赵牧",
+  "amount_yuan": 486,
+  "refund_yuan": 486,
+  "attachments": ["unbox.jpg"],
+  "prior_actions": [],
+  "title": "镇尺有划痕，整单退款",
+  "body": "黄铜镇尺到货有划痕，云店年订也不想要了。请把 486 元一并退款。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

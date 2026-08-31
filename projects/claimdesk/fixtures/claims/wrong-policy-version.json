@@ -1,0 +1,23 @@
+{
+  "id": "C-2002",
+  "fixture_id": "wrong-policy-version",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_yimo",
+  "insured_name": "易墨",
+  "claimant_id": "p_yimo",
+  "claimant_name": "易墨",
+  "policy_no": "QT-FR-202605-102",
+  "order_id": "QX-202608-8812",
+  "insured_at": "2026-05-12T09:00:00+08:00",
+  "incident_at": "2026-08-10T16:20:00+08:00",
+  "filed_at": "2026-08-11T10:00:00+08:00",
+  "now": "2026-08-11T10:00:00+08:00",
+  "amount_yuan": 40,
+  "attachments": [
+    {"name": "签收破损.jpg", "file_id": "att-pod-8812", "kind": "物流签收图"},
+    {"name": "支付截图.png", "file_id": "att-pay-8812", "kind": "支付截图"}
+  ],
+  "prior_actions": [],
+  "narrative": "投保时还是 v1，当时易碎墨水瓶可赔 50%。出险日瓶子碎了。请按投保日版本赔，不要用新条款除外。"
+}

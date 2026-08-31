@@ -71,7 +71,7 @@ python -m pytest code/week2 -q
 ```text
 [PASS] calc-1 tools=['calculator'] final=21
 [PASS] search-1 tools=['search'] final=Agent学堂在第4周写一个很小的 MCP 服务器。
-[PASS] mix-1 tools=['search', 'calculator'] final=问学堂是毕业作品，吃本仓库文档当知识库。；7
+[PASS] mix-1 tools=['search', 'calculator'] final=工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。；7
 ```
 
 第三条最容易写砸——规则可能算对了却没去搜，或搜了对却算错。`mix-1` 的轨迹必须两种工具都在。
@@ -79,10 +79,10 @@ python -m pytest code/week2 -q
 既有课程名词又有算式时，本机是：
 
 ```text
-{"step": 1, "thought": "先查课程表。", "action": "search", "observation": "问学堂是毕业作品，吃本仓库文档当知识库。"}
+{"step": 1, "thought": "先查课程表。", "action": "search", "observation": "工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。"}
 {"step": 2, "thought": "还需要算一下。", "action": "calculator", "observation": "7"}
-{"step": 3, "thought": "材料齐了。", "action": "finish", "observation": "问学堂是毕业作品，吃本仓库文档当知识库。；7"}
-[final] 问学堂是毕业作品，吃本仓库文档当知识库。；7
+{"step": 3, "thought": "材料齐了。", "action": "finish", "observation": "工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。；7"}
+[final] 工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。；7
 ```
 
 ## 失败对照 · `--eval` 3/0 与除零
@@ -92,7 +92,7 @@ python -m pytest code/week2 -q
 ```text
 [FAIL] calc-1 tools=['calculator'] final=21
 [FAIL] search-1 tools=['search'] final=Agent学堂在第4周写一个很小的 MCP 服务器。
-[FAIL] mix-1 tools=['search', 'calculator'] final=问学堂是毕业作品，吃本仓库文档当知识库。；7
+[FAIL] mix-1 tools=['search', 'calculator'] final=工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。；7
 ```
 
 三条全红，退出码 1。评测自己不会说话，退出码会。改完用例记得还原。
@@ -122,7 +122,7 @@ $ python code/week2/react_agent.py --query "3/0 等于多少"
 
 ## 练习
 
-1. 给假搜索加一个条目：「值班台」。写第 4 条评测，确认能命中。（表里已经有「值班台」，缺的是你的第四条 JSON。）
+1. 给假搜索加一个条目：「理赔台」。写第 4 条评测，确认能命中。（表里已经有「理赔台」，缺的是你的第四条 JSON。）
 2. 把计算器输入改成 `3/0`，观察值必须是明确错误，最终答案不得编造一个数字。
 3. 故意把 `expect_tool` 写错，确认 `--eval` 会以非零退出码失败。
 

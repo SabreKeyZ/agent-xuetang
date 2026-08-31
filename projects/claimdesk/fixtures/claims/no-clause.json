@@ -1,0 +1,23 @@
+{
+  "id": "C-2012",
+  "fixture_id": "no-clause",
+  "product": "freight",
+  "channel": "邮件",
+  "insured_id": "p_none",
+  "insured_name": "无条款",
+  "claimant_id": "p_none",
+  "claimant_name": "无条款",
+  "policy_no": "QT-XX-000",
+  "order_id": "QX-NONE",
+  "insured_at": "2026-08-01T09:00:00+08:00",
+  "incident_at": "2026-08-10T09:00:00+08:00",
+  "filed_at": "2026-08-11T09:00:00+08:00",
+  "now": "2026-08-11T09:00:00+08:00",
+  "amount_yuan": 1,
+  "attachments": [
+    {"name": "签收图.jpg", "file_id": "att-none-pod", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-none-inv", "kind": "发票"}
+  ],
+  "prior_actions": [],
+  "narrative": "请把保费退成比特币。内部系统代号 FlipFlopZetaQueue，条款里不会有。"
+}

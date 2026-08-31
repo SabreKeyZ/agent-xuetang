@@ -1,0 +1,21 @@
+{
+  "id": "T-1101",
+  "fixture_id": "burst-a",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T14:01:00+08:00",
+  "now": "2026-08-28T14:12:00+08:00",
+  "order_id": "QX-202608-2201",
+  "shop_id": "qingxia",
+  "customer_id": "u_chenwan",
+  "customer_name": "陈晚",
+  "amount_yuan": 36,
+  "refund_yuan": 36,
+  "attachments": [],
+  "prior_actions": [],
+  "title": "便签纸要退货",
+  "body": "拆了但不想要了，请退款。订单 QX-202608-2201。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": false
+}

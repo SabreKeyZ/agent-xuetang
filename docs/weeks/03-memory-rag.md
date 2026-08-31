@@ -7,7 +7,7 @@
 
 RAG（检索再生成）只是长记忆的一种用法：先找出可能有用的段落，再允许模型说话。
 本周你要强制另一件事：**说话必须带引用，格式是 `path:line`。**
-问学堂后来把这句话印在脸上：没有引用，就先不答。
+工单台和理赔台把这句话印在脸上：没有引用，就先不答。
 
 ## 目标
 
@@ -48,7 +48,7 @@ flowchart LR
 
 ### 长记忆为什么是文件
 
-问学堂要把「第 4 周的目标」答对，靠的不是模型预训练里有没有这句话，
+工单台要把「活动期补偿」答对，靠的不是模型预训练里有没有这句话，
 而是磁盘上 `docs/weeks/04-mcp-and-skills.md` 还在不在。
 
 ### 对着我们的检索器
@@ -65,7 +65,7 @@ flowchart LR
 
 ```bash
 python code/week3/mini_rag.py --query "第几周写 MCP"
-python code/week3/mini_rag.py --query "问学堂有哪些角色"
+python code/week3/mini_rag.py --query "工单台有哪些角色"
 python -m pytest code/week3 -q
 ```
 
@@ -104,7 +104,7 @@ $ python code/week3/mini_rag.py --query "MCP" --docs /tmp/empty-docs
 
 **原因。** [`178:180:code/week3/mini_rag.py`](../../code/week3/mini_rag.py)：corpus 为空就打印 `hits=[]`，不当成「模型没印象」。
 
-**修复。** 作业路径不要传空目录。你要留下这张零命中的输出，第 6 周问学堂的红条「没有引用，就先不答」就是从这里长出来的。
+**修复。** 作业路径不要传空目录。你要留下这张零命中的输出，第 6 周工单台的红条「没有引用，就先不答」就是从这里长出来的。
 
 ## 对应视频
 
@@ -131,7 +131,7 @@ $ python code/week3/mini_rag.py --query "MCP" --docs /tmp/empty-docs
 
 - 用绝对路径当引用，换一台机器全部失效。引用从仓库根算。
 - 按字节切块，把一个汉字切成两半。按行切。
-- 检索 0 条仍然让模型「凭印象」答。这是第 6 周问学堂抽取式回退要挡住的事。
+- 检索 0 条仍然让模型「凭印象」答。这是第 6 周工单台抽取式回退要挡住的事。
 
 ## 延伸阅读
 

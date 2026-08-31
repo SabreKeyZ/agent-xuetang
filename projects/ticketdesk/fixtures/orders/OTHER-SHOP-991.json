@@ -1,0 +1,11 @@
+{
+  "order_id": "OTHER-SHOP-991",
+  "shop_id": "heshi-mart",
+  "customer_id": "u_wrongshop",
+  "placed_at": "2026-08-21T09:00:00+08:00",
+  "amount_yuan": 199.0,
+  "sku": "他店电饭煲",
+  "tracking": "YT991000",
+  "last_scan_at": "2026-08-22T09:00:00+08:00",
+  "status": "delivered"
+}

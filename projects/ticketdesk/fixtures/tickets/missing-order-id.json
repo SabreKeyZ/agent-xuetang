@@ -1,0 +1,21 @@
+{
+  "id": "T-1001",
+  "fixture_id": "missing-order-id",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T10:04:00+08:00",
+  "now": "2026-08-28T10:20:00+08:00",
+  "order_id": "",
+  "shop_id": "qingxia",
+  "customer_id": "u_noorder",
+  "customer_name": "宋纸",
+  "amount_yuan": 0,
+  "refund_yuan": 48,
+  "attachments": [],
+  "prior_actions": [],
+  "title": "快递没到，先把钱退了",
+  "body": "昨天拍的墨水到现在没消息。单号我找不到了，你们看着退吧。微信还是那个。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

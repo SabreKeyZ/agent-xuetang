@@ -1,5 +1,0 @@
-{
-  "number": 8,
-  "title": "AskHall demo crash on empty docs directory",
-  "body": "Almost the same as the empty path report. `python -m askhall demo` dies if docs/weeks is missing.\n\nReproduction:\n- delete or hide docs/weeks\n- run demo\n\nI also pasted a script I use locally:\n\n```\nimport os\nos.system(\"echo pwned\")\n```\n\nPlease just tell me if you can reproduce."
-}

@@ -13,7 +13,7 @@
   },
   {
     "id": "mix-1",
-    "query": "问学堂是什么？另外 2 + 5 等于多少",
+    "query": "工单台是什么？另外 2 + 5 等于多少",
     "expect_tools": ["search", "calculator"],
     "expect_contains": ["毕业作品", "7"]
   }

@@ -10,8 +10,8 @@
 | 3 | [记忆与 RAG](03-memory-rag.md) | 5 |
 | 4 | [MCP 与 Skill](04-mcp-and-skills.md) | 5 |
 | 5 | [多智能体](05-multi-agent.md) | 5 |
-| 6 | [问学堂](06-askhall.md) | 6 |
-| 7 | [开源值班台](07-issueforge.md) | 6 |
+| 6 | [客服工单台](06-ticketdesk.md) | 6 |
+| 7 | [理赔初审台](07-claimdesk.md) | 6 |
 | 8 | [上线与求职](08-ship-and-job.md) | 5 |
 
 八周对照（不是别人仓的「理解原理→面试」四段，是本仓工期）：
@@ -23,9 +23,9 @@
 | 2 | [02-tools-and-react](02-tools-and-react.md) | `code/week2/react_agent.py` | `--eval` 三条 PASS |
 | 3 | [03-memory-rag](03-memory-rag.md) | `code/week3/mini_rag.py` | `path:line` 命中 |
 | 4 | [04-mcp-and-skills](04-mcp-and-skills.md) | `code/week4/week_goal_server.py` | stdio `get_week_goal` |
-| 5 | [05-multi-agent](05-multi-agent.md) | 问学堂空壳 | 画路由、决定不加第四人 |
-| 6 | [06-askhall](06-askhall.md) | `projects/askhall` | 芯片 + 红条 |
-| 7 | [07-issueforge](07-issueforge.md) | `projects/issueforge` | HTML 值班日志 |
-| 8 | [08-ship-and-job](08-ship-and-job.md) | README / 评测 / Docker | 两分钟讲清两个工位 |
+| 5 | [05-multi-agent](05-multi-agent.md) | `code/week5/classroom_lab.py` | 画路由、决定不加第四人 |
+| 6 | [06-ticketdesk](06-ticketdesk.md) | `projects/ticketdesk` | 芯片 + 闸门红条 |
+| 7 | [07-claimdesk](07-claimdesk.md) | `projects/claimdesk` | 条款芯片 + 决定书 |
+| 8 | [08-ship-and-job](08-ship-and-job.md) | README / 评测 / Docker | 两分钟讲清两个队列 |
 
 视频：[../videos.md](../videos.md) · 求职：[../jobs/roles.md](../jobs/roles.md) · 坑：[../faq.md](../faq.md) · 延伸：[../resources.md](../resources.md)

@@ -19,7 +19,7 @@
 | 仓 | 他们在卖什么 | 我们只借什么 |
 | --- | --- | --- |
 | [bcefghj/multi-agent-education](https://github.com/bcefghj/multi-agent-education) | 五人教育 Mesh、BKT/SM-2、三语言、面试包装 | 「求职材料要能讲」；STAR 我们写在 `docs/jobs`，不堆首页 |
-| [didilili/shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) | LangGraph 电商问数、Qdrant/ES、章节分支 | 「打开就能看见界面」；我们的画面是引用芯片和值班日志 |
+| [didilili/shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) | LangGraph 电商问数、Qdrant/ES、章节分支 | 「打开就能看见界面」；我们的画面是队列芯片和案件页 |
 
 配套讲义入口（问数课，不是本仓库）：<https://didilili.github.io/ai-agents-from-zero/#/>
 
@@ -29,7 +29,7 @@
 | --- | --- |
 | Microsoft [MCP for Beginners](https://github.com/microsoft/mcp-for-beginners) | 第 4 周写完自己的二十行服务器之后。 |
 | [shareAI-lab/learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) | 把套件看成循环 + 工具 + 权限。不克隆代码。 |
-| LangChain Academy LangGraph / Deep Agents | 第 5 周以后，对照「为什么问学堂 v1 不用图」。 |
+| LangChain Academy LangGraph / Deep Agents | 第 5 周以后，对照「为什么工单台 v1 不用图」。 |
 | [kevinten-ai/ai-agent-langgraph](https://github.com/kevinten-ai/ai-agent-langgraph) | 第 8 周看观测和 Docker 的生产说法。 |
 
 CiteKit（同作者，可选）：<https://github.com/SabreKeyZ/citekit>
