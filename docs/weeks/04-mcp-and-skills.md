@@ -83,9 +83,9 @@ MCP 把能力留在一个小服务器里。本周只做 stdio：一边读一行 
 | 行 | 它在干什么 |
 | --- | --- |
 | [`50:59:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `get_week_goal`：按周打开文件，切「本周你要带走什么」（否则「目标」） |
-| [`90:132:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `handle`：三支方法 + 错误通道 `-32000` |
-| [`135:142:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `serve_stdio`：一行 JSON 进，一行 JSON 出 |
-| [`150:156:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `--once`：给人看的快捷方式，测试仍走 stdin |
+| [`92:134:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `handle`：三支方法 + 错误通道 `-32000` |
+| [`137:144:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `serve_stdio`：一行 JSON 进，一行 JSON 出 |
+| [`152:158:code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) | `--once`：给人看的快捷方式，测试仍走 stdin |
 
 ## 本机实录
 
@@ -109,7 +109,7 @@ $ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
 | code | 名字 | 本仓谁抛 | 金样 |
 | --- | --- | --- | --- |
 | `-32700` | parse error | 练习：你给 `json.loads` 包 try | 见下「坏 JSON 金样」 |
-| `-32000` | server error | `handle` 的 `except`（约 127–132 行） | 周数 99 |
+| `-32000` | server error | `handle` 的 `except`（约 129–133 行） | 周数 99 |
 | （无） | 编造目标 | 禁止 | — |
 
 ### 金样 · 周数非法（已经包好）
@@ -148,15 +148,15 @@ PY
 ```text
 $ printf '%s\n' 'not-json' | python code/week4/week_goal_server.py
 Traceback (most recent call last):
-  File "code/week4/week_goal_server.py", line 162, in <module>
+  File "code/week4/week_goal_server.py", line 164, in <module>
     raise SystemExit(main())
   ...
-  File "code/week4/week_goal_server.py", line 140, in serve_stdio
+  File "code/week4/week_goal_server.py", line 142, in serve_stdio
     message = json.loads(line)
 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 ```
 
-**原因。** [`140:140`](../../code/week4/week_goal_server.py) 对 stdin 直接 `json.loads`。协议错误没有进 `handle` 的 error 通道。`99` 则是 `get_week_goal` 抛出、被 `handle` 接住。
+**原因。** [`142:142`](../../code/week4/week_goal_server.py) 对 stdin 直接 `json.loads`。协议错误没有进 `handle` 的 error 通道。`99` 则是 `get_week_goal` 抛出、被 `handle` 接住。
 
 **修复（练习，不是必须改主分支）。** 在 `serve_stdio` 里把 `json.loads` 包进 `try`，解析失败时写回金样，不要让进程炸死。
 
@@ -231,7 +231,7 @@ description: 当学员问「这周学什么 / 第 N 周目标」时使用。先�
 
 「第 4 周既写了 MCP 又写了 Skill，不是同一件事吗？」
 
-希望听到：指本页三形态。工具 = [`orders.py:7`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py)；MCP = [`week_goal_server.py:90`](../../code/week4/week_goal_server.py)；Skill = 文末 YAML。不希望听到只背字段名。
+希望听到：指本页三形态。工具 = [`orders.py:7`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py)；MCP = [`week_goal_server.py:92`](../../code/week4/week_goal_server.py)；Skill = 文末 YAML。不希望听到只背字段名。
 
 ## 常见坑
 

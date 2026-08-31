@@ -88,7 +88,7 @@ python -m claimdesk demo --fixture wrong-policy-version
 ===== C-2002  wrong-policy-version  ¥40.0 =====
 [docs] 材料齐全 missing=[]
 [clause] 适用 v2 · 出险日
-引用: 条款 3.2 · docs/policy/qingtu-bao-v2.md:36, 条款 2.3 · docs/policy/qingtu-bao-v2.md:27, docs/policy/qingtu-bao-v2.md:38, 条款 4.1 · docs/policy/qingtu-bao-v2.md:53, docs/policy/qingtu-bao-v2.md:1
+引用: 条款 3.2 · docs/policy/qingtu-bao-v2.md:38, 条款 3.2 · docs/policy/qingtu-bao-v2.md:36, 条款 2.3 · docs/policy/qingtu-bao-v2.md:27, 条款 2.3 · docs/policy/qingtu-bao-v2.md:29, 条款 4.1 · docs/policy/qingtu-bao-v2.md:53
 [adjudicator] 拒赔  除外责任 · 易碎
 状态: 结案
 试算: max(0, 40.00 - 0.00 - 0.00) = 40.00（保额¥80）
@@ -137,7 +137,7 @@ python -m claimdesk demo --fixture valid-low
 状态: 待人打款
 试算: max(0, 12.00 - 0.00 - 0.00) = 12.00（保额¥80）
 决定书: 材料齐、条款覆盖、金额 ¥12.00 未超限。免赔 ¥0.00。核赔建议：通过。payout 须人点执行，演示不打款。
-条款：条款 2.3、条款 4.1、条款 2.2
+条款：条款 2.3、条款 4.1
 计算：max(0, 12.00 - 0.00 - 0.00) = 12.00（保额¥80）
 建议赔付：¥12.00。
 idempotency_key=qingtu:payout:C-2009:1200 executed=False
@@ -196,7 +196,7 @@ idempotency_key=qingtu:payout:C-2111:3000 executed=False
 | --- | --- |
 | [`clause.py:45-47`](../../projects/claimdesk/src/claimdesk/agents/clause.py) | `_expected_version`：`incident_at[:10] >= 2026-07-01` → v2 |
 | [`clause.py:15`](../../projects/claimdesk/src/claimdesk/agents/clause.py) | `retrieve(query, at=claim.incident_at)` |
-| [`rag.py:108-117`](../../projects/claimdesk/src/claimdesk/rag.py) | `_in_force` 用出险日滤生效/失效 |
+| [`rag.py:119-127`](../../projects/claimdesk/src/claimdesk/rag.py) | `_in_force` 用出险日滤生效/失效 |
 | [`clause.py:16-18`](../../projects/claimdesk/src/claimdesk/agents/clause.py) | 再钉一次，丢掉 `version != expected` |
 | v2 条款 0.2 [`qingtu-bao-v2.md:10`](../../projects/claimdesk/docs/policy/qingtu-bao-v2.md) | 适用出险当日，投保日不得主张 v1 易碎赔付 |
 | v2 条款 2.3 [`qingtu-bao-v2.md:27`](../../projects/claimdesk/docs/policy/qingtu-bao-v2.md) | 免赔：运费 0 / 意外 50 |
@@ -232,7 +232,7 @@ CLI 把 `decision_letter` 印成「决定书:」。
 
 **会挂** [`test_valid_low_recommend_pass_no_payout`](../../projects/claimdesk/tests/test_decision.py)（断言 `executed is False` 且 `payout.status == confirm_required`）。  
 `set8` 的 `cd-7`（`executed_must_be_false`）也会红。  
-人点打款：[`web.py:63`](../../projects/claimdesk/src/claimdesk/web.py) 仍写 `executed=False`。
+人点打款：[`web.py:70`](../../projects/claimdesk/src/claimdesk/web.py) 仍写 `executed=False`。
 
 v1 禁止为了「自动赔付」去把 `confirm=True` 写进核赔员。
 
@@ -249,7 +249,7 @@ python -m pytest projects/claimdesk/tests -q
 python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 ```
 
-set8 仍是 8 行闸门评测；新夹具由 `pytest projects/claimdesk/tests` 钉死。Docker：`docker compose -f projects/claimdesk/docker-compose.yml up --build`
+set8 是 10 行闸门评测（含免赔试算、复议）；新夹具仍由 `pytest projects/claimdesk/tests` 钉死。Docker：`docker compose -f projects/claimdesk/docker-compose.yml up --build`
 
 ## 练习
 
@@ -276,7 +276,7 @@ set8 仍是 8 行闸门评测；新夹具由 `pytest projects/claimdesk/tests` �
 
 「上线第二天用投保日 v1 给 8 月易碎案写了可赔 50%，哪一层本该拦住？」
 
-希望听到：[`clause.py:45`](../../projects/claimdesk/src/claimdesk/agents/clause.py) `_expected_version`、[`rag.py:108`](../../projects/claimdesk/src/claimdesk/rag.py) `_in_force`、核赔员不得在无正确版本时通过。评测加一行「不得引用失效条款」。不要只处分提示词。
+希望听到：[`clause.py:45`](../../projects/claimdesk/src/claimdesk/agents/clause.py) `_expected_version`、[`rag.py:119`](../../projects/claimdesk/src/claimdesk/rag.py) `_in_force`、核赔员不得在无正确版本时通过。评测加一行「不得引用失效条款」。不要只处分提示词。
 
 ## 常见坑
 

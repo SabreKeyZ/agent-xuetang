@@ -47,7 +47,7 @@
 ### S2. 活动期引错日常「不赔运费」
 
 - 希望听到：这是生效窗口错，不是文采。修复是没命中活动文件就拒，不换模型。
-- 代码：[`rag.py:119`](../../projects/ticketdesk/src/ticketdesk/rag.py) `_in_force` · [`policy.py:27`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py) `prefer_promo` · [`test_policy_cite.py:6`](../../projects/ticketdesk/tests/test_policy_cite.py)
+- 代码：[`rag.py:119`](../../projects/ticketdesk/src/ticketdesk/rag.py) `_in_force` · [`policy.py:33`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py) `prefer_promo` · [`test_policy_cite.py:6`](../../projects/ticketdesk/tests/test_policy_cite.py)
 - 夹具：`promo-overrides-sla`
 
 ### S3. 退款 486
@@ -77,13 +77,13 @@
 ### S7. 投保日 v1、出险日 v2 的易碎案
 
 - 希望听到：按出险日；引用只有 v2；建议拒赔。
-- 代码：[`clause.py:45`](../../projects/claimdesk/src/claimdesk/agents/clause.py) · [`rag.py:108`](../../projects/claimdesk/src/claimdesk/rag.py) · [`test_clauses.py:6`](../../projects/claimdesk/tests/test_clauses.py)
+- 代码：[`clause.py:45`](../../projects/claimdesk/src/claimdesk/agents/clause.py) · [`rag.py:119`](../../projects/claimdesk/src/claimdesk/rag.py) · [`test_clauses.py:6`](../../projects/claimdesk/tests/test_clauses.py)
 - 夹具：`wrong-policy-version`
 
 ### S8. 条款里没有的词（比特币 / FlipFlop）
 
 - 希望听到：红条「没有引用，就先不答」；`拒审`；核赔键锁定。
-- 代码：[`clause.py:12`](../../projects/claimdesk/src/claimdesk/agents/clause.py) · [`adjudicator.py:30`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
+- 代码：[`clause.py:12`](../../projects/claimdesk/src/claimdesk/agents/clause.py) · [`adjudicator.py:35`](../../projects/claimdesk/src/claimdesk/agents/adjudicator.py)
 - 夹具：`no-clause`
 
 ### S9. 店铺已退还要保险再赔 / 两案同一张图
@@ -107,7 +107,7 @@
 ### S10. 人已经点了「执行 / 执行打款」
 
 - 希望听到：仍 `executed=False`，`confirm_required`。演示禁则在支付模块，不在按钮文案。
-- 代码：[`ticketdesk/web.py:72`](../../projects/ticketdesk/src/ticketdesk/web.py) · [`ticketdesk/tools/payment.py:9`](../../projects/ticketdesk/src/ticketdesk/tools/payment.py) · [`claimdesk/web.py:63`](../../projects/claimdesk/src/claimdesk/web.py) · [`claimdesk/tools/payment.py:7`](../../projects/claimdesk/src/claimdesk/tools/payment.py)
+- 代码：[`ticketdesk/web.py:86`](../../projects/ticketdesk/src/ticketdesk/web.py) · [`ticketdesk/tools/payment.py:10`](../../projects/ticketdesk/src/ticketdesk/tools/payment.py) · [`claimdesk/web.py:70`](../../projects/claimdesk/src/claimdesk/web.py) · [`claimdesk/tools/payment.py:8`](../../projects/claimdesk/src/claimdesk/tools/payment.py)
 
 ## A. 循环还是聊天
 

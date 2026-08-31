@@ -1,6 +1,6 @@
 # JSON-RPC 三支纸
 
-对着 [`code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) 的 `handle`（约 90–132 行）。
+对着 [`code/week4/week_goal_server.py`](../../code/week4/week_goal_server.py) 的 `handle`（约 92–134 行）。
 
 | method | 本仓做什么 | 成功长什么样 |
 | --- | --- | --- |
