@@ -1,0 +1,13 @@
+{
+  "id": "M-3105",
+  "fixture_id": "small-wick",
+  "shop_id": "huideng",
+  "created_at": "2026-08-24T13:00:00+08:00",
+  "now": "2026-08-24T13:12:00+08:00",
+  "order_id": "HD-202608-2203",
+  "customer_id": "u_wick",
+  "customer_name": "纪芽",
+  "refund_yuan": 16,
+  "title": "灯芯发错规格，退这一根",
+  "body": "订单 HD-202608-2203 的灯芯规格发错了。只要退这一根实付 ¥16，写草稿就行，等你们人点。"
+}

@@ -15,7 +15,7 @@
 3. **先自己做练习题，再打开 `answers/`。** 正文故意不写答案。抄答案过验收，第 8 周面试会穿。
 4. **失败对照比成功路径更重要。** 错 Key、空目录、除零、坏 JSON、无条款命中，都是本周要亲手跑的。
 5. **卡超过 40 分钟，去 [FAQ](../faq.md) 搜报错关键字。** 还不行按 [卡住了](../../.github/ISSUE_TEMPLATE/stuck.yml) 开 Issue。不要先换框架。
-6. **第 6–7 周以两个队列为作业。** 教室玩具、问学堂、五人教育网不是毕业作品。
+6. **第 6–7 周以两个队列为作业。** 教室玩具、问学堂、五人教育网不是毕业作品。第 5→6 可选 [vibe 插页](vibe.md) 用助手搭最小台，再走读工单台。
 
 | 周 | 文档 | 小时 |
 | --- | --- | --- |
@@ -25,6 +25,7 @@
 | 3 | [记忆与 RAG](03-memory-rag.md) | 5 |
 | 4 | [MCP 与 Skill](04-mcp-and-skills.md) | 5 |
 | 5 | [多智能体](05-multi-agent.md) | 5 |
+| 5→6 插页 | [对着助手搭最小工单台](vibe.md) | 2–3（可选） |
 | 6 | [客服工单台](06-ticketdesk.md) | 6 |
 | 7 | [理赔初审台](07-claimdesk.md) | 6 |
 | 8 | [上线与求职](08-ship-and-job.md) | 5 |
@@ -39,6 +40,7 @@
 | 3 | [03-memory-rag](03-memory-rag.md) | `code/week3/mini_rag.py` | `path:line` 命中 |
 | 4 | [04-mcp-and-skills](04-mcp-and-skills.md) | `code/week4/week_goal_server.py` | stdio `get_week_goal` |
 | 5 | [05-multi-agent](05-multi-agent.md) | `code/week5/classroom_lab.py` | 画路由、决定不加第四人 |
+| 5→6 | [vibe](vibe.md) | `labs/vibe-minidesk`（自跑评测） | 助手 + 引用 + 人确认闸门 |
 | 6 | [06-ticketdesk](06-ticketdesk.md) | `projects/ticketdesk` | 芯片 + 闸门红条 |
 | 7 | [07-claimdesk](07-claimdesk.md) | `projects/claimdesk` | 条款芯片 + 决定书 |
 | 8 | [08-ship-and-job](08-ship-and-job.md) | README / 评测 / Docker | 两分钟讲清两个队列 |

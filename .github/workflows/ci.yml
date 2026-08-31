@@ -33,6 +33,7 @@ jobs:
         env:
           OPENAI_API_KEY: ""
           GITHUB_TOKEN: ""
+        # labs/ 学徒自跑，空 stub 会红，不要加进默认 CI
         run: |
           python -m pytest -q \
             code/week1 \

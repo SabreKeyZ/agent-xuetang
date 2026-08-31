@@ -126,6 +126,8 @@ python -m claimdesk serve
 
 视频只放核对过的链接：[docs/videos.md](docs/videos.md)。踩坑：[docs/faq.md](docs/faq.md)。周目录：[docs/weeks/README.md](docs/weeks/README.md)。词表 / 一页纸：[docs/glossary.md](docs/glossary.md) · [docs/cheatsheet.md](docs/cheatsheet.md)。练习先做再看 [docs/weeks/answers](docs/weeks/answers)。
 
+第 5 周写完小脚本、第 6 周走读工单台之前，有一份可选插页：[对着助手搭最小工单台](docs/weeks/vibe.md)。不需要 Key，不要从 `projects/ticketdesk` 开写。
+
 转行、在校、后端转 Agent 都从第 0 周进。已经独立用过 LangGraph 上线的人，这份工期会偏慢，去文末结构参考即可。
 
 ## 两个工位怎么协作
@@ -197,6 +199,7 @@ agent-xuetang/
   projects/ticketdesk/   青匣记工单台
   projects/claimdesk/    青途保理赔台
   labs/week5/            问学堂 / 值班台降级说明
+  labs/vibe-minidesk/    第 5→6 周可选：助手搭最小工单台（评测自跑）
 ```
 
 ## 求职材料

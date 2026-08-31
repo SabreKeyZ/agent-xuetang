@@ -1,5 +1,7 @@
 # 第 6 周 · 收完客服工单台
 
+**先苦过 [vibe 章](vibe.md) / `labs/vibe-minidesk` 再读本周。** 迷你台是空目录 + 评测；本周是已经写好的 Inbox 走读。不要把两份作业合成一份抄。
+
 这周没有新理论。你要把青匣记工单台从「能 demo」收到「别人能打开队列页」。
 
 产品定义在 [projects/ticketdesk/README.md](../../projects/ticketdesk/README.md)。
