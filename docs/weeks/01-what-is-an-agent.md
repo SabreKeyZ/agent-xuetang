@@ -61,9 +61,9 @@ sequenceDiagram
 - 中间：模型选工具，你限制次数和权限。本周站在这里。
 - 最右：循环自己开浏览器改生产。本仓库不教这个，第 4 周会把「权限」单独拎出来。
 
-没有一种位置是道德正确。客服退款和本地算星期几，不该用同一个自主程度。
+### 对着我们的代码走一圈
 
-### 跑起来
+先跑，再对行号。默认走规则脑，不打网。
 
 ```bash
 source .venv/bin/activate
@@ -72,25 +72,44 @@ python code/week1/echo_agent.py --query "今天星期几"
 python -m pytest code/week1 -q
 ```
 
-无 Key 时走内置规则脑：看见「星期」就调用 `weekday` 工具。
-有 Key 时，脚本会把工具清单发给模型，让它选。两种路径打出的日志字段相同。
+我们在本机跑第一条（今天是 Monday）时，终端是：
 
-终端会长这样：
-
-```
-{"step":1,"thought":"问的是星期，调用工具。","action":"weekday","observation":"Monday"}
-{"step":2,"thought":"已经有观察值。","action":"finish","observation":"今天是 Monday。"}
+```text
+{"step": 1, "thought": "问的是星期，调用工具。", "action": "weekday", "observation": "Monday"}
+{"step": 2, "thought": "已经有观察值。", "action": "finish", "observation": "工具返回：Monday"}
+[final] 工具返回：Monday
 ```
 
-这就是第 1 周的评测入口：你能用 `jq` 或眼睛数出步数，而不是在一堆自然语言里猜它有没有调用工具。
+`observation` 里的星期名跟你机器的 locale / 当天有关。字段名必须仍是这四个。
 
-### 读代码时请只盯三处
+请只盯三处：
 
-1. `TOOLS`：名字、参数、一句话说明。模型（或规则）只能看见这些。
-2. `MAX_STEPS`：硬上限。没有这一行，就没有「会停下来」。
-3. `run_loop`：think / act / observe 被写成普通函数，而不是隐藏在框架里。
+| 行 | 为什么重要 |
+| --- | --- |
+| [`18:18:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) | `MAX_STEPS = 6`。没有这一行，就没有「会停下来」 |
+| [`30:33:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) | `TOOLS`：模型（或规则）只能看见这些名字 |
+| [`47:88:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) | `EchoAgent.run`：think / act / observe 写成普通函数 |
+| [`91:105:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) | `rule_brain`：看见「星期」就调用 `weekday`，有观察值就 `finish` |
+| [`108:110:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) | 一行一条 JSON，不是散文 |
+
+有 Key 也不要急着改 brain。作业默认不打网，避免账单。两种路径打出的字段相同。
 
 不要急着抽象 `BaseAgent`。八行重复的 `print` 比一个过早的基类更适合小白。
+
+## 失败对照 · 步数上限为 1
+
+**现场。** 练习 2：把上限拧到 1，再问星期几。
+
+```text
+$ python code/week1/echo_agent.py --query "今天星期几" --max-steps 1
+{"step": 1, "thought": "问的是星期，调用工具。", "action": "weekday", "observation": "Monday"}
+{"step": 1, "thought": "hard stop", "action": "finish", "observation": "没做完：步数用尽。"}
+[final] 没做完：步数用尽。
+```
+
+**原因。** [`78:87:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) 的 `for/else`：第一步只够调用工具，还没轮到 `finish` 收口，循环走完就承认没做完。
+
+**修复。** 作业里请把 `--max-steps` 改回默认（6）。你要留下的是这张「没做完」的截图，不是把上限偷偷调大装成功。
 
 ## 对应视频
 
@@ -102,7 +121,7 @@ python -m pytest code/week1 -q
 
 ## 练习
 
-1. 再写一个工具 `echo_upper`，把用户句子变成大写。给规则脑加一条：句子里出现 `大写` 就调用它。补一条测试。
+1. 再写一个工具 `echo_upper`，把用户句子变成大写。给规则脑加一条：句子里出现 `大写` 就调用它。补一条测试。（仓库里已经有函数，缺的是你自己的测试。）
 2. 把 `MAX_STEPS` 改成 `1`，用「今天星期几」跑。你应当看到循环承认没做完，而不是假装成功。
 3. 用自己的话写五句：聊天、脚本、Agent、人在回路、无限循环。发给同学，看对方能不能指出你混用的词。
 

@@ -1,7 +1,8 @@
 from issueforge.agents.scribe import draft_reply
 from issueforge.agents.triage import classify, guess_duplicate, triage
+from issueforge.cli import main as issueforge_main
 from issueforge.loader import load_all_fixtures, load_fixture
-from issueforge.report import process, to_markdown
+from issueforge.report import process, to_html, to_markdown
 
 
 def _by_id() -> dict:
@@ -54,3 +55,29 @@ def test_demo_all_fixtures_produce_kind():
         bundle = process(issue, catalog)
         assert bundle["triage"]["kind"] in {"bug", "feature", "question"}
         assert bundle["repro"]["executed_code"] is False
+
+
+def test_html_report_lists_fixtures_and_bilingual_reply():
+    catalog = load_all_fixtures()
+    bundles = [process(i, catalog) for i in catalog]
+    html = to_html(bundles)
+    assert "bug-empty-docs" in html
+    assert "question-how" in html
+    assert "feature-export" in html
+    assert "复现清单" in html
+    assert "不能承诺" in html
+    assert "cannot promise" in html
+    assert "never_execute" in html
+    assert "<html" in html
+    assert "「" in html and "」" in html
+    assert "没有引用，就先不答" in html
+
+
+def test_board_writes_self_contained_file(tmp_path):
+    out = tmp_path / "duty-report.html"
+    assert issueforge_main(["board", "--out", str(out)]) == 0
+    text = out.read_text(encoding="utf-8")
+    assert out.is_file()
+    assert "开源值班台" in text
+    assert "夹具" in text
+    assert "bug" in text

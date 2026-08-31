@@ -40,26 +40,17 @@ flowchart TD
   OBS --> TH
 ```
 
-### 工具 1：计算器
+### 工具写在哪
 
-不要 `eval` 任意字符串。只允许数字和四则运算。
-`2 ** 10`、`__import__`、名字查找，一律拒绝。观察值写成 `error:invalid_expression`。
+计算器不要 `eval` 任意字符串。[`25:40:code/week2/react_agent.py`](../../code/week2/react_agent.py) 只允许数字和四则；`3/0` 走 `ZeroDivisionError` → `error:division_by_zero`。这是你第一次体会「工具比模型更需要偏执」。
 
-这是你第一次体会「工具比模型更需要偏执」。
+假搜索在 [`17:22:code/week2/react_agent.py`](../../code/week2/react_agent.py) 的 `SEARCH_TABLE`。真实搜索会让三条评测今天过、明天挂。
 
-### 工具 2：假搜索
+解析器在 [`131:148:code/week2/react_agent.py`](../../code/week2/react_agent.py)：`Thought` / `Action` / `Action Input` / `Final Answer`，兼容全角冒号。解析失败时（有 Key 的路径）观察值应是 `error:parse`，不要死循环。无 Key 时走 [`156:179:code/week2/react_agent.py`](../../code/week2/react_agent.py) 的规则脑。
 
-本地一张小表，例如：
+评测在 [`225:251:code/week2/react_agent.py`](../../code/week2/react_agent.py)：读 `eval_cases.json`，查 `expect_tool(s)` 和 `expect_contains`。
 
-| 关键字 | 固定返回 |
-| --- | --- |
-| MCP | Agent学堂在第 4 周写一个很小的 MCP 服务器 |
-| 问学堂 | 毕业作品，吃本仓库文档当知识库 |
-| ReAct | 一种把思考和行动写成字段的循环写法 |
-
-真实搜索引擎会让三条评测今天过、明天挂。练习阶段先买稳定。
-
-### 跑起来
+### 跑起来（本机实录）
 
 ```bash
 python code/week2/react_agent.py --query "3 * 7 等于多少"
@@ -67,31 +58,57 @@ python code/week2/react_agent.py --eval
 python -m pytest code/week2 -q
 ```
 
-`--eval` 会读 `eval_cases.json`，对每条检查：
+`--query "3 * 7 等于多少"`：
 
-- `expect_tool`：轨迹里是否出现过这个工具名。
-- `expect_contains`：最终答案是否包含这几个字。
+```text
+{"step": 1, "thought": "先算。", "action": "calculator", "observation": "21"}
+{"step": 2, "thought": "材料齐了。", "action": "finish", "observation": "21"}
+[final] 21
+```
 
-三条用例覆盖：纯计算、纯检索、一句里既有数字又有课程名词。
-第三条最容易写砸——模型（或规则）可能算对了却没去搜，或搜了对却算错。
+`--eval`（三条官方用例，退出码 0）：
 
-### 规则脑也要写
+```text
+[PASS] calc-1 tools=['calculator'] final=21
+[PASS] search-1 tools=['search'] final=Agent学堂在第4周写一个很小的 MCP 服务器。
+[PASS] mix-1 tools=['search', 'calculator'] final=问学堂是毕业作品，吃本仓库文档当知识库。；7
+```
 
-没有 Key 时，脚本用关键字分流：
+第三条最容易写砸——规则可能算对了却没去搜，或搜了对却算错。`mix-1` 的轨迹必须两种工具都在。
 
-- 出现算式或「等于多少」→ 计算器。
-- 出现「第几周」「问学堂」「MCP」→ 搜索。
-- 两者都有 → 先搜再算，或先算再搜，但两条工具都要留下轨迹。
+既有课程名词又有算式时，本机是：
 
-有 Key 时，把工具说明发给模型，解析它的 `Action:` 行。解析失败算一次观察值 `error:parse`，不要死循环。
+```text
+{"step": 1, "thought": "先查课程表。", "action": "search", "observation": "问学堂是毕业作品，吃本仓库文档当知识库。"}
+{"step": 2, "thought": "还需要算一下。", "action": "calculator", "observation": "7"}
+{"step": 3, "thought": "材料齐了。", "action": "finish", "observation": "问学堂是毕业作品，吃本仓库文档当知识库。；7"}
+[final] 问学堂是毕业作品，吃本仓库文档当知识库。；7
+```
 
-### 评测为什么从这周就出现
+## 失败对照 · `--eval` 3/0 与除零
 
-因为演示会骗人。
-你会下意识问它擅长的问题，然后觉得「Agent 已经会了」。
-三条冷冰冰的 JSON 比十次愉快聊天更接近上班以后的日子。
+**现场 A。** 把 `eval_cases.json` 里的期望写反：计算器那条改成 `expect_tool: search`，检索那条改成 `calculator`，混合题的 `expect_contains` 改成一个轨迹里没有的 `"999"`。再跑 `--eval`：
 
-吴恩达的课把评测放得很早；我们用文件落地，而不是用感觉。
+```text
+[FAIL] calc-1 tools=['calculator'] final=21
+[FAIL] search-1 tools=['search'] final=Agent学堂在第4周写一个很小的 MCP 服务器。
+[FAIL] mix-1 tools=['search', 'calculator'] final=问学堂是毕业作品，吃本仓库文档当知识库。；7
+```
+
+三条全红，退出码 1。评测自己不会说话，退出码会。改完用例记得还原。
+
+**现场 B。** 计算器真的接到 `3/0`：
+
+```text
+$ python code/week2/react_agent.py --query "3/0 等于多少"
+{"step": 1, "thought": "先算。", "action": "calculator", "observation": "error:division_by_zero"}
+{"step": 2, "thought": "计算失败，停止。", "action": "finish", "observation": "error:division_by_zero"}
+[final] error:division_by_zero
+```
+
+**原因。** [`32:35:code/week2/react_agent.py`](../../code/week2/react_agent.py) 捕获除零；[`166:167:code/week2/react_agent.py`](../../code/week2/react_agent.py) 看见 `error:` 就停，不编一个数字。
+
+**修复。** 作业要的是这句 `error:division_by_zero`。若你改成了 `eval()` 还返回 `inf`，测例会打你。
 
 ## 对应视频
 
@@ -105,9 +122,9 @@ python -m pytest code/week2 -q
 
 ## 练习
 
-1. 给假搜索加一个条目：「值班台」。写第 4 条评测，确认能命中。
+1. 给假搜索加一个条目：「值班台」。写第 4 条评测，确认能命中。（表里已经有「值班台」，缺的是你的第四条 JSON。）
 2. 把计算器输入改成 `3/0`，观察值必须是明确错误，最终答案不得编造一个数字。
-3. 故意把 `expect_tool` 写错，确认 `--eval` 会以非零退出码失败。评测自己不会说话，退出码会。
+3. 故意把 `expect_tool` 写错，确认 `--eval` 会以非零退出码失败。
 
 ## 验收标准
 

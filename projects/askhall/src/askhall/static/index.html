@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>问学堂 AskHall</title>
+  <title>问学堂 · Agent学堂</title>
   <style>
     :root {
-      --bg: #12141a;
-      --panel: #1b1f2a;
-      --ink: #e8ecf4;
-      --muted: #8b93a7;
-      --accent: #7aa2ff;
-      --planner: #c4a35a;
-      --tutor: #6ec6a6;
-      --examiner: #e09a7a;
-      --line: #2a3142;
+      --bg: #14110e;
+      --panel: #1e1a16;
+      --ink: #f3eadc;
+      --muted: #9a8f80;
+      --chip: #e8c36a;
+      --chip-bg: #2a2318;
+      --refuse: #d97737;
+      --refuse-bg: #3a2214;
+      --planner: #d4b36a;
+      --tutor: #7dba9a;
+      --examiner: #e08a6a;
+      --line: #3a3228;
+      --you: #2a2622;
     }
     * { box-sizing: border-box; }
     body {
@@ -22,90 +26,207 @@
       font: 16px/1.55 "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
     }
     header {
-      padding: 20px 24px 8px; border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 20px 14px;
     }
-    header h1 { margin: 0; font-size: 20px; letter-spacing: 0.04em; }
-    header p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
-    #badge {
-      display: inline-block; margin-left: 8px; padding: 2px 8px;
-      border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--muted);
+    .brand-row {
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px;
+      max-width: 820px; margin: 0 auto;
     }
-    main { max-width: 760px; margin: 0 auto; padding: 16px 16px 120px; }
+    .wordmark {
+      font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", serif;
+      font-size: 26px; letter-spacing: 0.06em; margin: 0;
+    }
+    .wordmark small {
+      display: block; font-size: 12px; letter-spacing: 0.18em;
+      color: var(--muted); font-family: inherit; font-weight: 400; margin-top: 2px;
+    }
+    .subtitle {
+      color: var(--refuse); font-size: 14px; margin: 0;
+      border: 1px solid var(--refuse); padding: 3px 10px;
+    }
+    .dogfood {
+      max-width: 820px; margin: 8px auto 0; color: var(--muted); font-size: 13px;
+    }
+    .stamps {
+      max-width: 820px; margin: 12px auto 0; display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .stamp {
+      border: 1.5px solid currentColor; padding: 4px 10px 5px;
+      font-size: 12px; letter-spacing: 0.04em; background: transparent;
+    }
+    .stamp b { display: block; font-size: 13px; }
+    .stamp.planner { color: var(--planner); }
+    .stamp.tutor { color: var(--tutor); }
+    .stamp.examiner { color: var(--examiner); }
+    #mode {
+      margin-left: auto; color: var(--muted); font-size: 12px;
+      border: 1px dashed var(--line); padding: 4px 8px;
+    }
+    main { max-width: 820px; margin: 0 auto; padding: 16px 16px 140px; }
+    .empty {
+      border: 1px dashed var(--line); padding: 28px 20px; text-align: left;
+    }
+    .empty h2 {
+      font-family: "Source Han Serif SC", "Noto Serif SC", serif;
+      font-size: 20px; margin: 0 0 8px;
+    }
+    .empty p { color: var(--muted); margin: 0 0 14px; }
+    .examples { display: flex; flex-wrap: wrap; gap: 8px; }
+    .examples button {
+      background: var(--chip-bg); color: var(--chip); border: 1px solid #5a4a28;
+      border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: 13px;
+    }
     .card {
       background: var(--panel); border: 1px solid var(--line);
-      border-radius: 12px; padding: 14px 16px; margin: 12px 0;
+      padding: 14px 16px; margin: 12px 0;
     }
-    .role { font-size: 12px; text-transform: lowercase; letter-spacing: 0.08em; }
-    .role.planner { color: var(--planner); }
-    .role.tutor { color: var(--tutor); }
-    .role.examiner { color: var(--examiner); }
+    .card.you { background: var(--you); }
+    .card.refuse {
+      border-color: var(--refuse); background: var(--refuse-bg);
+    }
+    .banner {
+      color: var(--refuse); font-size: 13px; letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
     .body { white-space: pre-wrap; margin-top: 8px; }
-    .cites { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .cites { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
     .chip {
-      font-size: 12px; padding: 2px 8px; border-radius: 999px;
-      border: 1px solid var(--line); color: var(--accent);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px; padding: 3px 10px; border-radius: 999px;
+      border: 1px solid #5a4a28; background: var(--chip-bg); color: var(--chip);
+      cursor: pointer;
     }
+    .chip:hover, .chip:focus { background: #3d321c; outline: none; }
+    .drawer {
+      display: none; margin-top: 10px; padding: 10px 12px;
+      background: #12100d; border-left: 3px solid var(--chip);
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 12px; white-space: pre-wrap; color: #d8cbb4;
+    }
+    .drawer.open { display: block; }
     form {
       position: fixed; bottom: 0; left: 0; right: 0;
-      background: #0e1016; border-top: 1px solid var(--line);
+      background: #0f0d0b; border-top: 1px solid var(--line);
       padding: 12px 16px 16px;
     }
-    .row { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; }
+    .row { max-width: 820px; margin: 0 auto; display: flex; gap: 8px; }
     input[type=text] {
       flex: 1; background: var(--panel); color: var(--ink);
-      border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+      border: 1px solid var(--line); padding: 11px 12px;
     }
-    button {
-      background: var(--accent); color: #0c1020; border: 0;
-      border-radius: 8px; padding: 10px 14px; font-weight: 600; cursor: pointer;
+    button.go {
+      background: var(--chip); color: #1a1408; border: 0;
+      padding: 11px 16px; font-weight: 700; cursor: pointer;
     }
-    button.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+    button.ghost {
+      background: transparent; color: var(--examiner);
+      border: 1px solid var(--examiner); padding: 11px 14px; cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>问学堂 AskHall <span id="badge">检查中…</span></h1>
-    <p>知识库是本仓库的周文档。没有 Key 时只检索、只引用，不编造一周课。</p>
+    <div class="brand-row">
+      <h1 class="wordmark">问学堂 <small>Agent学堂 · AskHall</small></h1>
+      <p class="subtitle">没有引用，就先不答</p>
+      <span id="mode">检查中…</span>
+    </div>
+    <p class="dogfood">教材就是仓库，Agent 只能引用这本教材。</p>
+    <div class="stamps" aria-label="三个角色">
+      <span class="stamp planner"><b>规划员</b>三步计划 · 点名周文件</span>
+      <span class="stamp tutor"><b>讲师</b>原文摘录 · path:line</span>
+      <span class="stamp examiner"><b>考试官</b>一题一改 · 空答拒绝</span>
+    </div>
   </header>
-  <main id="log"></main>
+  <main id="log">
+    <div class="empty" id="empty">
+      <h2>先问教材，再让考试官抽查</h2>
+      <p>没有命中就亮红条。点下面一句，或自己打字。</p>
+      <div class="examples">
+        <button type="button" data-q="短记忆和长记忆有什么不同？">短记忆和长记忆有什么不同？</button>
+        <button type="button" data-q="第几周写 MCP？">第几周写 MCP？</button>
+        <button type="button" data-q="怎么学 ReAct？">怎么学 ReAct？</button>
+        <button type="button" data-q="考我循环三步">考我循环三步</button>
+      </div>
+    </div>
+  </main>
   <form id="f">
     <div class="row">
-      <input id="q" type="text" maxlength="2000" placeholder="问教材，或输入「考我」。出题后可空着发送以交白卷" autocomplete="off" />
-      <button type="submit">发送</button>
-      <button type="button" class="ghost" id="quiz">考我</button>
+      <input id="q" type="text" maxlength="2000" placeholder="问教材。出题后空着发送 = 交白卷" autocomplete="off" />
+      <button class="go" type="submit">发送</button>
+      <button class="ghost" type="button" id="quiz">考我</button>
     </div>
   </form>
   <script>
     const log = document.getElementById("log");
+    const empty = document.getElementById("empty");
     const input = document.getElementById("q");
     let pending = null;
+
+    const ROLE_ZH = { planner: "规划员", tutor: "讲师", examiner: "考试官", 学员: "学员" };
 
     async function boot() {
       try {
         const h = await (await fetch("/api/health")).json();
-        document.getElementById("badge").textContent = h.llm ? "模型已开" : "抽取式模式";
+        document.getElementById("mode").textContent = h.llm ? "模型已开" : "抽取式 · 无 Key";
       } catch (e) {
-        document.getElementById("badge").textContent = "后端未连接";
+        document.getElementById("mode").textContent = "后端未连接";
       }
     }
 
+    function hideEmpty() {
+      if (empty) empty.remove();
+    }
+
     function addYou(text) {
+      hideEmpty();
       const el = document.createElement("div");
-      el.className = "card";
-      el.innerHTML = `<div class="role">学员</div><div class="body"></div>`;
+      el.className = "card you";
+      el.innerHTML = `<span class="stamp">学员</span><div class="body"></div>`;
       el.querySelector(".body").textContent = text;
       log.appendChild(el);
     }
 
+    function isRefuse(t) {
+      return Boolean(t.refused) || ((t.citations || []).length === 0 && t.role === "tutor" && (t.title || "").includes("没找到"));
+    }
+
     function addTurn(t) {
+      hideEmpty();
       const el = document.createElement("div");
-      el.className = "card";
-      const cites = (t.citations || []).map(c => `<span class="chip">${c}</span>`).join("");
+      const refuse = isRefuse(t);
+      el.className = "card" + (refuse ? " refuse" : "");
+      const cites = (t.citations || []).map((c, i) =>
+        `<button type="button" class="chip" data-ref="${c}" data-i="${i}">${c}</button>`
+      ).join("");
+      const role = ROLE_ZH[t.role] || t.role || "agent";
+      const banner = refuse
+        ? `<div class="banner">没有引用，就先不答${t.refused ? " · 空答拒改" : ""}</div>`
+        : "";
       el.innerHTML = `
-        <div class="role ${t.role || ""}">${t.role || "agent"} · ${t.title || ""} · ${t.mode || ""}</div>
+        ${banner}
+        <span class="stamp ${t.role || ""}">${role} · ${t.title || ""}</span>
         <div class="body"></div>
-        <div class="cites">${cites}</div>`;
+        <div class="cites">${cites || (refuse ? "" : "")}</div>
+        <pre class="drawer" hidden></pre>`;
       el.querySelector(".body").textContent = t.body || "";
+      const drawer = el.querySelector(".drawer");
+      el.querySelectorAll(".chip").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const ref = btn.getAttribute("data-ref");
+          try {
+            const data = await (await fetch("/api/cite?ref=" + encodeURIComponent(ref))).json();
+            drawer.hidden = false;
+            drawer.classList.add("open");
+            drawer.textContent = data.ok ? data.snippet : (data.error || "打不开这段引用");
+          } catch (err) {
+            drawer.hidden = false;
+            drawer.classList.add("open");
+            drawer.textContent = "引用接口不可用";
+          }
+        });
+      });
       log.appendChild(el);
       el.scrollIntoView({ behavior: "smooth", block: "end" });
     }
@@ -129,6 +250,9 @@
       send(text);
     });
     document.getElementById("quiz").addEventListener("click", () => send("考我一下循环三步"));
+    document.querySelectorAll(".examples button").forEach((b) => {
+      b.addEventListener("click", () => send(b.getAttribute("data-q")));
+    });
     boot();
   </script>
 </body>
