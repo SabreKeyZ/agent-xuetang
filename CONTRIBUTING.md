@@ -72,5 +72,5 @@ python -m claimdesk demo
 
 ## 行为约定
 
-提问时请附：操作系统、Python 版本、你执行的命令、完整报错。
+提问时请用 [.github/ISSUE_TEMPLATE/stuck.yml](.github/ISSUE_TEMPLATE/stuck.yml)：操作系统、`python3 --version`、你执行的整条命令、完整 traceback。
 讨论可以直率，不要嘲讽「这么简单都不会」。这份仓库就是为这个「不会」写的。

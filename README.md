@@ -2,6 +2,14 @@
 
 **没有引用，就先不答**
 
+> **今天只打开这三个文件**
+>
+> 1. 本 README（先跑 30 分钟无 Key）
+> 2. [docs/weeks/00-setup.md](docs/weeks/00-setup.md)（桌子）
+> 3. [docs/weeks/README.md](docs/weeks/README.md)（工期目录）
+>
+> 看不懂「抽取式 / 队列」先跑通演示，第 1 周再解释循环。
+
 教材就是仓库。两个毕业作品是队列，不是聊天皮。
 A Chinese-first apprenticeship: eight weeks, two ops desks, one conversation you can defend.
 
@@ -85,12 +93,18 @@ python -m claimdesk demo
 
 默认给**有一点 Python 的小白**：一到两个月，每周 5–6 小时。做不完就停在当周验收，不要跳周。
 
+**只有 2 小时**
+
+| 做什么 | 然后 |
+| --- | --- |
+| 跑 demo + 打开工单台点一张单 + 读[第 0 周失败对照](docs/weeks/00-setup.md#失败对照--钥匙写错) | **停。** 不申请 Key，不跳第 1 周。 |
+
 **默认 8 周（含第 0 周摆桌子）**
 
 | 0<br>5h | 1<br>5h | 2<br>6h | 3<br>5h | 4<br>5h | 5<br>5h | 6<br>6h | 7<br>6h | 8<br>5h |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [环境](docs/weeks/00-setup.md) | [循环](docs/weeks/01-what-is-an-agent.md) | [ReAct](docs/weeks/02-tools-and-react.md) | [引用](docs/weeks/03-memory-rag.md) | [MCP](docs/weeks/04-mcp-and-skills.md) | [多角色](docs/weeks/05-multi-agent.md) | [工单台](docs/weeks/06-ticketdesk.md) | [理赔台](docs/weeks/07-claimdesk.md) | [上线](docs/weeks/08-ship-and-job.md) |
-| 一次 chat | JSON 日志 | `--eval` 3 条 | `path:line` | 二十行 stdio | 何时不加角色 | 售后队列 | 初审队列 | 作品集谈话 |
+| 芯片或红条 | JSON 日志 | `--eval` 3 条 | `path:line` | 二十行 stdio | 何时不加角色 | 售后队列 | 初审队列 | 作品集谈话 |
 
 **压缩 6 周**（合并 1+2、3+4；第 0 周并进第一格）
 

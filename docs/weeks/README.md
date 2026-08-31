@@ -12,7 +12,7 @@
 2. **先做带练命令，再看视频。** 视频课表在 [../videos.md](../videos.md)。口播用来补直觉，作业以本仓库脚本的 stdout 为准。看不完不要自责。
 3. **先自己做练习题，再打开 `answers/`。** 正文故意不写答案。抄答案过验收，第 8 周面试会穿。
 4. **失败对照比成功路径更重要。** 错 Key、空目录、除零、坏 JSON、无条款命中，都是本周要亲手跑的。
-5. **卡超过 40 分钟，去 [FAQ](../faq.md) 搜报错关键字。** 不要先换框架。
+5. **卡超过 40 分钟，去 [FAQ](../faq.md) 搜报错关键字。** 还不行按 [卡住了](../../.github/ISSUE_TEMPLATE/stuck.yml) 开 Issue。不要先换框架。
 6. **第 6–7 周以两个队列为作业。** 教室玩具、问学堂、五人教育网不是毕业作品。
 
 | 周 | 文档 | 小时 |
@@ -31,7 +31,7 @@
 
 | 工期 | 打开哪篇 | 改哪份代码 | 手上能演示什么 |
 | --- | --- | --- | --- |
-| 0 | [00-setup](00-setup.md) | `code/week0/hello_chat.py` | `[ok] reply=` 或诚实的缺 Key |
+| 0 | [00-setup](00-setup.md) | 两台 demo；可选 `hello_chat.py` | 芯片或红条；可选 `[ok] reply=` |
 | 1 | [01-what-is-an-agent](01-what-is-an-agent.md) | `code/week1/echo_agent.py` | 一行一条 JSON 循环 |
 | 2 | [02-tools-and-react](02-tools-and-react.md) | `code/week2/react_agent.py` | `--eval` 三条 PASS |
 | 3 | [03-memory-rag](03-memory-rag.md) | `code/week3/mini_rag.py` | `path:line` 命中 |

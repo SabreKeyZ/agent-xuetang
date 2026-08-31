@@ -37,7 +37,9 @@ DEMO_FORBIDS_CONFIRM = True
 ## 本周命令
 
 ```bash
-python code/week0/hello_chat.py
+python -m ticketdesk demo          # 第 0 周默认，无 Key
+python -m claimdesk demo
+# python code/week0/hello_chat.py  # 可选，要 Key
 python code/week1/echo_agent.py --query "今天星期几"
 python code/week1/echo_agent.py --max-steps 1
 python code/week2/react_agent.py --eval
@@ -47,8 +49,6 @@ python code/week3/mini_rag.py --query "第几周写 MCP" --docs docs --k 4 --sql
 python code/week4/week_goal_server.py --once --week 4
 python code/week5/classroom_lab.py demo
 python code/week5/classroom_lab.py recurse
-python -m ticketdesk demo
-python -m claimdesk demo
 python -m ticketdesk serve --port 8000
 python -m claimdesk serve --port 8001
 python -m pytest
