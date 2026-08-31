@@ -41,11 +41,11 @@ def test_sample_csv_maps_onto_ticket():
     assert [t.id for t in tickets] == ["T-IMP-01", "T-IMP-02"]
     first = tickets[0]
     assert first.title == "墨条缺角"
-    assert first.body.startswith("开箱发现墨条缺角")
-    assert first.order_id == "QX-202608-9901"
+    assert first.body.startswith("开箱发现砚台小样缺角")
+    assert first.order_id == "QX-202608-8801"
     assert first.customer_name == "导入顾客"
-    assert first.amount_yuan == 88
-    assert first.refund_yuan == 88
+    assert first.amount_yuan == 72
+    assert first.refund_yuan == 72
     assert first.attachments == ["unbox.jpg"]
     assert first.labels == ["质量"]
     assert first.channel == "在线客服"
