@@ -1,0 +1,22 @@
+{
+  "id": "T-2101",
+  "fixture_id": "return-no-inbound",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T11:00:00+08:00",
+  "now": "2026-08-28T11:20:00+08:00",
+  "order_id": "QX-202608-2101",
+  "shop_id": "qingxia",
+  "customer_id": "u_return_wait",
+  "customer_name": "回寄未到",
+  "amount_yuan": 86,
+  "refund_yuan": 86,
+  "after_sales_type": "退货退款",
+  "attachments": ["unbox-leak.jpg"],
+  "prior_actions": [],
+  "title": "墨水漏液，要退货退款",
+  "body": "青松墨水漏液，要退货退款。货还在我这，还没去寄，也没有回寄单号。请先把 86 元退了。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

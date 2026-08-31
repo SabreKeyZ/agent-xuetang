@@ -1,0 +1,22 @@
+{
+  "id": "T-2104",
+  "fixture_id": "seven-day-no-reason-late",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T14:00:00+08:00",
+  "now": "2026-08-28T14:10:00+08:00",
+  "order_id": "QX-202608-2104",
+  "shop_id": "qingxia",
+  "customer_id": "u_seven",
+  "customer_name": "过期无理由",
+  "amount_yuan": 54,
+  "refund_yuan": 54,
+  "after_sales_type": "仅退款",
+  "attachments": [],
+  "prior_actions": [],
+  "title": "宣纸册不想要了",
+  "body": "宣纸册用不上，不想要了。请按七天无理由退 54 元。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

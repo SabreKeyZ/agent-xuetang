@@ -1,0 +1,26 @@
+{
+  "id": "C-2112",
+  "fixture_id": "shop-partial-offset",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_offset",
+  "insured_name": "部分冲减",
+  "claimant_id": "p_offset",
+  "claimant_name": "部分冲减",
+  "policy_no": "QT-FR-202608-212",
+  "order_id": "QX-202608-2103",
+  "tracking": "YT-SIGNED-2114",
+  "insured_at": "2026-08-05T09:00:00+08:00",
+  "incident_at": "2026-08-22T12:00:00+08:00",
+  "filed_at": "2026-08-23T09:00:00+08:00",
+  "now": "2026-08-23T09:00:00+08:00",
+  "amount_yuan": 20,
+  "attachments": [
+    {"name": "签收破角.jpg", "file_id": "att-pod-2112", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-2112", "kind": "发票"}
+  ],
+  "prior_actions": [
+    {"type": "shop_refund", "amount_yuan": 8, "at": "2026-08-22T18:00:00+08:00"}
+  ],
+  "narrative": "外包装破损。店铺只退了 8 元运费，申请运费险 20 元。请按差额，不要整单拒。"
+}

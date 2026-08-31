@@ -1,0 +1,24 @@
+{
+  "id": "C-2111",
+  "fixture_id": "accident-deductible",
+  "product": "accident",
+  "channel": "App",
+  "insured_id": "p_deduct",
+  "insured_name": "免赔试算",
+  "claimant_id": "p_deduct",
+  "claimant_name": "免赔试算",
+  "policy_no": "QT-AC-202608-211",
+  "order_id": "",
+  "insured_at": "2026-08-01T09:00:00+08:00",
+  "incident_at": "2026-08-20T10:00:00+08:00",
+  "filed_at": "2026-08-21T10:00:00+08:00",
+  "now": "2026-08-21T10:00:00+08:00",
+  "amount_yuan": 80,
+  "attachments": [
+    {"name": "出险说明.pdf", "file_id": "att-note-2111", "kind": "出险说明"},
+    {"name": "门诊回执.pdf", "file_id": "att-med-2111", "kind": "医疗票据或回执"},
+    {"name": "身份证.jpg", "file_id": "att-id-2111", "kind": "身份证明"}
+  ],
+  "prior_actions": [],
+  "narrative": "小额意外门诊 80 元。请按免赔 50 试算，不要把 80 全额打出。"
+}

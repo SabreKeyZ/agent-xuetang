@@ -1,0 +1,24 @@
+{
+  "id": "C-2114",
+  "fixture_id": "signed-damaged",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_signed",
+  "insured_name": "签收破损",
+  "claimant_id": "p_signed",
+  "claimant_name": "签收破损",
+  "policy_no": "QT-FR-202608-214",
+  "order_id": "QX-202608-2108",
+  "tracking": "YT-SIGNED-2114",
+  "insured_at": "2026-08-08T09:00:00+08:00",
+  "incident_at": "2026-08-22T16:10:00+08:00",
+  "filed_at": "2026-08-23T10:00:00+08:00",
+  "now": "2026-08-23T10:00:00+08:00",
+  "amount_yuan": 16,
+  "attachments": [
+    {"name": "签收破损.jpg", "file_id": "att-pod-2114", "kind": "物流签收图"},
+    {"name": "发票.pdf", "file_id": "att-inv-2114", "kind": "发票"}
+  ],
+  "prior_actions": [],
+  "narrative": "已签收，外包装明显破损。申请运费险 16 元。"
+}

@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | 材料质检 | 缺件勾选 | 材料不齐还审结 |
 | 条款员 | `条款 3.2 · path:line`（出险日版本） | 引用投保日 v1 给 8 月易碎案开绿灯 |
-| 核赔员 | 通过 / 补件 / 拒赔 + 决定书草稿 | 调用成功 payout；无芯片还点「通过」 |
+| 核赔员 | 通过 / 补件 / 拒赔 / 差额 / 复议 + 条款号与试算 | 调用成功 payout；无芯片还点「通过」；复议无 8.1 改判 |
 
 payout 探测永远 `confirm_required`。[`tools/payment.py`](../../projects/claimdesk/src/claimdesk/tools/payment.py) 的 `NEVER_PAYOUT`。
 人点「执行打款」：[`web.py`](../../projects/claimdesk/src/claimdesk/web.py) 第 63–71 行，仍 `executed=False`。

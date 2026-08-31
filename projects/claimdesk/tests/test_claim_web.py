@@ -24,6 +24,8 @@ def test_payments_page_and_stylesheet():
     assert "claimdesk.css" in html
     assert "<table" in html.lower()
     assert "cd-yen" in html
+    assert "cd-math" in html
+    assert "状态机" in html
     assert "td-balloon" not in html
     css = client.get("/static/claimdesk.css")
     assert css.status_code == 200

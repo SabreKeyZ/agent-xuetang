@@ -23,3 +23,11 @@ def refund(amount_yuan: float, idempotency_key: str, confirm: bool = False) -> d
         "amount_yuan": amount_yuan,
         "idempotency_key": idempotency_key,
     }
+
+
+def coupon(amount_yuan: float, idempotency_key: str, confirm: bool = False) -> dict:
+    """活动补偿券。形状像发券接口，演示同样不执行。"""
+    probe = refund(amount_yuan, idempotency_key, confirm=confirm)
+    probe["kind"] = "coupon"
+    probe["message"] = "补偿券须人点执行。演示不发券、不打款。"
+    return probe

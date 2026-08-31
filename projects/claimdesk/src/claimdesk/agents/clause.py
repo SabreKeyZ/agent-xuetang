@@ -58,8 +58,16 @@ def _query(claim: Claim, docs: dict) -> str:
     if claim.amount_yuan > 80:
         q.append("限额 保额 条款 2.1 2.2 4.1")
     if any(a.get("type") == "shop_refund" for a in claim.prior_actions):
-        q.append("双重受偿 店铺退款 条款 5.1")
+        q.append("双重受偿 店铺退款 冲减 差额 条款 5.1 5.3")
+    if any(a.get("type") in {"deny", "拒赔"} for a in claim.prior_actions) or "复议" in claim.narrative:
+        q.append("复议 新证据 条款 8.1")
+    if "拒收" in claim.narrative:
+        q.append("拒收 未签收 条款 3.4")
+    if "签收" in claim.narrative and "破损" in claim.narrative:
+        q.append("签收破损 条款 3.5 1.1")
+    if claim.product == "accident":
+        q.append("免赔 50 条款 2.3")
     if claim.claimant_id != claim.insured_id:
         q.append("身份闸门 代索赔 条款 6.1")
-    q.append("索赔窗口 条款 4.1")
+    q.append("索赔窗口 免赔 冲减 条款 2.3 4.1")
     return " ".join(q)

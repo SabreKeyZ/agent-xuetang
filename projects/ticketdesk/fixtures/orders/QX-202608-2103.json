@@ -1,0 +1,20 @@
+{
+  "order_id": "QX-202608-2103",
+  "shop_id": "qingxia",
+  "customer_id": "u_partial",
+  "placed_at": "2026-08-16T14:00:00+08:00",
+  "amount_yuan": 216.0,
+  "paid_yuan": 198.0,
+  "sku": "三件套",
+  "tracking": "YT21030816",
+  "last_scan_at": "2026-08-18T16:00:00+08:00",
+  "status": "delivered",
+  "signed_at": "2026-08-18T16:00:00+08:00",
+  "inbound_at": "2026-08-27T09:00:00+08:00",
+  "return_tracking": "SF21030827",
+  "lines": [
+    {"sku": "青松墨水", "qty": 1, "paid_yuan": 58},
+    {"sku": "砚台小样", "qty": 1, "paid_yuan": 72},
+    {"sku": "宣纸册", "qty": 1, "paid_yuan": 68}
+  ]
+}

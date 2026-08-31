@@ -29,9 +29,15 @@ class Ticket:
     priority: str
     fixture_id: str = ""
     unread: bool = True
+    after_sales_type: str = ""
+    messages: list[dict[str, Any]] = field(default_factory=list)
+    return_tracking: str = ""
+    first_response_sla_minutes: int = 0
+    resolution_sla_minutes: int = 0
 
     @classmethod
     def from_dict(cls, data: dict[str, Any], fixture_id: str = "") -> "Ticket":
+        sla = int(data.get("sla_minutes") or 24 * 60)
         return cls(
             id=str(data.get("id") or ""),
             channel=str(data.get("channel") or "在线客服"),
@@ -48,10 +54,15 @@ class Ticket:
             title=str(data.get("title") or ""),
             body=str(data.get("body") or ""),
             labels=[str(x) for x in data.get("labels") or []],
-            sla_minutes=int(data.get("sla_minutes") or 24 * 60),
+            sla_minutes=sla,
             priority=str(data.get("priority") or "P2"),
             fixture_id=fixture_id or str(data.get("fixture_id") or ""),
             unread=bool(data.get("unread", True)),
+            after_sales_type=str(data.get("after_sales_type") or ""),
+            messages=list(data.get("messages") or []),
+            return_tracking=str(data.get("return_tracking") or ""),
+            first_response_sla_minutes=int(data.get("first_response_sla_minutes") or sla),
+            resolution_sla_minutes=int(data.get("resolution_sla_minutes") or sla),
         )
 
     def as_dict(self) -> dict[str, Any]:
@@ -69,19 +80,34 @@ class Order:
     tracking: str
     last_scan_at: str
     status: str
+    paid_yuan: float = 0.0
+    lines: list[dict[str, Any]] = field(default_factory=list)
+    signed_at: str = ""
+    inbound_at: str = ""
+    return_tracking: str = ""
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "Order":
+        amount = float(data.get("amount_yuan") or 0)
+        lines = [dict(x) for x in (data.get("lines") or [])]
+        paid = data.get("paid_yuan")
+        if paid is None and lines:
+            paid = sum(float(x.get("paid_yuan") or 0) for x in lines)
         return cls(
             order_id=str(data.get("order_id") or ""),
             shop_id=str(data.get("shop_id") or ""),
             customer_id=str(data.get("customer_id") or ""),
             placed_at=str(data.get("placed_at") or ""),
-            amount_yuan=float(data.get("amount_yuan") or 0),
+            amount_yuan=amount,
             sku=str(data.get("sku") or ""),
             tracking=str(data.get("tracking") or ""),
             last_scan_at=str(data.get("last_scan_at") or ""),
             status=str(data.get("status") or ""),
+            paid_yuan=float(paid if paid is not None else amount),
+            lines=lines,
+            signed_at=str(data.get("signed_at") or ""),
+            inbound_at=str(data.get("inbound_at") or ""),
+            return_tracking=str(data.get("return_tracking") or ""),
         )
 
     def as_dict(self) -> dict[str, Any]:

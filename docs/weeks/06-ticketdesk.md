@@ -9,7 +9,8 @@
 
 - [ ] `python -m ticketdesk demo` 无 Key 成功，能指着芯片或红条。
 - [ ] 四张脏夹具你都对照过 stdout：缺单号、活动政策、超 ¥200、`curl | sh`。
-- [ ] 浏览器走完 Inbox：左会话、中灰/白气泡、底「执行」蓝钮；不是黑底，不是青绿泡。
+- [ ] 新夹具至少对照过三张：部分退、七天无理由、退货未入库（芯片 + 对客/对内）。
+- [ ] 浏览器走完 Inbox：左会话、中灰/白气泡、右侧对客/对内两盒、底「执行」蓝钮；不是黑底，不是青绿泡。
 - [ ] `pytest projects/ticketdesk/tests` 绿；你能讲 `evals/set8.json` 每一列。
 - [ ] 两分钟能讲清：Key 为空时数据从哪来，钱为什么没打出去。
 
@@ -60,11 +61,13 @@ flowchart TB
   RAG -->|零命中| REFUSE[红条]
 ```
 
-闸门顺序（对着 [`gate.py:27-69`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)）：
+闸门顺序（对着 [`gate.py:46-134`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)）：
 
 ```
 缺单号 → 辱骂 → 命令风险 → 重复单 → 风控
-  → 已退过 → 政策零命中 → SLA+L2空 → 超¥200 → 草稿
+  → 已退过 → 政策零命中 → 换货不现金 → 退货未入库
+  → 七天无理由 → 超实付 → 部分退整单
+  → 完结SLA+L2空 → 超¥200 → 草稿（活动延误走券）
 ```
 
 ### 0. 安装
@@ -80,7 +83,7 @@ python -m ticketdesk demo
 python -m pytest projects/ticketdesk/tests -q
 ```
 
-本机抽取式墙钟约 **342 ms**，8 张高亮夹具。token = 0。
+抽取式 token = 0。墙钟以你机器为准，不要编毫秒。
 
 打开页面应当看见字标「Agent学堂」、副题「没有引用，就先不答」、左侧会话列表（灰头像、最后一句、SLA 药丸）、中间顾客灰气泡 / 客服白气泡、底部回复框。引用芯片是灰描边。闸门拒绝是玫瑰色系统句。背景 `#F4F6F8`。唯一强调色是「执行」上的 Intercom 蓝。
 
@@ -109,11 +112,11 @@ python -m ticketdesk demo --fixture missing-order-id
 [gate] 缺单号或填错店 · 只许追问  verdict=refuse_exec  next=ask_order_id
 idempotency_key=qingxia:refund:T-1001:4800  executed=False
 红条: 没有完整订单，不能改单也不能退款。
-草稿: 请回复青匣记订单号（QX- 开头）。他店订单我们查不到，也无法代退。
+对客草稿: 请回复青匣记订单号（QX- 开头）。他店订单我们查不到，也无法代退。
 payment.status=confirm_required
 ```
 
-**芯片。** 政策仍可能摘到售后第 1 条（必须带单号）。分类员先定性「信息不全」。闸门不看金额，只许追问。[`classifier.py:53`](../../projects/ticketdesk/src/ticketdesk/agents/classifier.py) + [`orders.py:12`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py) `missing_order_id`。
+**芯片。** 政策仍可能摘到售后第 1 条（必须带单号）。分类员先定性「信息不全」。闸门不看金额，只许追问。[`classifier.py:78`](../../projects/ticketdesk/src/ticketdesk/agents/classifier.py) + [`orders.py:12`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py) `missing_order_id`。
 
 **Inbox 预期。** 左列 T-1001；气泡下芯片可点 `after-sales.md`；玫瑰色「没有完整订单」；「执行」不该把钱打出去。
 
@@ -130,10 +133,10 @@ python -m ticketdesk demo --fixture promo-overrides-sla
 [classifier] 物流延误 · 中
 [policy] 政策摘录
 引用: docs/policy/promo-2026-summer.md:12, docs/policy/promo-2026-summer.md:8, docs/policy/promo-2026-summer.md:22, docs/policy/promo-2026-summer.md:10, docs/policy/promo-2026-summer.md:18
-[gate] 建议草稿 · 等人点执行，不打款  verdict=draft_ok  next=wait_human_confirm
-idempotency_key=qingxia:refund:T-1201:0  executed=False
-草稿: 订单 QX-202608-8812 在盛夏大促窗口内超时未更新轨迹。按活动政策可申请不超过 ¥12 的运费补偿。草稿已写，补偿须人点执行。
-payment.status=confirm_required
+[gate] 建议发补偿券 · 须人确认，不打款  verdict=draft_ok  next=wait_human_confirm
+idempotency_key=qingxia:coupon:T-1201:0  executed=False
+对客草稿: 订单 QX-202608-8812 在盛夏大促窗口内超时未更新轨迹。按活动政策发不超过 ¥12 的补偿券，不发现金。草稿已写，发券须人点执行。
+payment.status=confirm_required kind=coupon
 ```
 
 **芯片必须含 `promo-2026-summer.md`。** 测试钉死：[`test_promo_cites_effective_campaign_file`](../../projects/ticketdesk/tests/test_policy_cite.py)。
@@ -148,7 +151,7 @@ payment.status=confirm_required
 
 检索：[`rag.py:147`](../../projects/ticketdesk/src/ticketdesk/rag.py) `prefer_promo=True` 当类型是物流延误（[`policy.py:27`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py)）。
 
-**Inbox 预期。** 气泡下灰芯片写着 `promo-2026-summer.md:…`；草稿提 ¥12；「执行」仍只记审计。对照 [ticketdesk-citations.png](../images/ticketdesk-citations.png)。
+**Inbox 预期。** 气泡下灰芯片写着 `promo-2026-summer.md:…`；对客草稿写券不写现金；右侧「对内」盒说明走券。对照 [ticketdesk-citations.png](../images/ticketdesk-citations.png)。
 
 ### C. `refund-over-200` · 超限额只许草稿
 
@@ -166,11 +169,11 @@ python -m ticketdesk demo --fixture refund-over-200
 [gate] 退款超 ¥200 · 只许草稿  verdict=refuse_exec  next=draft_only
 idempotency_key=qingxia:refund:T-1401:48600  executed=False
 红条: 闸门员拒绝执行。人复核后再点执行。
-草稿: 建议退款 ¥486.00，已超执行限额。草稿已写，等待人工复核。
+对客草稿: 建议退款 ¥486.00，已超执行限额。草稿已写，等待人工复核。
 payment.status=confirm_required
 ```
 
-**芯片。** `refund-and-risk.md:10` 写超 200 只许草稿。闸门用 [`REFUND_EXEC_LIMIT_YUAN = 200`](../../projects/ticketdesk/src/ticketdesk/models.py) + [`gate.py:64`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)。不得拆成两笔 199。
+**芯片。** `refund-and-risk.md:10` 写超 200 只许草稿。闸门用 [`REFUND_EXEC_LIMIT_YUAN = 200`](../../projects/ticketdesk/src/ticketdesk/models.py) + [`gate.py:128`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)。不得拆成两笔 199。
 
 **Inbox 预期。** 玫瑰色「闸门员拒绝执行」；对照 [ticketdesk-refuse.png](../images/ticketdesk-refuse.png)。执行键可点，返回仍 `confirm_required`（[`web.py:72`](../../projects/ticketdesk/src/ticketdesk/web.py)）。
 
@@ -194,17 +197,63 @@ payment.status=confirm_required
 executed=False
 ```
 
-测试 [`test_shell_is_cited_not_run`](../../projects/ticketdesk/tests/test_safety.py) 把 `os.system` 打桩，断言从未调用。[`safety.py:7`](../../projects/ticketdesk/src/ticketdesk/safety.py) `DANGEROUS_PATTERNS`。
+测试 [`test_shell_is_cited_not_run`](../../projects/ticketdesk/tests/test_safety.py) 把 `os.system` 打桩，断言从未调用。[`safety.py:7`](../../projects/ticketdesk/src/ticketdesk/safety.py) `DANGEROUS_PATTERNS`。[`gate.py:57`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)。
 
 **Inbox 预期。** 不要渲染成可点的「运行脚本」。芯片指向风控第 6 条。
 
 ### 另外两张你应当扫过
 
-`p0-sla-night`：`verdict=escalate`，红条「不虚构值班人」。名册只有白班 09:00–18:00（`fixtures/roster.json`），[`clock.py:38`](../../projects/ticketdesk/src/ticketdesk/clock.py) 夜间返回 `None`。
+`p0-sla-night`：完结时钟超时 + 夜间 L2 空 → `verdict=escalate`，红条「不虚构值班人」。名册只有白班 09:00–18:00（`fixtures/roster.json`），[`clock.py:38`](../../projects/ticketdesk/src/ticketdesk/clock.py) 夜间返回 `None`。对照 `dual-sla-night-first-only`：首次响应超时、完结未到，夜间不升级。
 
 `already-refunded`：`next=no_double_pay`，同一损失不二次补偿。
 
 同一夹具跑两遍：`idempotency_key` 不变，第二次 `replayed=True`（[`store.py:13`](../../projects/ticketdesk/src/ticketdesk/store.py)）。
+
+## 夹具实录 · 售后缺口
+
+命令仍是 `python -m ticketdesk demo --fixture <名>`。芯片以你终端「引用:」那行为准。
+
+### E. `partial-refund-one-line` · 三件只退损坏行
+
+```text
+===== T-2103  三件里砚台裂了，整单退  fixture=partial-refund-one-line =====
+[classifier] 部分退 · 中  labels=['部分退', 'P1', '中', '退货退款']
+[policy] 政策摘录
+引用: docs/policy/after-sales.md:36, docs/policy/after-sales.md:34, ...
+[gate] 部分退 · 不得整单  verdict=refuse_exec  next=partial_line
+红条: 多 SKU 只退损坏行实付，不得整单。
+对客草稿: 订单有多件。损坏的是「砚台小样」，该行实付 ¥72.00。不能按整单 ¥198.00 退。建议只退该行，须人确认。
+对内备注: 对内：建议只退 砚台小样 实付 ¥72.0，勿整单。
+payment.status=confirm_required
+```
+
+**芯片。** `after-sales.md` 第 5 条部分退 / 实付。[`aftersales.py`](../../projects/ticketdesk/src/ticketdesk/aftersales.py) `broken_line` 认「砚台小样裂了」，[`gate.py:114`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)。
+
+### F. `seven-day-no-reason-late` · 超时无理由
+
+```text
+===== T-2104  宣纸册不想要了  fixture=seven-day-no-reason-late =====
+[classifier] 七天无理由超时 · 中
+引用: docs/policy/after-sales.md:32, ...
+[gate] 七天无理由已过 · 拒退  next=deny_seven_day
+对客草稿: …已于 2026-08-12 签收，超过七日无理由时限。仅因「不想要了」不能退款。
+```
+
+对照 `quality-after-seven-days`：叙述是漏液，签收过七日仍走质量，不拒无理由。
+
+### G. `return-no-inbound` · 没回寄不退款
+
+```text
+===== T-2101  墨水漏液，要退货退款  fixture=return-no-inbound =====
+[classifier] 退货退款 · 中
+引用: docs/policy/after-sales.md:40, ...
+[gate] 退货未入库 · 只许草稿/追问  next=ask_return
+红条: 没有回寄单号或仓库 inbound_at，不能退款。
+对客草稿: 退货退款须先回寄。…
+对内备注: 对内：退货退款缺 return_tracking / inbound_at，禁止打款。
+```
+
+再扫：`refund-over-paid` 芯片仍是售后/退款，闸门 `cap_paid`（实付 ¥98，原价 ¥128）；`exchange-no-cash` 不退现金；`unshipped-cancel` `draft_ok` 仍 `confirm_required`；`promo-coupon-not-cash` 芯片必须含 `promo-2026-summer.md`，`kind=coupon`；`multi-turn-tracking` 分类用最后一轮顾客话（漏液 / 单号），不是第一句「等下发」。
 
 ## 浏览器 · Inbox 怎么走
 
@@ -221,6 +270,7 @@ http://127.0.0.1:8000
 | 点芯片 | `/api/cite` 打开政策片段 | 404 或绝对路径 |
 | 点 T-1401 | 玫瑰色拒执行，草稿 ¥486 | 「已退款成功」 |
 | 点 T-1501 | 二线空、转人工，不编值班人名 | 「夜间同事周南在线」 |
+| 点 T-2103 | 对客写砚台 ¥72，对内写勿整单 | 气泡里出现风控句子 |
 | 底部「执行」 | 审计一行，`executed` 仍 false | 支付宝到账 |
 
 字标和回复框在 [`static/index.html`](../../projects/ticketdesk/src/ticketdesk/static/index.html)。CSS 不要和理赔台共用 class。
@@ -233,7 +283,7 @@ http://127.0.0.1:8000
 python -m ticketdesk eval --set projects/ticketdesk/evals/set8.json
 ```
 
-本机 8/8 PASS。评测器：[cli.py:76](../../projects/ticketdesk/src/ticketdesk/cli.py)
+评测器：[cli.py:76](../../projects/ticketdesk/src/ticketdesk/cli.py)。行数以文件为准，不要为了满分删行。
 
 | 列 | 意思 | 例子 |
 | --- | --- | --- |
@@ -275,7 +325,9 @@ docker compose -f projects/ticketdesk/docker-compose.yml up --build
 | Inbox | 会话列表 + 气泡，不是支付表 |
 | 芯片 | `docs/policy/…:行号` |
 | 闸门 | 最后出口，不打款 |
-| set8 | 八行闸门评测 |
+| 对客 / 对内 | `draft_reply` 进气泡；辱骂风控只进 `internal_note` |
+| 部分退 | 只退损坏行 `paid_yuan` |
+| set8 | 八行闸门评测（新夹具在 pytest，不必塞满 set8） |
 
 [三角色出口](../cheatsheets/ticketdesk-roles.md)
 
@@ -283,7 +335,7 @@ docker compose -f projects/ticketdesk/docker-compose.yml up --build
 
 「自动打款才叫 Agent，你怎么挡？」
 
-希望听到：指 [`payment.py:9`](../../projects/ticketdesk/src/ticketdesk/tools/payment.py) `NEVER_PAY`、[`web.py:72`](../../projects/ticketdesk/src/ticketdesk/web.py) 人点仍 `confirm_required`、[`gate.py:64`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) 超 200。STAR 写引用和闸门，不写 Mesh。
+希望听到：指 [`payment.py:9`](../../projects/ticketdesk/src/ticketdesk/tools/payment.py) `NEVER_PAY`、[`web.py:72`](../../projects/ticketdesk/src/ticketdesk/web.py) 人点仍 `confirm_required`、[`gate.py:128`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) 超 200、[`gate.py:114`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) 部分退。STAR 写引用、部分退和闸门，不写 Mesh。
 
 ## 常见坑
 

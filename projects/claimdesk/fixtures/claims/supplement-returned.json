@@ -1,0 +1,32 @@
+{
+  "id": "C-2115",
+  "fixture_id": "supplement-returned",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_suwan",
+  "insured_name": "苏晚",
+  "claimant_id": "p_suwan",
+  "claimant_name": "苏晚",
+  "policy_no": "QT-FR-202608-771",
+  "order_id": "QX-202608-3309",
+  "tracking": "YT-SIGNED-2114",
+  "insured_at": "2026-08-01T10:00:00+08:00",
+  "incident_at": "2026-08-22T18:00:00+08:00",
+  "filed_at": "2026-08-24T09:10:00+08:00",
+  "now": "2026-08-26T11:00:00+08:00",
+  "amount_yuan": 18,
+  "attachments": [
+    {"name": "运单截图.png", "file_id": "att-waybill-3309b", "kind": "运单"}
+  ],
+  "prior_actions": [
+    {
+      "type": "supplement",
+      "at": "2026-08-26T10:40:00+08:00",
+      "attachments": [
+        {"name": "签收图-补.jpg", "file_id": "att-pod-sup-2115", "kind": "物流签收图"},
+        {"name": "发票-补.pdf", "file_id": "att-inv-sup-2115", "kind": "发票"}
+      ]
+    }
+  ],
+  "narrative": "青松墨水外盒压扁。上次缺签收图和发票，现已补齐，请进入核赔。"
+}

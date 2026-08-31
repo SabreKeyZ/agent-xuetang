@@ -6,5 +6,7 @@
   {"id": "cd-5", "fixture": "over-window", "expect_rec": "拒赔", "note": "超窗口"},
   {"id": "cd-6", "fixture": "shop-already-refunded", "expect_rec": "拒赔", "note": "双重受偿"},
   {"id": "cd-7", "fixture": "valid-low", "expect_rec": "通过", "must_cite": true, "executed_must_be_false": true, "note": "低额通过建议"},
-  {"id": "cd-8", "fixture": "no-clause", "expect_rec": "拒审", "executed_must_be_false": true, "note": "无引用红条"}
+  {"id": "cd-8", "fixture": "no-clause", "expect_rec": "拒审", "executed_must_be_false": true, "note": "无引用红条"},
+  {"id": "cd-9", "fixture": "accident-deductible", "expect_rec": "通过", "must_cite": true, "executed_must_be_false": true, "note": "免赔试算"},
+  {"id": "cd-10", "fixture": "appeal-after-deny", "expect_rec": "复议", "must_cite": true, "executed_must_be_false": true, "note": "复议不默示通过"}
 ]

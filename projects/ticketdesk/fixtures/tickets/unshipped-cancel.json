@@ -1,0 +1,22 @@
+{
+  "id": "T-2107",
+  "fixture_id": "unshipped-cancel",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T15:00:00+08:00",
+  "now": "2026-08-28T15:12:00+08:00",
+  "order_id": "QX-202608-2107",
+  "shop_id": "qingxia",
+  "customer_id": "u_unship",
+  "customer_name": "未发就取消",
+  "amount_yuan": 86,
+  "refund_yuan": 86,
+  "after_sales_type": "仅退款",
+  "attachments": [],
+  "prior_actions": [],
+  "title": "还没发货，取消订单",
+  "body": "黄铜镇尺还没发货，我取消订单，只要仅退款 86 元。",
+  "labels": [],
+  "sla_minutes": 1440,
+  "priority": "P2",
+  "unread": true
+}

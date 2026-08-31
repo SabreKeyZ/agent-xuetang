@@ -1,0 +1,39 @@
+{
+  "id": "T-2108",
+  "fixture_id": "multi-turn-tracking",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T16:00:00+08:00",
+  "now": "2026-08-28T16:40:00+08:00",
+  "order_id": "QX-202608-2108",
+  "shop_id": "qingxia",
+  "customer_id": "u_multiturn",
+  "customer_name": "补单号",
+  "amount_yuan": 68,
+  "refund_yuan": 68,
+  "after_sales_type": "退货退款",
+  "attachments": ["leak-2108.jpg"],
+  "prior_actions": [],
+  "title": "货坏了要退，单号回头补",
+  "body": "货坏了要退，单号等下发。",
+  "messages": [
+    {
+      "role": "顾客",
+      "at": "2026-08-28T16:00:00+08:00",
+      "body": "货坏了要退，单号等下发。"
+    },
+    {
+      "role": "客服",
+      "at": "2026-08-28T16:08:00+08:00",
+      "body": "请回复青匣记订单号（QX- 开头）。"
+    },
+    {
+      "role": "顾客",
+      "at": "2026-08-28T16:36:00+08:00",
+      "body": "单号 QX-202608-2108，青松墨水漏液，要退货退款，回寄单号 SF21080828。"
+    }
+  ],
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "T-2102",
+  "fixture_id": "exchange-no-cash",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T12:00:00+08:00",
+  "now": "2026-08-28T12:15:00+08:00",
+  "order_id": "QX-202608-2102",
+  "shop_id": "qingxia",
+  "customer_id": "u_exchange",
+  "customer_name": "换货客",
+  "amount_yuan": 68,
+  "refund_yuan": 68,
+  "after_sales_type": "换货",
+  "attachments": ["color-wrong.jpg"],
+  "prior_actions": [],
+  "title": "墨水色号不对，换一瓶",
+  "body": "青松墨水色号发错了，不要退款，换货换成青松就行。别把钱打回来。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}

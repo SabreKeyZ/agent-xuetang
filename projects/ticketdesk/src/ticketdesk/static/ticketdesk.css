@@ -264,6 +264,28 @@ html, body { height: 100%; }
 .td-v { font-size: 15px; font-weight: 650; }
 .td-timer { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
 .td-timer-late { color: var(--td-rose); }
+.td-faces {
+  display: grid;
+  gap: 12px;
+  margin: 8px 0 16px;
+}
+.td-cusbox, .td-l2box {
+  border: 1px solid var(--td-hair);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: var(--td-page);
+  white-space: pre-wrap;
+  font-size: 12px;
+  color: var(--td-copy);
+}
+.td-l2box { background: #f3f4f6; color: var(--td-soft); }
+.td-viewlabel {
+  display: block;
+  font-size: 11px;
+  color: var(--td-soft);
+  margin-bottom: 6px;
+  letter-spacing: 0.06em;
+}
 .td-foot {
   margin-top: 24px;
   padding-top: 16px;

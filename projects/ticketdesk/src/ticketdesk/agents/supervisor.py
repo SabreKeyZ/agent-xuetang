@@ -59,6 +59,9 @@ class Supervisor:
             "sla": gate["sla"],
             "next_action": gate["next_action"],
             "draft_reply": gate["draft_reply"],
+            "internal_note": gate.get("internal_note") or "",
+            "after_sales_type": gate.get("after_sales_type") or classify.get("after_sales_type") or "",
+            "compensation_kind": gate.get("compensation_kind") or "",
             "citations": policy.get("citations") or [],
             "executed": False,
             "requires_human": True,
@@ -88,6 +91,12 @@ class Supervisor:
             "abuse-legal",
             "shell-in-body",
             "happy-logistics",
+            "return-no-inbound",
+            "partial-refund-one-line",
+            "seven-day-no-reason-late",
+            "refund-over-paid",
+            "promo-coupon-not-cash",
+            "unshipped-cancel",
         ]
         catalog = {t.fixture_id: t for t in self.catalog()}
         script = []

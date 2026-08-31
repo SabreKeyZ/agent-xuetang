@@ -1,0 +1,23 @@
+{
+  "id": "T-2109",
+  "fixture_id": "dual-sla-night-first-only",
+  "channel": "在线客服",
+  "created_at": "2026-08-29T21:10:00+08:00",
+  "now": "2026-08-29T22:40:00+08:00",
+  "order_id": "QX-202608-2109",
+  "shop_id": "qingxia",
+  "customer_id": "u_dualsla",
+  "customer_name": "夜间首响",
+  "amount_yuan": 54,
+  "refund_yuan": 0,
+  "attachments": ["waybill-2109.png"],
+  "prior_actions": [],
+  "title": "查一下宣纸册物流",
+  "body": "宣纸册快递轨迹好久没动。先回我一句就行，不用退款。",
+  "labels": [],
+  "sla_minutes": 60,
+  "first_response_sla_minutes": 60,
+  "resolution_sla_minutes": 480,
+  "priority": "P2",
+  "unread": true
+}

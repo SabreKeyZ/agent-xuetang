@@ -1,0 +1,24 @@
+{
+  "id": "C-2113",
+  "fixture_id": "reject-unsigned",
+  "product": "freight",
+  "channel": "App",
+  "insured_id": "p_reject",
+  "insured_name": "拒收未签",
+  "claimant_id": "p_reject",
+  "claimant_name": "拒收未签",
+  "policy_no": "QT-FR-202608-213",
+  "order_id": "QX-202608-2101",
+  "tracking": "YT-REJECT-2113",
+  "insured_at": "2026-08-08T09:00:00+08:00",
+  "incident_at": "2026-08-21T11:00:00+08:00",
+  "filed_at": "2026-08-22T09:00:00+08:00",
+  "now": "2026-08-22T09:00:00+08:00",
+  "amount_yuan": 18,
+  "attachments": [
+    {"name": "拒收证明.jpg", "file_id": "att-rej-2113", "kind": "拒收证明"},
+    {"name": "支付截图.png", "file_id": "att-pay-2113", "kind": "支付截图"}
+  ],
+  "prior_actions": [],
+  "narrative": "运输途中外包装破损，我拒收未签收。有拒收证明，申请运费险 18 元。"
+}

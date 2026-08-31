@@ -7,5 +7,9 @@
   "sku": "砚台小样",
   "tracking": "YT88010824",
   "last_scan_at": "2026-08-25T19:20:00+08:00",
-  "status": "delivered"
+  "status": "delivered",
+  "paid_yuan": 72.0,
+  "signed_at": "2026-08-25T19:20:00+08:00",
+  "inbound_at": "2026-08-27T10:00:00+08:00",
+  "return_tracking": "SF88010827"
 }

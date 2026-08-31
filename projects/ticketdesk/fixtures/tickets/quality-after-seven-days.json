@@ -1,0 +1,22 @@
+{
+  "id": "T-2110",
+  "fixture_id": "quality-after-seven-days",
+  "channel": "在线客服",
+  "created_at": "2026-08-28T17:00:00+08:00",
+  "now": "2026-08-28T17:20:00+08:00",
+  "order_id": "QX-202608-2110",
+  "shop_id": "qingxia",
+  "customer_id": "u_q7",
+  "customer_name": "过期仍质量",
+  "amount_yuan": 68,
+  "refund_yuan": 68,
+  "after_sales_type": "退货退款",
+  "attachments": ["leak-late.jpg"],
+  "prior_actions": [],
+  "title": "签收半个月了墨水漏液",
+  "body": "青松墨水漏液，开箱才发现。签收已经超过七天，但这是质量问题，请按质量条款退货退款。",
+  "labels": [],
+  "sla_minutes": 480,
+  "priority": "P1",
+  "unread": true
+}
