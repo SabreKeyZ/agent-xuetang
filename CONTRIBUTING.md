@@ -29,8 +29,9 @@
 ## 本地怎么跑
 
 ```bash
-python3.11 -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+python3 -m venv .venv
+source .venv/bin/activate   # Windows PowerShell: .venv\Scripts\Activate.ps1
+# Windows cmd: .venv\Scripts\activate
 python -m pip install -U pip
 python -m pip install pytest
 python -m pip install -e "projects/ticketdesk"

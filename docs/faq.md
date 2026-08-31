@@ -2,9 +2,19 @@
 
 你卡住时先在这里搜报错关键字。这里不讲「心态」，只讲命令和账单。
 
+## `python3.11: command not found`
+
+正文要的是 **Python 3.11 或更新**，命令写 `python3 -m venv .venv`。
+没有名为 `python3.11` 的二进制很正常。先跑 `python3 --version`，只要是 3.11+ 就能建 venv。
+Windows 用 `py -3`。不要为了复制旧命令去装一个刚好叫 `python3.11` 的别名。
+
 ## Key 填错
 
 症状：`401`、`AuthenticationError`、`invalid api key`、`The API key you provided is incorrect`。
+第 0 周脚本还会先在本机拦住两种「还没发出去」的情况：
+
+- 根目录没有 `.env`：stderr 写「缺少 .env」，请复制 `.env.example`。
+- `.env` 已经在、但 `OPENAI_API_KEY=` 仍是空的：stderr 写「OPENAI_API_KEY 是空的」。复制示例文件不会自动带钥匙。
 
 对照清单：
 
@@ -59,8 +69,9 @@
 
 ## Windows 路径和编码
 
-- 激活虚拟环境：`.venv\Scripts\activate`。
-- 若 `python` 不是 3.11+，用 `py -3.11`。
+- PowerShell 激活：`.venv\Scripts\Activate.ps1`
+- cmd 激活：`.venv\Scripts\activate`
+- 若 `python` 不是 3.11+，用 `py -3`。
 - 控制台乱码时：`chcp 65001`，或在 PowerShell 里 `$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::UTF8`。
 - 不要把仓库放在带中文空格的桌面路径里，早期脚本会把路径当参数切错。
 

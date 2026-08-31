@@ -28,13 +28,13 @@ def test_parse_fullwidth_colon():
 
 def test_eval_cases_all_pass():
     rows = evaluate()
-    assert len(rows) == 3
+    assert len(rows) >= 3
     assert all(row["ok"] for row in rows), rows
 
 
-def test_eval_json_has_three_cases():
+def test_eval_json_has_at_least_three_cases():
     data = json.loads((Path(__file__).parent / "eval_cases.json").read_text(encoding="utf-8"))
-    assert len(data) == 3
+    assert len(data) >= 3
 
 
 def test_parse_flag_prints_error_parse():

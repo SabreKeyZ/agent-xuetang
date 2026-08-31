@@ -9,6 +9,7 @@ from claimdesk.clock import parse_day
 from claimdesk.config import project_root
 
 _TOKEN = re.compile(r"[A-Za-z]{2,}|\d+|[一-龥]{2,}|条款\s*\d+\.\d+")
+_HEADING_CLAUSE = re.compile(r"^#{1,6}\s*条款\s*(\d+\.\d+)", re.M)
 
 
 @dataclass
@@ -74,9 +75,12 @@ def _meta(lines: list[str]) -> tuple[date | None, date | None, str]:
     return ef, et, version
 
 
-def _clause_id(text: str) -> str:
-    m = re.search(r"条款\s*(\d+\.\d+)", text)
-    return f"条款 {m.group(1)}" if m else ""
+def _clause_id(text: str, inherited: str = "") -> str:
+    """优先取标题「## 条款 x.y」。正文里「见条款 2.2」不得把 1.1 段标成 2.2。"""
+    m = _HEADING_CLAUSE.search(text)
+    if m:
+        return f"条款 {m.group(1)}"
+    return inherited
 
 
 def load_corpus(root: Path | None = None) -> Corpus:
@@ -86,13 +90,17 @@ def load_corpus(root: Path | None = None) -> Corpus:
         rel = path.relative_to(base).as_posix()
         lines = path.read_text(encoding="utf-8").splitlines()
         meta = _meta(lines)
+        inherited = ""
         buf: list[str] = []
         start = 1
         for idx, line in enumerate(lines, start=1):
             if line.strip() == "":
                 if buf:
                     text = "\n".join(buf)
-                    chunks.append(Chunk(rel, start, idx - 1, text, *meta, _clause_id(text)))
+                    cid = _clause_id(text, inherited)
+                    if _HEADING_CLAUSE.search(text):
+                        inherited = cid
+                    chunks.append(Chunk(rel, start, idx - 1, text, *meta, cid))
                     buf = []
                 start = idx + 1
                 continue
@@ -101,7 +109,10 @@ def load_corpus(root: Path | None = None) -> Corpus:
             buf.append(line)
         if buf:
             text = "\n".join(buf)
-            chunks.append(Chunk(rel, start, start + len(buf) - 1, text, *meta, _clause_id(text)))
+            cid = _clause_id(text, inherited)
+            if _HEADING_CLAUSE.search(text):
+                inherited = cid
+            chunks.append(Chunk(rel, start, start + len(buf) - 1, text, *meta, cid))
     return Corpus(root=base, chunks=[c for c in chunks if c.text.strip()])
 
 

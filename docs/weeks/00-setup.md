@@ -37,7 +37,7 @@
 - 吴恩达 Agentic AI（官方）：https://www.deeplearning.ai/courses/agentic-ai
 - Hugging Face Agents Course 导论：https://huggingface.co/learn/agents-course/unit0/introduction
 
-第 0 周不必看完李宏毅。模块1-3 自主性（05:04）留给第 1 周。
+第 0 周不必看完李宏毅。模块1-3 自主性（合集第 3 分 P）留给第 1 周。
 
 ## 概念：定义 + 一个反例
 
@@ -76,9 +76,10 @@ python3 --version
 要 **3.11 或更新**。只有 3.9 的同学请另装 3.11，不要用系统自带的 3.8 硬撑。
 
 ```bash
-python3.11 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 # Windows PowerShell: .venv\Scripts\Activate.ps1
+# Windows cmd: .venv\Scripts\activate
 python -m pip install -U pip
 ```
 
@@ -108,10 +109,10 @@ Key 和 Base URL 必须成对。智谱、通义、Ollama 写在 `.env.example` �
 | 行 | 它在干什么 |
 | --- | --- |
 | [`16:26:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | `load_dotenv`：读仓库根的 `.env`，不覆盖已有环境变量 |
-| [`45:48:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 没有 Key 直接退出码 2，并告诉你去复制 `.env.example` |
-| [`50:69:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 拼 `BASE_URL/chat/completions`，POST 一条中文 user |
-| [`73:76:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | HTTP 错误把响应体打到 stderr，不装成成功 |
-| [`88:89:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 成功只印两行：`[ok] model=` 和 `[ok] reply=` |
+| [`47:57:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 缺 `.env` 和「文件在、钥匙空」说两句不同的话，退出码 2 |
+| [`59:78:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 拼 `BASE_URL/chat/completions`，POST 一条中文 user |
+| [`82:85:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | HTTP 错误把响应体打到 stderr，不装成成功 |
+| [`97:98:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) | 成功只印两行：`[ok] model=` 和 `[ok] reply=` |
 
 ```bash
 python code/week0/hello_chat.py
@@ -130,14 +131,17 @@ python code/week0/hello_chat.py
 
 ![第 0 周成功终端](../images/week0-ok-terminal.png)
 
-没填 Key 时不要猜，脚本会诚实说：
+没建 `.env` 时脚本说「缺少 .env」；复制了但钥匙还空时说「OPENAI_API_KEY 是空的」。两句都是退出码 `2`。`pytest code/week0` 覆盖这两条，不打网。
 
 ```text
-缺少 OPENAI_API_KEY。复制 .env.example 为 .env 后再跑。
+缺少 .env。复制 .env.example 为 .env，再填入 OPENAI_API_KEY。
 只有 Ollama 时：OPENAI_API_KEY=ollama 且 BASE_URL 指向本地。
 ```
 
-退出码是 `2`。`pytest code/week0` 覆盖这条，不打网。
+```text
+OPENAI_API_KEY 是空的。打开 .env 填入 Key 后再跑。复制 .env.example 只是建文件，不会自动带钥匙。
+只有 Ollama 时：OPENAI_API_KEY=ollama 且 BASE_URL 指向本地。
+```
 
 ### 6. 没有 GPU 意味着什么
 
@@ -156,7 +160,7 @@ $ python code/week0/hello_chat.py
 
 （你连的是厂商地址时，URL 会是 `https://api.deepseek.com/v1/chat/completions`，正文同样是 401 + invalid key。）
 
-**原因。** [`73:76:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) 把 HTTPError 原样打印。Key 无效就是 401，不是「模型不会中文」。
+**原因。** [`82:85:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) 把 HTTPError 原样打印。Key 无效就是 401，不是「模型不会中文」。
 
 **修复。** 核对三件事：Key 是那一家的、`OPENAI_BASE_URL` 是那一家的、没有把 DeepSeek 的 Key 配到 `api.openai.com`。改完再跑，直到出现 `[ok] reply=`。
 
@@ -166,14 +170,15 @@ $ python code/week0/hello_chat.py
 
 | 厂商口 | `OPENAI_BASE_URL` | Key | 本机状态 |
 | --- | --- | --- | --- |
-| （无） | 任意 | 空 / 未复制 `.env` | **退出码 2**，stderr 两行「缺少 OPENAI_API_KEY」 |
+| （无文件） | 任意 | 未复制 `.env` | **退出码 2**，「缺少 .env」 |
+| （空钥匙） | 任意 | `.env` 在、`OPENAI_API_KEY=` | **退出码 2**，「OPENAI_API_KEY 是空的」 |
 | DeepSeek | `https://api.deepseek.com/v1` | `sk-wrong` | **HTTP 401** `authentication_error` |
 | 任意国内 Key | `https://api.openai.com/v1` | 国内那把 | **HTTP 401**（钥匙和口不是一家）。测验见练习 4 |
 | 智谱 | `https://open.bigmodel.cn/api/paas/v4` | 空 | 同「缺 Key」，脚本先拦，不发请求 |
 | 通义兼容 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | 空 | 同上 |
 | Ollama | `http://localhost:11434/v1` | `ollama` 但没起服务 | **网络错误**（`URLError`），FAQ「代理和网络」 |
 
-脚本拼 URL 的方式：[`50:50:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) `f"{base}/chat/completions"`。Base 不要重复写 `/chat/completions`。
+脚本拼 URL 的方式：[`59:59:code/week0/hello_chat.py`](../../code/week0/hello_chat.py) `f"{base}/chat/completions"`。Base 不要重复写 `/chat/completions`。
 
 ## 练习
 
@@ -199,13 +204,14 @@ $ python code/week0/hello_chat.py
 
 「你们第 0 周就接通模型了，为什么还不叫 Agent？」
 
-希望听到：指 [`code/week0/hello_chat.py:50`](../../code/week0/hello_chat.py) 只 POST 一次，没有 `MAX_STEPS`，没有把工具结果喂回下一步。对比第 1 周 [`echo_agent.py:47`](../../code/week1/echo_agent.py)。
+希望听到：指 [`code/week0/hello_chat.py:59`](../../code/week0/hello_chat.py) 只 POST 一次，没有 `MAX_STEPS`，没有把工具结果喂回下一步。对比第 1 周 [`echo_agent.py:47`](../../code/week1/echo_agent.py)。
 
 ## 常见坑
 
 - 把 DeepSeek 的 Key 配到 `api.openai.com`。
 - 用记事本保存 `.env` 存成 UTF-16。
 - 激活了 venv 却用 `pip install` 装到外面。永远写 `python -m pip`。
+- 敲 `python3.11 -m venv` 报 `command not found`：正文要的是 3.11 或更新，命令用 `python3`。见 [FAQ](../faq.md)。
 - 其余见 [FAQ](../faq.md) 的「Key 填错」「代理和网络」。
 
 ## 延伸阅读

@@ -179,7 +179,7 @@ def _happy_draft(ticket: Ticket, classify: dict, policy: dict, after_type: str, 
             return (
                 f"订单 {ticket.order_id} 在盛夏大促窗口内超时未更新轨迹。"
                 "按活动政策发不超过 ¥12 的补偿券，不发现金。草稿已写，发券须人点执行。",
-                "对内：活动物流走券，不走现金退款。confirm_required。",
+                "对内：活动物流走券，不走现金退款。须人点执行。",
             )
         return (
             f"订单 {ticket.order_id} 已为你催件。日常政策下不赔运费。不会承诺今晚必到。",

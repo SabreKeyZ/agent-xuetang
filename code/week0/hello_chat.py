@@ -36,14 +36,23 @@ def repo_root() -> Path:
 
 def main() -> int:
     root = repo_root()
-    load_dotenv(root / ".env")
+    env_path = root / ".env"
+    env_exists = env_path.is_file()
+    load_dotenv(env_path)
 
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     base = os.environ.get("OPENAI_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
     model = os.environ.get("OPENAI_MODEL", "deepseek-chat")
 
     if not api_key:
-        print("缺少 OPENAI_API_KEY。复制 .env.example 为 .env 后再跑。", file=sys.stderr)
+        if not env_exists:
+            print("缺少 .env。复制 .env.example 为 .env，再填入 OPENAI_API_KEY。", file=sys.stderr)
+        else:
+            print(
+                "OPENAI_API_KEY 是空的。打开 .env 填入 Key 后再跑。"
+                "复制 .env.example 只是建文件，不会自动带钥匙。",
+                file=sys.stderr,
+            )
         print("只有 Ollama 时：OPENAI_API_KEY=ollama 且 BASE_URL 指向本地。", file=sys.stderr)
         return 2
 

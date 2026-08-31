@@ -71,7 +71,8 @@ html, body { height: 100%; }
   font-size: 13px;
 }
 .cd-grid tr:last-child td { border-bottom: 0; }
-.cd-tr { cursor: pointer; }
+.cd-tr { cursor: pointer; position: relative; }
+.cd-tr td { cursor: pointer; position: relative; }
 .cd-tr:hover { background: #f0f4f8; }
 .cd-num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
 .cd-st {
@@ -217,14 +218,26 @@ html, body { height: 100%; }
   color: var(--cd-mute);
   text-align: left;
   font: inherit;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 .cd-act-on {
   border-color: var(--cd-blurple);
   color: var(--cd-navy);
   box-shadow: inset 3px 0 0 var(--cd-blurple);
 }
-.cd-act:disabled { opacity: 0.5; }
+.cd-act:disabled { opacity: 0.5; cursor: not-allowed; }
+.cd-toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 20;
+  background: var(--cd-navy);
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  max-width: 280px;
+}
 .cd-cash {
   width: 100%;
   margin-top: 8px;

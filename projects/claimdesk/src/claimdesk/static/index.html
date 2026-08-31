@@ -35,17 +35,18 @@
       <div class="cd-main" id="cd-main"></div>
       <aside class="cd-col">
         <h2>核赔</h2>
-        <button class="cd-act" id="cd-pass" disabled>通过</button>
-        <button class="cd-act" id="cd-sup" disabled>补件</button>
-        <button class="cd-act" id="cd-deny" disabled>拒赔</button>
-        <button class="cd-cash" id="cd-cash" disabled>执行打款</button>
-        <p class="cd-fine" id="cd-fine">无条款命中时整列锁定。演示 payout 只回 confirm_required。</p>
+        <button class="cd-act" id="cd-pass" type="button" disabled>通过</button>
+        <button class="cd-act" id="cd-sup" type="button" disabled>补件</button>
+        <button class="cd-act" id="cd-deny" type="button" disabled>拒赔</button>
+        <button class="cd-cash" id="cd-cash" type="button" disabled>执行打款</button>
+        <p class="cd-fine" id="cd-fine">无条款命中时整列锁定。演示不打款。</p>
       </aside>
     </div>
   </section>
+  <div class="cd-toast" id="cd-toast" hidden></div>
 
   <script>
-    let cases = [], active = null;
+    let cases = [], active = null, selectedRec = "";
     const $ = (id) => document.getElementById(id);
     const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
@@ -55,6 +56,14 @@
     const recClass = (r) => ({ "通过": "cd-st-ok", "补件": "cd-st-hold", "拒赔": "cd-st-no", "拒审": "cd-st-no", "差额": "cd-st-ok", "复议": "cd-st-hold" }[r] || "");
     const statusOf = (c) => c.case_status || (c.decision || {}).case_status || (c.decision || {}).recommendation || "立案";
     const role = (r) => ({ docs_check: "材料质检", clause: "条款员", adjudicator: "核赔员", store: "账本", human: "同事" }[r] || r);
+    const showToast = (text) => {
+      const el = $("cd-toast");
+      el.hidden = false;
+      el.textContent = text;
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => { el.hidden = true; }, 4200);
+    };
+    const canPay = (rec, cites) => Boolean(cites && cites.length) && ["通过", "差额"].includes(rec);
 
     function showBoard() {
       $("cd-board").style.display = "block";
@@ -74,17 +83,27 @@
         const cl = c.claim || {};
         const rec = (c.decision || {}).recommendation || "待审";
         const st = statusOf(c);
-        return `<tr class="cd-tr" data-id="${esc(c.case_id)}">
-          <td>${esc(cl.id || c.case_id)}</td>
-          <td>${esc(product(cl.product))}</td>
-          <td class="cd-num">${yuan(cl.amount_yuan)}</td>
-          <td><span class="cd-st ${recClass(rec)}">${esc(st)}</span></td>
-          <td>${esc((cl.incident_at || "").slice(0, 10))}</td>
+        return `<tr class="cd-tr" data-case="${esc(c.case_id)}">
+          <td data-case="${esc(c.case_id)}">${esc(cl.id || c.case_id)}</td>
+          <td data-case="${esc(c.case_id)}">${esc(product(cl.product))}</td>
+          <td class="cd-num" data-case="${esc(c.case_id)}">${yuan(cl.amount_yuan)}</td>
+          <td data-case="${esc(c.case_id)}"><span class="cd-st ${recClass(rec)}">${esc(st)}</span></td>
+          <td data-case="${esc(c.case_id)}">${esc((cl.incident_at || "").slice(0, 10))}</td>
         </tr>`;
       }).join("");
-      $("cd-rows").querySelectorAll(".cd-tr").forEach((tr) => {
-        tr.addEventListener("click", () => openCase(tr.dataset.id));
+    }
+
+    function paintActs(d) {
+      const cites = (d && d.citations) || [];
+      const locked = cites.length === 0;
+      const rec = selectedRec || (d && d.decision && d.decision.recommendation) || "";
+      const map = { "通过": "cd-pass", "差额": "cd-pass", "补件": "cd-sup", "拒赔": "cd-deny", "复议": "cd-sup" };
+      ["cd-pass", "cd-sup", "cd-deny"].forEach((bid) => {
+        const b = $(bid);
+        b.disabled = locked;
+        b.classList.toggle("cd-act-on", !locked && map[rec] === bid);
       });
+      $("cd-cash").disabled = !canPay(rec, cites);
     }
 
     async function openCase(id) {
@@ -92,6 +111,8 @@
       showFile();
       const d = await (await fetch("/api/case/" + encodeURIComponent(id))).json();
       if (d.ok === false) return;
+      const i = cases.findIndex((x) => x.case_id === id);
+      if (i >= 0) cases[i] = d;
       const cl = d.claim || {};
       const rec = (d.decision || {}).recommendation || "";
       const cites = d.citations || [];
@@ -114,20 +135,14 @@
         <ol class="cd-log">${log}</ol>
         ${d.draft_reply ? `<div class="cd-letter">${esc(d.draft_reply)}</div>` : ""}
         <div class="cd-thumbs">${thumbs || `<span class="cd-fine">无证据缩略图</span>`}</div>
-        <pre class="cd-snip" id="cd-snip"></pre>
-        <p class="cd-fine">idempotency_key ${esc(d.idempotency_key || "")}</p>`;
-      const locked = cites.length === 0;
-      ["cd-pass", "cd-sup", "cd-deny"].forEach((bid) => {
-        const b = $(bid);
-        b.disabled = locked;
-        b.classList.remove("cd-act-on");
-      });
-      const map = { "通过": "cd-pass", "差额": "cd-pass", "补件": "cd-sup", "拒赔": "cd-deny", "复议": "cd-sup" };
-      if (map[rec]) $(map[rec]).classList.add("cd-act-on");
-      $("cd-cash").disabled = true;
-      $("cd-fine").textContent = locked
+        <pre class="cd-snip" id="cd-snip"></pre>`;
+      selectedRec = rec;
+      paintActs(d);
+      $("cd-fine").textContent = cites.length === 0
         ? "没有引用，就先不答。核赔列已锁定。"
-        : "建议已写出。打款键对人开放，演示仍返回 confirm_required。";
+        : (canPay(rec, cites)
+          ? "建议通过。打款须人点执行，演示不打款。"
+          : "建议已写出。通过案才能点打款；演示仍不打款。");
       $("cd-main").querySelectorAll(".cd-tag").forEach((btn) => {
         btn.addEventListener("click", async () => {
           const cite = await (await fetch("/api/cite?ref=" + encodeURIComponent(btn.dataset.ref))).json();
@@ -152,15 +167,34 @@
       else showBoard();
     }
 
+    $("cd-rows").addEventListener("click", (e) => {
+      const hit = e.target.closest("[data-case]");
+      if (!hit) return;
+      openCase(hit.getAttribute("data-case"));
+    });
     $("cd-back").addEventListener("click", showBoard);
+    const pickRec = { "cd-pass": "通过", "cd-sup": "补件", "cd-deny": "拒赔" };
+    ["cd-pass", "cd-sup", "cd-deny"].forEach((bid) => {
+      $(bid).addEventListener("click", () => {
+        if ($(bid).disabled || !active) return;
+        selectedRec = pickRec[bid];
+        const row = cases.find((c) => c.case_id === active) || {};
+        paintActs({ citations: row.citations || [], decision: { recommendation: selectedRec } });
+        $("cd-fine").textContent = canPay(selectedRec, row.citations || [])
+          ? "已改选通过。打款须人点执行，演示不打款。"
+          : "已记下核赔选择。演示不打款。";
+      });
+    });
     $("cd-cash").addEventListener("click", async () => {
-      if (!active) return;
+      if (!active || $("cd-cash").disabled) return;
       const out = await (await fetch("/api/execute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ case_id: active, confirm: true }),
       })).json();
-      $("cd-fine").textContent = out.message || "未打款";
+      const msg = out.message || "演示模式不打款，已记审计。";
+      $("cd-fine").textContent = msg;
+      showToast(msg);
     });
     boot();
   </script>

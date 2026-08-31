@@ -210,14 +210,29 @@ html, body { height: 100%; }
   letter-spacing: 0;
 }
 .td-quote {
-  margin-top: 8px;
+  margin: 0 0 10px;
   padding: 10px 12px;
-  background: var(--td-sheet);
+  background: var(--td-page);
   border: 1px solid var(--td-edge);
   border-radius: 14px;
   font-size: 12px;
   color: #3d4752;
   white-space: pre-wrap;
+  max-height: 140px;
+  overflow: auto;
+}
+.td-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  background: var(--td-copy);
+  color: #fff;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  max-width: 320px;
+  box-shadow: 0 8px 24px rgba(17, 34, 51, 0.16);
 }
 
 .td-dock {
@@ -286,14 +301,6 @@ html, body { height: 100%; }
   margin-bottom: 6px;
   letter-spacing: 0.06em;
 }
-.td-foot {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--td-hair);
-  color: var(--td-soft);
-  font-size: 12px;
-}
-
 @media (max-width: 1100px) {
   .td-app { grid-template-columns: 280px minmax(0, 1fr); }
   .td-side { display: none; }

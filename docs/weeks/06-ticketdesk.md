@@ -146,7 +146,7 @@ payment.status=confirm_required kind=coupon
 | 引用 | 对不对 | 为什么 |
 | --- | --- | --- |
 | `docs/policy/promo-2026-summer.md:12`（48 小时、¥12） | 对 | 出票日 2026-08 落在生效窗口，优先级活动 |
-| 只引 `docs/policy/after-sales.md:16`「不赔运费」 | **错** | 日常被活动覆盖。这是面试题 C |
+| 只引 `docs/policy/after-sales.md:18`「不赔运费」 | **错** | 日常被活动覆盖。这是面试题 C |
 | 引一份 2025 已失效的大促 | 错 | `_in_force` 按 `ticket.now` 滤 |
 
 检索：[`rag.py:147`](../../projects/ticketdesk/src/ticketdesk/rag.py) `prefer_promo=True` 当类型是物流延误（[`policy.py:27`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py)）。
@@ -175,7 +175,7 @@ payment.status=confirm_required
 
 **芯片。** `refund-and-risk.md:10` 写超 200 只许草稿。闸门用 [`REFUND_EXEC_LIMIT_YUAN = 200`](../../projects/ticketdesk/src/ticketdesk/models.py) + [`gate.py:128`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)。不得拆成两笔 199。
 
-**Inbox 预期。** 玫瑰色「闸门员拒绝执行」；对照 [ticketdesk-refuse.png](../images/ticketdesk-refuse.png)。执行键可点，返回仍 `confirm_required`（[`web.py:72`](../../projects/ticketdesk/src/ticketdesk/web.py)）。
+**Inbox 预期。** 玫瑰色「闸门员拒绝执行」；对照 [ticketdesk-refuse.png](../images/ticketdesk-refuse.png)。「执行」锁定并写明原因（超 ¥200 只许草稿）。`待你执行` 不列 T-1401。人点仍只记审计（[`web.py:72`](../../projects/ticketdesk/src/ticketdesk/web.py)）。
 
 ### D. `shell-in-body` · 正文当引文，不跑
 

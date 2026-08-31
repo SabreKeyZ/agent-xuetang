@@ -39,7 +39,7 @@
 - Microsoft MCP for Beginners：https://github.com/microsoft/mcp-for-beginners
 - LangChain Academy Deep Agents：https://academy.langchain.com/courses/foundation-introduction-to-deepagents
 - HF Agents Course：https://huggingface.co/learn/agents-course/unit0/introduction
-- 模块3 MCP 05:12：https://www.bilibili.com/video/BV11Y49zCEuk/?t=312
+- 模块3 MCP（第 18 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=18
 
 看完目录就回来写 `get_week_goal`，不要整仓复制。
 

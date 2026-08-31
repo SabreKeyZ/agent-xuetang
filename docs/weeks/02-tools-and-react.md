@@ -31,8 +31,8 @@
 
 - 李宏毅 HW2 Agent（YouTube）：https://youtu.be/o4AT86nLcd0
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
-- 模块3 工具 06:26：https://www.bilibili.com/video/BV11Y49zCEuk/?t=386
-- 模块4-1 evals 15:06：https://www.bilibili.com/video/BV11Y49zCEuk/?t=906
+- 模块3 工具（第 14 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=14
+- 模块4-1 evals（第 19 分 P）：https://www.bilibili.com/video/BV11Y49zCEuk/?p=19
 
 看 HW2 之前，先让本仓库三条评测变绿。
 

@@ -19,8 +19,9 @@ cd agent-xuetang
 2. 建虚拟环境，装两个毕业作品
 
 ```bash
-python3.11 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\Activate.ps1
+python3 -m venv .venv
+source .venv/bin/activate          # Windows PowerShell: .venv\Scripts\Activate.ps1
+# Windows cmd: .venv\Scripts\activate
 python -m pip install -U pip pytest
 python -m pip install -e projects/ticketdesk -e projects/claimdesk
 ```
@@ -57,7 +58,7 @@ python -m claimdesk demo
 
 ![工单台：引用芯片与闸门](docs/images/ticketdesk-citations.png)
 
-分类员 / 政策员 / 闸门员。浅色会话：顾客灰气泡、客服白气泡。芯片贴在气泡下：`docs/policy/after-sales.md:12`。退款接口只回 `confirm_required`。
+分类员 / 政策员 / 闸门员。浅色会话：顾客灰气泡、客服白气泡。芯片贴在气泡下：`docs/policy/promo-2026-summer.md`。退款接口只回 `confirm_required`。
 
 ![工单台：拒绝执行](docs/images/ticketdesk-refuse.png)
 
@@ -68,11 +69,11 @@ python -m claimdesk demo
 
 ![理赔台：支付表](docs/images/claimdesk-table.png)
 
-材料质检 / 条款员 / 核赔员。支付表 + 巨型 ¥ + blurple。条款标签：`条款 3.2 · path:line`。无命中亮红条。
+材料质检 / 条款员 / 核赔员。支付表 + 巨型 ¥ + blurple。通过案（C-2009）贴条款芯片。易碎拒赔必须点名 `条款 3.2`。无命中亮红条。
 
-![理赔台：条款芯片与核赔卷宗](docs/images/claimdesk-citations.png)
+![理赔台：通过案的条款芯片（C-2009）](docs/images/claimdesk-citations.png)
 
-![理赔台：没有引用就先不答](docs/images/claimdesk-refuse.png)
+![理赔台：条款 3.2 除外拒赔](docs/images/claimdesk-refuse.png)
 
 </td>
 </tr>
