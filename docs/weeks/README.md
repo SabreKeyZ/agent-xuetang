@@ -16,7 +16,7 @@
 flowchart LR
   W1["第 1 周<br/>00 01 02"] --> W2["第 2 周<br/>03 04 05"]
   W2 --> W3["第 3 周<br/>vibe 06"]
-  W3 --> W4["第 4 周<br/>07 08"]
+  W3 --> W4["第 4 周<br/>vibe-claim 07 08"]
 ```
 
 ### 第 1 周 · 环境 + Agent 循环 + 工具/ReAct · 约 8–12h
@@ -42,12 +42,13 @@ flowchart LR
 | vibe | [对着助手搭最小工单台](vibe.md) | 前半 | 约 2–3h |
 | 06 | [客服工单台](06-ticketdesk.md) | 后半 | 约 5–6h |
 
-### 第 4 周 · 理赔台 + 上线求职 · 约 8–12h
+### 第 4 周 · vibe-claim + 理赔台 + 上线求职 · 约 8–12h
 
 | 班 | 文档 | 这周里哪几天 | 约几小时 |
 | --- | --- | --- | --- |
-| 07 | [理赔初审台](07-claimdesk.md) | 前半，约 day 1–3 | 约 4–5h |
-| 08 | [上线与求职](08-ship-and-job.md) | 后半，约 day 4–7 | 约 4–5h |
+| vibe-claim | [对着助手搭最小理赔台](vibe-claim.md) | 最先，约一个晚上 | 约 2–3h |
+| 07 | [理赔初审台](07-claimdesk.md) | 中段，约 day 2–4 | 约 4–5h |
+| 08 | [上线与求职](08-ship-and-job.md) | 后半，约 day 5–7；紧一点或挤进晚上 | 约 3–4h |
 
 ## 资料怎么用
 
@@ -58,7 +59,7 @@ flowchart LR
 3. **先自己做练习题，再打开 `answers/`。** 正文故意不写答案。抄答案过验收，第 4 周 / [08](08-ship-and-job.md) 面试会穿。
 4. **失败对照比成功路径更重要。** 错 Key、空目录、除零、坏 JSON、无条款命中，都是本班要亲手跑的。
 5. **卡超过 40 分钟，去 [FAQ](../faq.md) 搜报错关键字。** 还不行按 [卡住了](../../.github/ISSUE_TEMPLATE/stuck.yml) 开 Issue。不要先换框架。
-6. **第 3–4 周以两个队列为作业。** 教室玩具、问学堂、五人教育网不是毕业作品。第 3 周前半 [vibe](vibe.md) 用助手搭最小台，再走读工单台。
+6. **第 3–4 周以两个队列为作业。** 教室玩具、问学堂、五人教育网不是毕业作品。第 3 周前半 [vibe](vibe.md) 用助手搭最小工单台，再走读工单台。第 4 周最先 [vibe-claim](vibe-claim.md) 搭最小理赔台，再走读理赔台。
 
 班对照（不是别人仓的「理解原理→面试」四段，是本仓工期；文件名没改）：
 
@@ -72,6 +73,7 @@ flowchart LR
 | 05 | [05-multi-agent](05-multi-agent.md) | `code/week5/classroom_lab.py` | 画路由、决定不加第四人 |
 | vibe | [vibe](vibe.md) | `labs/vibe-minidesk`（自跑评测） | 助手 + 引用 + 人确认闸门 |
 | 06 | [06-ticketdesk](06-ticketdesk.md) | `projects/ticketdesk` | 芯片 + 闸门红条 |
+| vibe-claim | [vibe-claim](vibe-claim.md) | `labs/vibe-miniclaim`（自跑评测） | 助手 + 条款引用 + 人确认闸门 |
 | 07 | [07-claimdesk](07-claimdesk.md) | `projects/claimdesk` | 条款芯片 + 决定书 |
 | 08 | [08-ship-and-job](08-ship-and-job.md) | README / 评测 / Docker | 两分钟讲清两个队列 |
 

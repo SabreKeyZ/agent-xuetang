@@ -1,6 +1,8 @@
 # 第 7 周 · 理赔初审台
 
-> **本班属于 1 个月路径的第 4 周**（前半，约 day 1–3）。同周后半是 [08](08-ship-and-job.md)。
+> **本班属于 1 个月路径的第 4 周**（中段，约 day 2–4）。同周最先是 [vibe-claim](vibe-claim.md)，后半是 [08](08-ship-and-job.md)。
+
+**先苦过 [vibe-claim](vibe-claim.md) / `labs/vibe-miniclaim` 再读本周。** 迷你台是空目录 + 评测；本周是已经写好的 Payments 走读。不要把两份作业合成一份抄。
 
 第二个产品面对的不是售后闲聊，是一份案件。
 你要练习的是：**在不触发打款的前提下**，做材料质检、引用正确版本条款、写出决定书草稿。
@@ -47,7 +49,7 @@
 
 **先修。** 第 6 周 Inbox 和闸门。本周画面是 Payments 表，不要画成气泡。
 
-本班约 4–5 小时（前半周晚上 + 一块周末）。跑夹具 1 小时；读三份角色代码 1.5 小时；自己加一条夹具 1 小时；截图 0.5 小时。同周两班合计约 8–10 小时。
+本班约 4–5 小时（中段晚上 + 一块周末）。跑夹具 1 小时；读三份角色代码 1.5 小时；自己加一条夹具 1 小时；截图 0.5 小时。同周最先 vibe-claim 约 2–3 小时，后半上线约 3–4 小时，三班合计约 9–12 小时。
 
 **对应视频：** 多智能体结构回看第 5 周课表。没有「理赔台官方视频」。
 
@@ -310,6 +312,7 @@ set8 是 10 行闸门评测（含免赔试算、复议）；新夹具仍由 `pyt
 
 ## 延伸阅读
 
+- 第 4 周最先迷你台：[vibe-claim.md](vibe-claim.md) · [labs/vibe-miniclaim](../../labs/vibe-miniclaim/README.md)
 - 理赔台 README：[projects/claimdesk/README.md](../../projects/claimdesk/README.md)
 - 面试题：[docs/jobs/interview.md](../jobs/interview.md)
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai

@@ -1,0 +1,16 @@
+{
+  "id": "K-4204",
+  "fixture_id": "bare-reject",
+  "insurer_id": "wujin",
+  "policy_no": "WJ-202608-04",
+  "order_id": "WZ-202608-4410",
+  "insured_name": "拒空",
+  "insured_at": "2026-08-08T09:00:00+08:00",
+  "incident_at": "2026-08-21T11:30:00+08:00",
+  "now": "2026-08-22T09:10:00+08:00",
+  "amount_yuan": 18,
+  "attachments": [
+    {"name": "支付截图.png", "kind": "支付截图"}
+  ],
+  "narrative": "运输途中外包装破了，我拒收未签收。拒收证明还没开，先按已签收破损赔吧。"
+}

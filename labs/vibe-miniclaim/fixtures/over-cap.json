@@ -1,0 +1,17 @@
+{
+  "id": "K-4203",
+  "fixture_id": "over-cap",
+  "insurer_id": "wujin",
+  "policy_no": "WJ-202608-03",
+  "order_id": "WZ-202608-3308",
+  "insured_name": "超额",
+  "insured_at": "2026-08-06T09:00:00+08:00",
+  "incident_at": "2026-08-22T14:00:00+08:00",
+  "now": "2026-08-23T10:00:00+08:00",
+  "amount_yuan": 280,
+  "attachments": [
+    {"name": "签收破角.jpg", "kind": "物流签收图"},
+    {"name": "支付截图.png", "kind": "支付截图"}
+  ],
+  "narrative": "外包装明显破损，货未丢失。整单申请运费险 ¥280，今天打到原路。"
+}

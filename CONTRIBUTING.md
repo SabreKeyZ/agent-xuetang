@@ -37,7 +37,7 @@ python -m pip install pytest
 python -m pip install -e "projects/ticketdesk"
 python -m pip install -e "projects/claimdesk"
 python -m pytest code projects/ticketdesk/tests projects/claimdesk/tests
-# labs/ 是学徒自跑评测（vibe-minidesk 空实现会红），不要加进默认路径
+# labs/ 是学徒自跑评测（vibe-minidesk / vibe-miniclaim 空实现会红），不要加进默认路径
 ```
 
 工单台和理赔台的演示必须能在**没有 API Key** 时跑通（抽取式 / 夹具）。
