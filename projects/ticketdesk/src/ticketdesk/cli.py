@@ -12,7 +12,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
     demo = sub.add_parser("demo", help="离线跑脏数据夹具，打印芯片或红条")
     demo.add_argument("--fixture", default="", help="夹具名，不含 .json")
-    serve = sub.add_parser("serve", help="打开本地队列页")
+    serve = sub.add_parser("serve", help="打开浅色 Inbox")
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
     ev = sub.add_parser("eval", help="跑闸门评测")

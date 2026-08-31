@@ -1,0 +1,257 @@
+/* 青途保理赔台 · Stripe Payments 浅色财务。禁止气泡、禁止头像、禁止 Inbox。 */
+:root {
+  --cd-canvas: #f6f9fc;
+  --cd-surface: #ffffff;
+  --cd-navy: #0a2540;
+  --cd-mute: #425466;
+  --cd-faint: #8898aa;
+  --cd-blurple: #635bff;
+  --cd-emerald: #0d9488;
+  --cd-rose: #e5484d;
+  --cd-line: #e6e8eb;
+  --cd-unit: 8px;
+  --cd-sharp: 4px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+.cd-body {
+  margin: 0;
+  background: var(--cd-canvas);
+  color: var(--cd-navy);
+  font-family: ui-sans-serif, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cd-bar {
+  height: 48px;
+  background: var(--cd-surface);
+  border-bottom: 1px solid var(--cd-line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+.cd-mark { font-weight: 600; font-size: 13px; }
+.cd-mark em { font-style: normal; color: var(--cd-mute); font-weight: 500; margin-left: 8px; }
+.cd-law { color: var(--cd-rose); font-size: 11px; margin: 0; }
+.cd-env { margin-left: auto; color: var(--cd-faint); font-size: 11px; }
+
+.cd-board { padding: 16px; }
+.cd-caption {
+  margin: 0 0 8px;
+  color: var(--cd-mute);
+  font-size: 12px;
+  font-weight: 600;
+}
+.cd-grid {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--cd-surface);
+  border: 1px solid var(--cd-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.cd-grid th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cd-mute);
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--cd-line);
+  background: #fafbfc;
+}
+.cd-grid td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--cd-line);
+  font-size: 13px;
+}
+.cd-grid tr:last-child td { border-bottom: 0; }
+.cd-tr { cursor: pointer; }
+.cd-tr:hover { background: #f0f4f8; }
+.cd-num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.cd-st {
+  display: inline-block;
+  border: 1px solid var(--cd-line);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  background: #f6f9fc;
+}
+.cd-st-ok { color: var(--cd-emerald); border-color: #b7ebe3; background: #ecfdf7; }
+.cd-st-no { color: var(--cd-rose); border-color: #ffd4d4; background: #fff1f1; }
+.cd-st-hold { color: #b45309; border-color: #fed7aa; background: #fff7ed; }
+
+.cd-file { display: none; height: calc(100vh - 48px); }
+.cd-file-on { display: block; }
+.cd-back {
+  margin: 8px 16px;
+  border: 1px solid var(--cd-line);
+  background: var(--cd-surface);
+  color: var(--cd-navy);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font: inherit;
+  cursor: pointer;
+}
+.cd-split {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 240px;
+  gap: 8px;
+  padding: 0 16px 16px;
+  height: calc(100% - 40px);
+}
+.cd-main {
+  background: var(--cd-surface);
+  border: 1px solid var(--cd-line);
+  border-radius: 6px;
+  padding: 16px;
+  overflow: auto;
+}
+.cd-yen {
+  font-size: 42px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.cd-sub {
+  color: var(--cd-mute);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.cd-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.cd-tag {
+  border: 1px solid #d6d3ff;
+  background: #f4f3ff;
+  color: #4f46e5;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.cd-alert {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid #ffd4d4;
+  background: #fff1f1;
+  color: #9f1239;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.cd-log {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--cd-line);
+}
+.cd-logitem {
+  padding: 8px 0;
+  border-bottom: 1px solid #eef1f4;
+  font-size: 12px;
+  color: var(--cd-mute);
+}
+.cd-logitem b { color: var(--cd-navy); font-weight: 600; }
+.cd-letter {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--cd-line);
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-size: 13px;
+}
+.cd-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 88px);
+  gap: 8px;
+  margin-top: 16px;
+}
+.cd-thumb {
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--cd-line);
+  border-radius: 4px;
+  background: #fafbfc;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 6px;
+  font-size: 10px;
+  color: var(--cd-mute);
+  overflow: hidden;
+}
+.cd-thumb-mark {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cd-blurple);
+  margin-bottom: auto;
+}
+
+.cd-col {
+  background: var(--cd-surface);
+  border: 1px solid var(--cd-line);
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cd-col h2 {
+  margin: 0 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cd-mute);
+}
+.cd-act {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--cd-line);
+  border-radius: 4px;
+  background: var(--cd-surface);
+  color: var(--cd-mute);
+  text-align: left;
+  font: inherit;
+  cursor: not-allowed;
+}
+.cd-act-on {
+  border-color: var(--cd-blurple);
+  color: var(--cd-navy);
+  box-shadow: inset 3px 0 0 var(--cd-blurple);
+}
+.cd-act:disabled { opacity: 0.5; }
+.cd-cash {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--cd-blurple);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cd-cash:disabled { opacity: 0.35; cursor: not-allowed; }
+.cd-fine { color: var(--cd-faint); font-size: 11px; margin: 0; }
+
+.cd-snip {
+  display: none;
+  margin-top: 8px;
+  padding: 8px;
+  background: var(--cd-navy);
+  color: #e6edf5;
+  font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  border-radius: 4px;
+}
+.cd-snip-on { display: block; }
+
+@media (max-width: 900px) {
+  .cd-split { grid-template-columns: 1fr; }
+}

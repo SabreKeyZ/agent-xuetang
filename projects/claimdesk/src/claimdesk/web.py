@@ -27,6 +27,11 @@ def index() -> FileResponse:
     return FileResponse(_STATIC / "index.html", media_type="text/html; charset=utf-8")
 
 
+@app.get("/static/claimdesk.css")
+def stylesheet() -> FileResponse:
+    return FileResponse(_STATIC / "claimdesk.css", media_type="text/css")
+
+
 @app.get("/api/health")
 def health() -> dict:
     return {"ok": True, "llm": has_llm_key(), "product": "claimdesk", "roles": ["docs_check", "clause", "adjudicator"]}

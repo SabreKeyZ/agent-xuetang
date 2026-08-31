@@ -26,4 +26,4 @@ claimdesk = "claimdesk.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-claimdesk = ["static/index.html"]
+claimdesk = ["static/index.html", "static/claimdesk.css"]

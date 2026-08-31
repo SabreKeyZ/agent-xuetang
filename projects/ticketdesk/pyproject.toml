@@ -26,4 +26,4 @@ ticketdesk = "ticketdesk.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-ticketdesk = ["static/index.html"]
+ticketdesk = ["static/index.html", "static/ticketdesk.css"]

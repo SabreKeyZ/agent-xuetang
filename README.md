@@ -53,22 +53,24 @@ python -m claimdesk demo
 <tr>
 <td width="50%" valign="top">
 
-**工单台 · 青匣记**
+**工单台 · 青匣记 · Inbox**
 
 ![工单台：引用芯片与闸门](docs/images/ticketdesk-citations.png)
 
-分类员 / 政策员 / 闸门员。芯片：`docs/policy/after-sales.md:12`。退款接口只回 `confirm_required`。
+分类员 / 政策员 / 闸门员。浅色会话气泡 + teal。芯片贴在气泡下：`docs/policy/after-sales.md:12`。退款接口只回 `confirm_required`。
 
 ![工单台：拒绝执行](docs/images/ticketdesk-refuse.png)
 
 </td>
 <td width="50%" valign="top">
 
-**理赔台 · 青途保**
+**理赔台 · 青途保 · Payments**
 
-![理赔台：条款芯片与核赔轨](docs/images/claimdesk-citations.png)
+![理赔台：支付表](docs/images/claimdesk-table.png)
 
-材料质检 / 条款员 / 核赔员。芯片：`条款 3.2 · path:line`。无命中亮红条。
+材料质检 / 条款员 / 核赔员。支付表 + 巨型 ¥ + blurple。条款标签：`条款 3.2 · path:line`。无命中亮红条。
+
+![理赔台：条款芯片与核赔卷宗](docs/images/claimdesk-citations.png)
 
 ![理赔台：没有引用就先不答](docs/images/claimdesk-refuse.png)
 

@@ -27,6 +27,11 @@ def index() -> FileResponse:
     return FileResponse(_STATIC / "index.html", media_type="text/html; charset=utf-8")
 
 
+@app.get("/static/ticketdesk.css")
+def stylesheet() -> FileResponse:
+    return FileResponse(_STATIC / "ticketdesk.css", media_type="text/css")
+
+
 @app.get("/api/health")
 def health() -> dict:
     return {
