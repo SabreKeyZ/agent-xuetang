@@ -42,7 +42,7 @@ RAG（检索再生成）只是长记忆的一种用法：先找出可能有用�
 
 **定义。** 本课的 RAG = 对 `docs/` 分块 + 关键字打分 + 每条 hit 带 `path:start_line`。没有命中就不生成。
 
-**反例。** 「我检索了，但 0 条命中，模型根据常识把售后政策写完了。」那不是本课。工单台政策员在零命中时亮红条，见 [`policy.py:37`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py)。无引用的 RAG 广告，下周起一律当反例。
+**反例。** 「我检索了，但 0 条命中，模型根据常识把售后政策写完了。」那不是本课。工单台政策员在零命中时亮红条，见 [`policy.py:49`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py)。无引用的 RAG 广告，下周起一律当反例。
 
 ## 图文步骤
 
@@ -144,7 +144,7 @@ $ python code/week3/mini_rag.py --query "MCP" --docs /tmp/empty-docs
 坏：`hits=[]` 之后让模型写「根据常识，MCP 大概在第 3 周」。  
 好：打印 `{"hits": []}`，退出码 1；产品侧亮红条「没有引用，就先不答」。
 
-工单台政策员：[`policy.py:37-47`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py)。  
+工单台政策员：[`policy.py:49-59`](../../projects/ticketdesk/src/ticketdesk/agents/policy.py)。  
 理赔台条款员：[`clause.py:20-29`](../../projects/claimdesk/src/claimdesk/agents/clause.py)。
 
 本周作业路径不要传空目录装成功。留下零命中输出。

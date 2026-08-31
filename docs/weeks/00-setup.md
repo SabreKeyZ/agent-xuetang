@@ -183,7 +183,7 @@ $ python code/week0/hello_chat.py
 ## 练习
 
 1. 把 `.env` 里的模型名故意写错，再跑脚本。把报错原文贴进笔记。
-2. 把用户那句话改成「用一句话解释什么是工作目录」，确认你知道请求体在哪改（`hello_chat.py` 约 54–57 行）。
+2. 把用户那句话改成「用一句话解释什么是工作目录」，确认你知道请求体在哪改（`hello_chat.py` 约 63–67 行）。
 3. （可选）换一家国内厂商的 Base URL，同一份脚本再跑通。
 4. **配错口。** 把 DeepSeek 的 Key 配到 `OPENAI_BASE_URL=https://api.openai.com/v1`。先在纸上写你预测的 HTTP 状态，再跑。对照 [answers/00.md](answers/00.md) 的希望听到。
 

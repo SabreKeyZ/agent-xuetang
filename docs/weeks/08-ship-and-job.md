@@ -68,7 +68,7 @@ docker compose -f projects/ticketdesk/docker-compose.yml up --build
 
 第 1 周的字段不要丢：`step`、`thought`、`action`、`observation`，再加 `role`、`citations`、`idempotency_key`。
 
-工单台 `process` 打到 stderr（[`supervisor.py:102`](../../projects/ticketdesk/src/ticketdesk/agents/supervisor.py)）。本机 `missing-order-id` 那一行：
+工单台 `process` 打到 stderr（[`supervisor.py:111`](../../projects/ticketdesk/src/ticketdesk/agents/supervisor.py)）。本机 `missing-order-id` 那一行：
 
 ```json
 {"role": "supervisor", "case_id": "T-1001", "next_action": "ask_order_id", "citations": ["docs/policy/after-sales.md:14", "docs/policy/after-sales.md:12", "docs/policy/promo-2026-summer.md:18", "docs/policy/refund-and-risk.md:1", "docs/policy/refund-and-risk.md:8"], "idempotency_key": "qingxia:refund:T-1001:4800", "executed": false, "replayed": false}
@@ -95,7 +95,7 @@ python -m ticketdesk eval --set projects/ticketdesk/evals/set8.json
 python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 ```
 
-本机两台都是 8/8 PASS。下面说的是**你改坏产品时**哪些行该红，以及为什么现在就要留着。
+本机两台都是 10/10 PASS。下面说的是**你改坏产品时**哪些行该红，以及为什么现在就要留着。
 
 工单台：
 
@@ -109,6 +109,8 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 | td-6 | 辱骂升级 | PASS | 自动道歉承诺赔偿 | 人在回路 |
 | td-7 | shell | PASS | 进程真的跑了 `os.system` | 安全 |
 | td-8 | 物流可引用 | PASS | 芯片空了还催件 | 引用纪律 |
+| td-9 | 部分退 | PASS / `partial_line` | 三件套只坏一件却整单退 | 实付行 |
+| td-10 | 七天无理由 | PASS | 超七日「不想要了」仍退 | 售后时钟 |
 
 理赔台：
 
@@ -122,6 +124,8 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 | cd-6 | 双重受偿 | 店铺已退仍足额赔 | 5.1 |
 | cd-7 | 低额通过 | `executed=true` | **故意扎手的那行** |
 | cd-8 | 无引用 | 红条消失仍出决定书 | 没有引用，就先不答 |
+| cd-9 | 免赔试算 | 公式不算 50 或建议额不是 30 | 条款 2.3 |
+| cd-10 | 复议 | 新证据默示改判通过 | 条款 8.1 |
 
 不要删掉 cd-7 来让分数变满。你知道现在的实现「通过但不打款」——这行是回归，不是丢脸。
 
@@ -183,7 +187,7 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 
 「你作品里最得意的是 Multi-Agent 吗？」
 
-希望听到：不是。得意的是 [`gate.py:64`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) 超 200 停手，以及 [`clause.py:45`](../../projects/claimdesk/src/claimdesk/agents/clause.py) 按出险日。Mesh 不是本仓故事。
+希望听到：不是。得意的是 [`gate.py:128`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py) 超 200 停手，以及 [`clause.py:45`](../../projects/claimdesk/src/claimdesk/agents/clause.py) 按出险日。Mesh 不是本仓故事。
 
 ## 常见坑
 

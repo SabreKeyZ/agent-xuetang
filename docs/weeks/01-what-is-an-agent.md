@@ -206,7 +206,7 @@ $ python code/week1/echo_agent.py --query "今天星期几" --max-steps 1
 
 「搜索每次都返回空，循环会怎样？日志哪一字段两分钟能看出来？」
 
-希望听到：指 [`echo_agent.py:71`](../../code/week1/echo_agent.py) 的 `observation`。空结果必须写成明确错误；没有上限就会重复同一 `action`。工单台政策零命中是同一纪律，见第 6 周红条。
+希望听到：指 [`echo_agent.py:75`](../../code/week1/echo_agent.py) 的 `observation`。空结果必须写成明确错误；没有上限就会重复同一 `action`。工单台政策零命中是同一纪律，见第 6 周红条。
 
 ## 常见坑
 
