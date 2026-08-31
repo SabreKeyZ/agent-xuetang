@@ -105,6 +105,8 @@ class Supervisor:
             if ticket is None:
                 continue
             script.append(self.process(ticket))
+        if not script:
+            script = [self.process(t) for t in self.catalog()[:16]]
         return {"mode": "extractive" if not has_llm_key() else "llm-or-extractive", "cases": script}
 
     @staticmethod

@@ -1,0 +1,2 @@
+id,product,channel,insured_id,insured_name,claimant_id,claimant_name,policy_no,order_id,insured_at,incident_at,filed_at,now,amount_yuan,attachments,narrative,fixture_id,tracking
+C-IMP-01,freight,App,p_import,导入被保险人,p_import,导入被保险人,QT-FR-202608-901,QX-202608-9901,2026-08-05T09:00:00+08:00,2026-08-28T09:00:00+08:00,2026-08-29T09:00:00+08:00,2026-08-29T09:00:00+08:00,12,运单号;物流签收图;发票或支付截图,本地 CSV 导入的运费险小案，外盒破角，申请 12 元。,sample-csv,SF000IMP1

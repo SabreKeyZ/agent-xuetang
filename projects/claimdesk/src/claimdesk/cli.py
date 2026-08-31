@@ -2,9 +2,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 from claimdesk.config import has_llm_key, load_dotenv, project_root
+
+
+def _apply_import_flags(csv_path: str = "", json_path: str = "") -> None:
+    if csv_path:
+        os.environ["CLAIMDESK_IMPORT_CSV"] = csv_path
+    if json_path:
+        os.environ["CLAIMDESK_IMPORT_JSON"] = json_path
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -13,15 +21,21 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
     demo = sub.add_parser("demo", help="离线跑案件夹具")
     demo.add_argument("--fixture", default="")
+    demo.add_argument("--csv", default="", help="可选：导入 Claim CSV，未设则走夹具")
+    demo.add_argument("--json", dest="import_json", default="", help="可选：导入 JSON 文件或目录")
     serve = sub.add_parser("serve", help="打开支付表 / 卷宗")
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8001)
+    serve.add_argument("--csv", default="", help="可选：导入 Claim CSV")
+    serve.add_argument("--json", dest="import_json", default="", help="可选：导入 JSON 文件或目录")
     ev = sub.add_parser("eval")
     ev.add_argument("--set", dest="eval_set", default="")
     args = parser.parse_args(argv)
     if args.cmd == "demo":
+        _apply_import_flags(args.csv, args.import_json)
         return cmd_demo(args.fixture)
     if args.cmd == "serve":
+        _apply_import_flags(args.csv, args.import_json)
         return cmd_serve(args.host, args.port)
     if args.cmd == "eval":
         return cmd_eval(args.eval_set)

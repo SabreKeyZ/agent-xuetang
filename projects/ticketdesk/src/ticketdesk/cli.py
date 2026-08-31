@@ -2,8 +2,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 
 from ticketdesk.config import has_llm_key, load_dotenv, project_root
+
+
+def _apply_import_flags(csv_path: str = "", dir_path: str = "") -> None:
+    if csv_path:
+        os.environ["TICKETDESK_IMPORT_CSV"] = csv_path
+    if dir_path:
+        os.environ["TICKETDESK_IMPORT_DIR"] = dir_path
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -12,15 +20,21 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
     demo = sub.add_parser("demo", help="离线跑脏数据夹具，打印芯片或红条")
     demo.add_argument("--fixture", default="", help="夹具名，不含 .json")
+    demo.add_argument("--csv", default="", help="可选：导入 Ticket CSV，未设则走夹具")
+    demo.add_argument("--dir", default="", help="可选：导入本地 JSON 目录")
     serve = sub.add_parser("serve", help="打开浅色 Inbox")
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
+    serve.add_argument("--csv", default="", help="可选：导入 Ticket CSV")
+    serve.add_argument("--dir", default="", help="可选：导入本地 JSON 目录")
     ev = sub.add_parser("eval", help="跑闸门评测")
     ev.add_argument("--set", dest="eval_set", default="")
     args = parser.parse_args(argv)
     if args.cmd == "demo":
+        _apply_import_flags(args.csv, args.dir)
         return cmd_demo(args.fixture)
     if args.cmd == "serve":
+        _apply_import_flags(args.csv, args.dir)
         return cmd_serve(args.host, args.port)
     if args.cmd == "eval":
         return cmd_eval(args.eval_set)
