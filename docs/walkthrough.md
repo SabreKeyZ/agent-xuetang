@@ -1,7 +1,22 @@
 # 跟学：30 分钟点哪里
 
+## 跟学录屏
+
+本仓自己的两张脸，实拍 **2 分 21 秒**（1280×720，约 2.2 MB）。不是吴恩达课，没有 B 站链接。
+
+GitHub 的 Markdown 预览往往**不能直接播放**视频。请任选一种：
+
+1. 用浏览器打开 [walkthrough-player.html](walkthrough-player.html)（克隆后本地打开即可）
+2. 下载 [videos/walkthrough-30min.webm](videos/walkthrough-30min.webm) 用系统播放器看
+
+录屏顺序和下面截图同一条路径：venv 装两台 → `ticketdesk demo`（T-1201 芯片 / T-1401 红条）→ Inbox 点林小秋芯片 `promo-2026-summer.md`、点执行 toast「演示模式不打款。」、点赵牧执行锁定 → `claimdesk demo` → 支付表 → C-2009 通过 → C-2002 条款 3.2 拒赔 → C-2012 红条「没有引用，就先不答」。演示不打款（`NEVER_PAY` / `NEVER_PAYOUT`）。
+
+下面截图是同一条路径的静态对照。播不了视频时按图点。
+
+---
+
 本仓自己的两张脸。不是吴恩达课，也不是别人的录屏。
-先看图，再回 [第 0 周](weeks/00-setup.md) 自己敲。
+先看上面的录屏（或下面截图），再回 [第 0 周](weeks/00-setup.md) 自己敲。
 
 **没有 Key。** 你会看见引用芯片，或看见红条。演示不打款（`NEVER_PAY` / `NEVER_PAYOUT`）。
 
@@ -172,4 +187,4 @@ http://127.0.0.1:8001 。这里是 Stripe 味的案件表：案件号 / 险种 /
 
 然后回 [第 0 周](weeks/00-setup.md) 自己敲同一套命令。做不完就停在芯片/红条，不要跳第 1 周。
 
-完整 9 周工期在 [docs/weeks/README.md](weeks/README.md)。视频只认 [docs/videos.md](videos.md) 里核对过的链接，不要自己编 BV 号。
+完整 9 周工期在 [docs/weeks/README.md](weeks/README.md)。别人的课只认 [docs/videos.md](videos.md) 里核对过的链接，不要自己编 BV 号。本页录屏是仓库文件 [videos/walkthrough-30min.webm](videos/walkthrough-30min.webm)，不是外链。

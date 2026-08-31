@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>跟学录屏 · Agent学堂</title>
+  <style>
+    :root { color-scheme: light; }
+    html, body { margin: 0; background: #f4f6f8; color: #112233; }
+    body {
+      font-family: "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "WenQuanYi Micro Hei", sans-serif;
+      line-height: 1.55;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: -0.03em; }
+    .lead { color: #5b6570; margin: 0 0 16px; }
+    .rule { color: #be123c; font-weight: 700; margin: 0 0 18px; }
+    video {
+      display: block;
+      width: 100%;
+      max-width: 900px;
+      background: #111827;
+      border-radius: 16px;
+      border: 1px solid #e8eaed;
+    }
+    .fallback { margin-top: 14px; color: #5b6570; font-size: 14px; }
+    a { color: #1f8ded; }
+    ol { padding-left: 1.2em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>跟学录屏 · 30 分钟路径</h1>
+    <p class="lead">本仓库工单台 + 理赔台。无 Key。约 2 分 21 秒。不是吴恩达课，没有 B 站链接。</p>
+    <p class="rule">没有引用，就先不答 · 演示不打款（NEVER_PAY）</p>
+    <video controls playsinline preload="metadata" src="videos/walkthrough-30min.webm">
+      你的浏览器不能播这段 webm。请直接打开
+      <a href="videos/walkthrough-30min.webm">videos/walkthrough-30min.webm</a>。
+    </video>
+    <p class="fallback">
+      GitHub 仓库页的 Markdown 通常不能自动播放这段视频。克隆后用浏览器打开本文件，或下载
+      <a href="videos/walkthrough-30min.webm">walkthrough-30min.webm</a>。
+      静态对照仍在 <a href="walkthrough.md">walkthrough.md</a> 的截图里。
+    </p>
+    <ol class="fallback">
+      <li>ticketdesk demo：T-1201 芯片 <code>promo-2026-summer.md</code>；T-1401 红条超 ¥200</li>
+      <li>Inbox：点林小秋 → 点芯片 → 点执行（toast 不打款）→ 点赵牧（执行锁定）</li>
+      <li>claimdesk demo + 支付表：C-2009 通过、C-2002 条款 3.2 拒赔、C-2012 无条款红条</li>
+    </ol>
+  </main>
+</body>
+</html>
