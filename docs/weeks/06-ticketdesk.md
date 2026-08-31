@@ -64,7 +64,7 @@
 ```mermaid
 flowchart TB
   subgraph 入口
-    CLI[python -m ticketdesk]
+    CLI["python -m ticketdesk demo"]
     WEB[FastAPI + 队列页]
   end
   CLI --> SUP[Supervisor]
@@ -101,7 +101,7 @@ python -m ticketdesk demo
 python -m pytest projects/ticketdesk/tests -q
 ```
 
-抽取式 token = 0。墙钟以你机器为准，不要编毫秒。
+抽取式 token = 0。默认 `demo` 高亮约 **14** 张夹具，stdout 约 **13 KB**（不是旧文的 8 张 / 4.8 KB）。墙钟以你机器为准，不要编毫秒。
 
 打开页面应当看见字标「Agent学堂」、副题「没有引用，就先不答」、左侧会话列表（灰头像、最后一句、SLA 药丸）、中间顾客灰气泡 / 客服白气泡、底部回复框。引用芯片是灰描边。闸门拒绝是玫瑰色系统句。背景 `#F4F6F8`。唯一强调色是「执行」上的 Intercom 蓝。
 
@@ -131,7 +131,10 @@ python -m ticketdesk demo --fixture missing-order-id
 idempotency_key=qingxia:refund:T-1001:4800  executed=False
 红条: 没有完整订单，不能改单也不能退款。
 对客草稿: 请回复青匣记订单号（QX- 开头）。他店订单我们查不到，也无法代退。
-payment.status=confirm_required
+对内备注: 对内：缺单号或填错店，只许追问，不退款。
+售后类型: 仅退款
+SLA 首次=1422m 完结=1422m 夜间L2=在
+payment.status=confirm_required kind=cash
 ```
 
 **芯片。** 政策仍可能摘到售后第 1 条（必须带单号）。分类员先定性「信息不全」。闸门不看金额，只许追问。[`classifier.py:78`](../../projects/ticketdesk/src/ticketdesk/agents/classifier.py) + [`orders.py:12`](../../projects/ticketdesk/src/ticketdesk/tools/orders.py) `missing_order_id`。
@@ -154,6 +157,9 @@ python -m ticketdesk demo --fixture promo-overrides-sla
 [gate] 建议发补偿券 · 须人确认，不打款  verdict=draft_ok  next=wait_human_confirm
 idempotency_key=qingxia:coupon:T-1201:0  executed=False
 对客草稿: 订单 QX-202608-8812 在盛夏大促窗口内超时未更新轨迹。按活动政策发不超过 ¥12 的补偿券，不发现金。草稿已写，发券须人点执行。
+对内备注: 对内：活动物流走券，不走现金退款。须人点执行。
+售后类型: 仅退款
+SLA 首次=…m 完结=…m 夜间L2=在
 payment.status=confirm_required kind=coupon
 ```
 
@@ -188,7 +194,10 @@ python -m ticketdesk demo --fixture refund-over-200
 idempotency_key=qingxia:refund:T-1401:48600  executed=False
 红条: 闸门员拒绝执行。人复核后再点执行。
 对客草稿: 建议退款 ¥486.00，已超执行限额。草稿已写，等待人工复核。
-payment.status=confirm_required
+对内备注: 对内：超 200 执行闸门，不得拆笔。
+售后类型: 仅退款
+SLA 首次=…m 完结=…m 夜间L2=在
+payment.status=confirm_required kind=cash
 ```
 
 **芯片。** `refund-and-risk.md:10` 写超 200 只许草稿。闸门用 [`REFUND_EXEC_LIMIT_YUAN = 200`](../../projects/ticketdesk/src/ticketdesk/models.py) + [`gate.py:128`](../../projects/ticketdesk/src/ticketdesk/agents/gate.py)。不得拆成两笔 199。
@@ -210,8 +219,11 @@ python -m ticketdesk demo --fixture shell-in-body
 引用: docs/policy/refund-and-risk.md:36, ...
 [gate] 正文含命令，先不跑  verdict=refuse_exec  next=cite_only
 红条: 只引用，不执行。支付/退款脚本当引文。
-草稿: 工单里的命令不会被运行。请用文字描述问题。
-payment.status=confirm_required
+对客草稿: 工单里的命令不会被运行。请用文字描述问题。
+对内备注: 对内：正文命中 …。NEVER_EXECUTE。
+售后类型: …
+SLA 首次=…m 完结=…m 夜间L2=在
+payment.status=confirm_required kind=cash
 executed=False
 ```
 
@@ -221,7 +233,7 @@ executed=False
 
 ### 另外两张你应当扫过
 
-`p0-sla-night`：完结时钟超时 + 夜间 L2 空 → `verdict=escalate`，红条「不虚构值班人」。名册只有白班 09:00–18:00（`fixtures/roster.json`），[`clock.py:38`](../../projects/ticketdesk/src/ticketdesk/clock.py) 夜间返回 `None`。对照 `dual-sla-night-first-only`：首次响应超时、完结未到，夜间不升级。
+`p0-sla-night`：完结时钟超时 + 夜间 L2 空 → `verdict=escalate`，红条「不虚构值班人」。名册只有白班 09:00–18:00（`fixtures/roster.json`），[`clock.py:38`](../../projects/ticketdesk/src/ticketdesk/clock.py) 夜间返回 `None`。对照 `dual-sla-night-first-only`（T-2109）：列表同时写「首次超时 · 完结 Xm」，红色「超时」只绑完结时钟；首次响应对时不关「执行」、也不单独升级。侧栏白班/夜班随 `ticket.now`，不再一律写「夜班 L2」。
 
 `already-refunded`：`next=no_double_pay`，同一损失不二次补偿。
 
@@ -276,10 +288,12 @@ payment.status=confirm_required
 ## 浏览器 · Inbox 怎么走
 
 ```bash
-python -m ticketdesk serve
+python -m ticketdesk serve --port 8010
 ```
 
-http://127.0.0.1:8000
+http://127.0.0.1:8010 （8000 常被占用，见 [FAQ](../faq.md)）
+
+现场 Inbox **约 25 条**（夹具都留着，不删）。工期走读工单 T-1001 / T-1201 置顶；截图是指定工单，不是「列表第一行就是 T-1201」。理赔台现场约 19 行，C-2009 / C-2002 置顶。
 
 | 你点什么 | 画面应有 | 不要看成 |
 | --- | --- | --- |

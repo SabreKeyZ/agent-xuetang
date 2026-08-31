@@ -96,14 +96,14 @@
     function paintActs(d) {
       const cites = (d && d.citations) || [];
       const locked = cites.length === 0;
-      const rec = selectedRec || (d && d.decision && d.decision.recommendation) || "";
+      const serverRec = (d && d.decision && d.decision.recommendation) || "";
       const map = { "通过": "cd-pass", "差额": "cd-pass", "补件": "cd-sup", "拒赔": "cd-deny", "复议": "cd-sup" };
       ["cd-pass", "cd-sup", "cd-deny"].forEach((bid) => {
         const b = $(bid);
         b.disabled = locked;
-        b.classList.toggle("cd-act-on", !locked && map[rec] === bid);
+        b.classList.toggle("cd-act-on", !locked && map[serverRec] === bid);
       });
-      $("cd-cash").disabled = !canPay(rec, cites);
+      $("cd-cash").disabled = !canPay(serverRec, cites);
     }
 
     async function openCase(id) {
@@ -179,10 +179,15 @@
         if ($(bid).disabled || !active) return;
         selectedRec = pickRec[bid];
         const row = cases.find((c) => c.case_id === active) || {};
-        paintActs({ citations: row.citations || [], decision: { recommendation: selectedRec } });
-        $("cd-fine").textContent = canPay(selectedRec, row.citations || [])
-          ? "已改选通过。打款须人点执行，演示不打款。"
-          : "已记下核赔选择。演示不打款。";
+        const serverRec = (row.decision || {}).recommendation || "";
+        paintActs(row);
+        $("cd-fine").textContent = canPay(serverRec, row.citations || [])
+          ? (selectedRec === serverRec
+            ? "建议通过。打款须人点执行，演示不打款。"
+            : "已记下核赔选择。打款仍按服务端建议。演示不打款。")
+          : (selectedRec === serverRec
+            ? "建议已写出。通过案才能点打款；演示仍不打款。"
+            : "本机改选不会改服务端结论。打款仍按核赔建议锁定。演示不打款。");
       });
     });
     $("cd-cash").addEventListener("click", async () => {

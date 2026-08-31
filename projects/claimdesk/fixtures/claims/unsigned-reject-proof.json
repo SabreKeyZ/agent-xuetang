@@ -1,6 +1,6 @@
 {
   "id": "C-2113",
-  "fixture_id": "reject-unsigned",
+  "fixture_id": "unsigned-reject-proof",
   "product": "freight",
   "channel": "App",
   "insured_id": "p_reject",

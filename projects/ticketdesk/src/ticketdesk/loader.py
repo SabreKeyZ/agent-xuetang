@@ -38,6 +38,18 @@ def load_ticket(name: str) -> Ticket:
     return Ticket.from_dict(data, fixture_id=path.stem)
 
 
+# 工期走读工单置顶，避免按文件名排到辱骂单 T-1601。
+_TICKET_WALKTHROUGH = ("T-1001", "T-1201", "T-1401", "T-1301")
+
+
+def _walkthrough_key(case_id: str, first: tuple[str, ...]) -> tuple[int, str]:
+    try:
+        return (first.index(case_id), case_id)
+    except ValueError:
+        return (len(first), case_id)
+
+
 def load_all_tickets() -> list[Ticket]:
     folder = fixtures_dir() / "tickets"
-    return [load_ticket(p.stem) for p in sorted(folder.glob("*.json"))]
+    tickets = [load_ticket(p.stem) for p in folder.glob("*.json")]
+    return sorted(tickets, key=lambda t: _walkthrough_key(t.id, _TICKET_WALKTHROUGH))

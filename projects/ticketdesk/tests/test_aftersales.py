@@ -109,3 +109,17 @@ def test_p0_resolution_night_still_escalates():
     out = Supervisor().process(load_ticket("p0-sla-night"))
     assert out["sla"]["resolution_breached"] is True
     assert out["gate"]["verdict"] == "escalate"
+
+
+def test_negated_return_phrase_is_logistics_not_return_refund():
+    from ticketdesk.aftersales import mentions_return_goods
+
+    assert mentions_return_goods("轨迹好久没动。按盛夏大促运费补偿规则处理就行，不用退货。") is False
+    assert mentions_return_goods("墨水漏液，要退货退款。") is True
+    out = Supervisor().process(load_ticket("happy-logistics"))
+    assert out["classify"]["kind"] == "物流延误"
+    assert out["classify"]["after_sales_type"] != "退货退款"
+    assert out["gate"]["next_action"] != "ask_return"
+    assert out["gate"]["verdict"] == "draft_ok"
+    assert any("promo-2026-summer.md" in c for c in out["citations"])
+    assert out["executed"] is False

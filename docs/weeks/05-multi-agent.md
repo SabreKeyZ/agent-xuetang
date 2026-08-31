@@ -112,8 +112,8 @@ python code/week5/classroom_lab.py demo
 | --- | --- | --- | --- |
 | `classroom_lab.py demo` | **102 ms** | stdout **264 B** | **0**（没打网） |
 | 便签 `classroom.md` | — | **127 字**（汉字 91） | 0 |
-| `ticketdesk demo` 8 夹具 | **342 ms** | stdout 4.8 KB | **0** |
-| `claimdesk demo` | **193 ms** | stdout 4.0 KB | **0** |
+| `ticketdesk demo` 14 夹具 | **407 ms** | stdout **13 KB** | **0** |
+| `claimdesk demo` | **243 ms** | stdout **12 KB** | **0** |
 
 结论用句子写：**先问一个循环是不是做不完，再问第二个角色负责哪一种失败。** 不要抄别人的 85%。若你开 Key 把便签当 system，输入大约就是这 127 字量级——先用本机字数，再看账单页。
 

@@ -137,10 +137,10 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 | --- | --- | --- | --- |
 | `react_agent.py --eval` | 168 ms | 193 B | 0 |
 | `classroom_lab.py demo` | 102 ms | 264 B | 0 |
-| `python -m ticketdesk demo` | 342 ms | 4.8 KB | 0 |
-| `python -m claimdesk demo` | 193 ms | 4.0 KB | 0 |
-| ticketdesk set8 | 347 ms | 208 B | 0 |
-| claimdesk set8 | 190 ms | 158 B | 0 |
+| `python -m ticketdesk demo` | 407 ms | 13 KB（14 张高亮夹具） | 0 |
+| `python -m claimdesk demo` | 243 ms | 12 KB | 0 |
+| ticketdesk set8 | 391 ms | 385 B | 0 |
+| claimdesk set8 | 219 ms | 276 B | 0 |
 
 开 Key 之后把账单页的输入 token 填进你自己的表。不要把上表改成「准确率」。模块4-6 延迟成本口播用来对照「多一次角色多一轮等待」，数字用你自己的。
 
@@ -203,4 +203,4 @@ python -m claimdesk eval --set projects/claimdesk/evals/set8.json
 - HF bonus-unit2：https://huggingface.co/learn/agents-course/bonus-unit2/introduction
 - hello-agents（对照密度，勿抄）：https://github.com/datawhalechina/hello-agents
 
-八周到这里可以停。后面是重复：更干净的日志、更狠的评测、更克制的角色。
+九周到这里可以停。后面是重复：更干净的日志、更狠的评测、更克制的角色。

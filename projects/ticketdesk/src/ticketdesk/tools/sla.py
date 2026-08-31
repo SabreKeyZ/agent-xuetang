@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ticketdesk.clock import l2_on_duty, plus_minutes, sla_remaining_minutes
+from ticketdesk.clock import is_night_or_weekend, l2_on_duty, plus_minutes, sla_remaining_minutes
 from ticketdesk.models import Ticket
 
 
@@ -27,5 +27,6 @@ def sla_clock(ticket: Ticket, roster: dict | None = None) -> dict:
         "resolution_deadline": plus_minutes(ticket.created_at, res_minutes),
         "l2": on_duty,
         "l2_empty": on_duty is None,
+        "is_night": is_night_or_weekend(ticket.now),
         "queue": "human" if res_breached and on_duty is None else "agent",
     }

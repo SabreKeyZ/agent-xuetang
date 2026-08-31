@@ -66,7 +66,7 @@ src/ticketdesk/store.py
 docker compose -f projects/ticketdesk/docker-compose.yml up --build
 ```
 
-浏览器 http://127.0.0.1:8000 。
+浏览器 http://127.0.0.1:8000 。本机 8000 被占时：`python -m ticketdesk serve --port 8010`。
 
 ## 三个角色（主管分流，不是一张网）
 

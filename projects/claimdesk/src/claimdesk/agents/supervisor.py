@@ -77,7 +77,7 @@ class Supervisor:
             "no-clause",
             "accident-deductible",
             "shop-partial-offset",
-            "reject-unsigned",
+            "unsigned-reject-proof",
             "signed-damaged",
             "supplement-returned",
             "appeal-after-deny",
