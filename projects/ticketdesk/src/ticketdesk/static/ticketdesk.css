@@ -1,12 +1,12 @@
-/* 青匣记工单台 · Intercom Inbox 浅色会话。禁止黑底、禁止表格、禁止巨额。 */
+/* 青匣记工单台 · Intercom Messenger 浅色会话。气泡只许白/灰，禁止青绿，禁止涂蓝。 */
 :root {
   --td-page: #f4f6f8;
   --td-sheet: #ffffff;
   --td-copy: #112233;
   --td-soft: #5b6570;
-  --td-teal: #1f8a70;
-  --td-tealwash: #d8efe6;
-  --td-guest: #eef0f3;
+  --td-guest: #eef0f2;
+  --td-edge: #e8eaed;
+  --td-ink: #1f8ded;
   --td-rose: #be123c;
   --td-rosewash: #fff1f2;
   --td-hair: #e4e7eb;
@@ -42,7 +42,7 @@ html, body { height: 100%; }
 .td-brand { padding: 18px 18px 12px; }
 .td-word { font-weight: 700; letter-spacing: -0.02em; }
 .td-rule { color: var(--td-soft); font-size: 12px; margin-top: 4px; }
-.td-shop { color: var(--td-teal); font-weight: 650; font-size: 12px; margin-top: 8px; }
+.td-shop { color: var(--td-copy); font-weight: 650; font-size: 12px; margin-top: 8px; }
 
 .td-filters {
   display: flex;
@@ -59,11 +59,13 @@ html, body { height: 100%; }
   font-size: 12px;
   cursor: pointer;
   letter-spacing: 0.02em;
+  box-shadow: inset 0 -2px 0 transparent;
 }
 .td-pilltab-on {
-  background: var(--td-tealwash);
-  color: var(--td-teal);
+  background: #eef0f2;
+  color: var(--td-copy);
   font-weight: 650;
+  box-shadow: inset 0 -2px 0 var(--td-ink);
 }
 
 .td-threads {
@@ -80,14 +82,14 @@ html, body { height: 100%; }
   cursor: pointer;
   border: 1px solid transparent;
 }
-.td-row:hover { background: #eef2f4; }
-.td-row-on { background: var(--td-tealwash); border-color: #c5e6d8; }
+.td-row:hover { background: #f3f4f6; }
+.td-row-on { background: #eef0f2; border-color: var(--td-edge); }
 .td-face {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #d7ebe3;
-  color: #0f5c4a;
+  background: #e5e7eb;
+  color: #374151;
   display: grid;
   place-items: center;
   font-weight: 700;
@@ -108,8 +110,8 @@ html, body { height: 100%; }
   font-size: 11px;
   border-radius: 999px;
   padding: 2px 8px;
-  background: #edf7f3;
-  color: var(--td-teal);
+  background: #f3f4f6;
+  color: var(--td-soft);
   font-weight: 650;
 }
 .td-sla-late { background: var(--td-rosewash); color: var(--td-rose); }
@@ -146,8 +148,8 @@ html, body { height: 100%; }
   color: var(--td-copy);
 }
 .td-go {
-  background: var(--td-teal);
-  border: 1px solid var(--td-teal);
+  background: var(--td-ink);
+  border: 1px solid var(--td-ink);
   color: #fff;
 }
 .td-go:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -182,8 +184,9 @@ html, body { height: 100%; }
   border-bottom-left-radius: 6px;
 }
 .td-turn-desk .td-balloon {
-  background: var(--td-tealwash);
-  color: #0f5c4a;
+  background: var(--td-sheet);
+  color: var(--td-copy);
+  border: 1px solid var(--td-edge);
   border-bottom-right-radius: 6px;
 }
 .td-turn-note .td-balloon {
@@ -199,8 +202,8 @@ html, body { height: 100%; }
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 11px;
   background: var(--td-sheet);
-  border: 1px solid #c5e6d8;
-  color: #0f5c4a;
+  border: 1px solid var(--td-edge);
+  color: #3d4752;
   border-radius: 999px;
   padding: 4px 10px;
   cursor: pointer;
@@ -210,6 +213,7 @@ html, body { height: 100%; }
   margin-top: 8px;
   padding: 10px 12px;
   background: var(--td-sheet);
+  border: 1px solid var(--td-edge);
   border-radius: 14px;
   font-size: 12px;
   color: #3d4752;
@@ -233,7 +237,7 @@ html, body { height: 100%; }
   color: var(--td-copy);
   letter-spacing: 0.012em;
 }
-.td-box:focus { outline: 2px solid #9ed4c2; border-color: var(--td-teal); }
+.td-box:focus { outline: 2px solid #d1d5db; border-color: #c5c9d0; }
 .td-dockrow {
   display: flex;
   justify-content: space-between;

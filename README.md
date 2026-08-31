@@ -57,7 +57,7 @@ python -m claimdesk demo
 
 ![工单台：引用芯片与闸门](docs/images/ticketdesk-citations.png)
 
-分类员 / 政策员 / 闸门员。浅色会话气泡 + teal。芯片贴在气泡下：`docs/policy/after-sales.md:12`。退款接口只回 `confirm_required`。
+分类员 / 政策员 / 闸门员。浅色会话：顾客灰气泡、客服白气泡。芯片贴在气泡下：`docs/policy/after-sales.md:12`。退款接口只回 `confirm_required`。
 
 ![工单台：拒绝执行](docs/images/ticketdesk-refuse.png)
 
