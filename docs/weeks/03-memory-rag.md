@@ -118,7 +118,15 @@ python -m pytest code/week3 -q
 [quote] # 工单三角色出口
 ```
 
+![第 3 周工单三角色出口](../images/weeks/week3-roles-ok.png)
+
+你应当看见：第一条 `[hit]` 是 `docs/cheatsheets/ticketdesk-roles.md:1`，`[quote]` 是 `# 工单三角色出口`；不是 bash 围栏。
+
 测试：[`test_ticketdesk_roles_query_hits_glossary_not_fence`](../../code/week3/test_mini_rag.py)。
+
+![第 3 周空目录](../images/weeks/week3-empty-docs-fail.png)
+
+你应当看见：空目录时 stdout 只有 `{"hits": []}`，退出码 1，不编一段教材。
 
 ## 失败对照 · 空目录
 

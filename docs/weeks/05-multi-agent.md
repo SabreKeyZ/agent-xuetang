@@ -102,6 +102,10 @@ python code/week5/classroom_lab.py demo
 没有引用，就先不答
 ```
 
+![第 5 周教室 demo](../images/weeks/week5-demo-ok.png)
+
+你应当看见：先打 `[week5] 教室玩具…`，再出现 `引用: code/week5/classroom.md:…` 或「没有引用，就先不答」。
+
 [`route`](../../code/week5/classroom_lab.py) 第 19–25 行：考 / 计划 / 其余进导师。空答和 FlipFlop 拒。这不是毕业作品，说明见 [labs/week5/README.md](../../labs/week5/README.md)。
 
 ### 真实 demo 数字（填进费用表）
@@ -125,6 +129,10 @@ python code/week5/classroom_lab.py demo
 | 主管 + 一个专家 | 2 | 约 2×，不是 2 倍智能 |
 | 主管 + 三专家串行 | 4 | 工单台 v1 的形状 |
 | 两专家辩论 + 裁判 | 3+ | 催件草稿不配付这份 |
+
+![第 5 周主管递归](../images/weeks/week5-recurse-fail.png)
+
+你应当看见：`recurse` 连续 6 次 `dest=supervisor thought=我再分一次`，最后 `error:supervisor_recurse`。
 
 ## 失败对照 · 主管递归
 

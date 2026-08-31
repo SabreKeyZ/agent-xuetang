@@ -92,6 +92,10 @@ python -m pytest code/week2 -q
 [PASS] mix-1 tools=['search', 'calculator'] final=工单台是毕业作品：青匣记售后队列，分类、政策引用、退款闸门。；7
 ```
 
+![第 2 周 --eval 三条 PASS](../images/weeks/week2-eval-ok.png)
+
+你应当看见：三条都是 `[PASS]`：`calc-1` 的 `final=21`，`search-1` 提到第 4 周 MCP，`mix-1` 两种工具都在；退出码 0。
+
 第三条最容易写砸。`mix-1` 的轨迹必须两种工具都在。
 
 既有课程名词又有算式时：
@@ -104,6 +108,10 @@ python -m pytest code/week2 -q
 ```
 
 本机墙钟（抽取式规则脑，无 Key）：`--eval` 约 0.17s，stdout 193B。没有「准确率百分之几」。
+
+![第 2 周除零](../images/weeks/week2-division-by-zero-fail.png)
+
+你应当看见：`observation` 和 `[final]` 都是 `error:division_by_zero`，没有编造数字。
 
 ## 失败对照 · `--eval` 写反与除零
 

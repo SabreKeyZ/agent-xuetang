@@ -101,6 +101,10 @@ python -m pytest code/week1 -q
 [final] 工具返回：Monday
 ```
 
+![第 1 周 weekday 成功](../images/weeks/week1-weekday-ok.png)
+
+你应当看见：一行一条 JSON；第一步 `action` 是 `weekday`，第二步是 `finish`，最后 `[final] 工具返回：Monday`（星期名跟你机器当天有关）。
+
 字段怎么读（不要背 ReAct 三个音节，指着这一行）：
 
 ```text
@@ -126,6 +130,10 @@ Final        →  [final] 工具返回：Monday      第二步 action=finish
 | [`108:110:code/week1/echo_agent.py`](../../code/week1/echo_agent.py) | 一行一条 JSON，不是散文 |
 
 有 Key 也不要急着改 brain。作业默认不打网。不要急着抽象 `BaseAgent`。
+
+![第 1 周步数用尽](../images/weeks/week1-max-steps-fail.png)
+
+你应当看见：`--max-steps 1` 时第一步只够调用 `weekday`，紧接着 `hard stop`，最后 `[final] 没做完：步数用尽。`
 
 ## 失败对照 · 未知工具
 

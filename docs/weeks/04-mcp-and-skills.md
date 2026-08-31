@@ -104,6 +104,10 @@ $ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
 {"jsonrpc": "2.0", "id": 1, "result": {"tools": [{"name": "get_week_goal", ...}, {"name": "list_weeks", ...}]}}
 ```
 
+![第 4 周 stdio get_week_goal](../images/weeks/week4-get-week-goal-ok.png)
+
+你应当看见：stdio 一行 JSON-RPC `result`，`text` 里是本页「本周你要带走什么」原文（含 MCP / stdio），不是模型改写。
+
 ### JSON-RPC 错误码盒
 
 | code | 名字 | 本仓谁抛 | 金样 |
@@ -118,6 +122,10 @@ $ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
 $ python code/week4/week_goal_server.py --once --week 99
 week 必须是 0-8，收到 99
 ```
+
+![第 4 周 week 99](../images/weeks/week4-week-99-fail.png)
+
+你应当看见：`--once --week 99` 在 stderr 打印 `week 必须是 0-8，收到 99`，不是一段 JSON-RPC。
 
 stdio / `handle` 等价：
 
