@@ -67,9 +67,15 @@ def test_custom_properties_and_class_names_are_disjoint():
 
 def test_ticketdesk_is_light_intercom_not_black():
     td = TD_CSS.read_text(encoding="utf-8")
-    assert "#f4f6f8" in td.lower()
-    assert "#1f8a70" in td.lower()
-    assert "#635bff" not in td.lower()
+    low = td.lower()
+    assert "#f4f6f8" in low
+    assert "#1f8ded" in low
+    assert "#eef0f2" in low
+    assert "#e8eaed" in low
+    assert "#1f8a70" not in low
+    assert "#d8efe6" not in low
+    assert "#0f5c4a" not in low
+    assert "#635bff" not in low
     assert "tabular-nums" not in td
     assert re.search(r"border-radius:\s*(16|18|20)px", td)
     assert not re.search(r"background[^;{]*#0[0-9a-fA-F]{5}", td)

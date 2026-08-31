@@ -31,5 +31,6 @@ def test_inbox_page_and_stylesheet():
     assert css.status_code == 200
     body = css.text.lower()
     assert "#f4f6f8" in body
-    assert "#1f8a70" in body
+    assert "#1f8ded" in body
+    assert "#1f8a70" not in body
     assert "background:#000" not in body.replace(" ", "")
