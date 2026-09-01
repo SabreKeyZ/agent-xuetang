@@ -170,23 +170,23 @@ flowchart LR
 
 定位，不是排名。我们吃自己的 `docs/`，作业是两个队列，不是旅行助手或问数大屏。
 
-| | **Agent学堂（本仓）** | [hello-agents](https://github.com/datawhalechina/hello-agents) | [HF Agents Course](https://huggingface.co/learn/agents-course/unit0/introduction) | [吴恩达 Agentic AI](https://www.deeplearning.ai/courses/agentic-ai) | [multi-agent-education](https://github.com/bcefghj/multi-agent-education) | [shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) |
-| --- | --- | --- | --- | --- | --- | --- |
-| 给谁 | 1 个月中文小白学徒（4 日历周，材料仍是 00–08），国内 Key 可选 | 系统教材 + 自研框架 | 英文课 + 证书 | 英文短课，四种模式 | 面试包装项目，三语言 / Mesh | LangGraph 问数全栈 |
-| 作业长什么样 | 工单台引用芯片 + 理赔台决定书 | 旅行助手、赛博小镇等 | 单元作业 | Notebook | 五人教育 Mesh、BKT/SM-2 | SQL / Qdrant / ES 流水线 |
-| 求职 | [岗位/作品集/面试](docs/jobs/roles.md) 分册，首页不堆题库 | 不是主线 | 不是主线 | 没有 | 简历/STAR 写在首页 | 工程履历 |
-| 评测 | 第 2 周三条 `--eval`；两台闸门夹具 | 后续引入 | 观测作加分 | 课内强调 eval | 常写量化数字 | 问数链路 |
-| 默认供应商 | DeepSeek / 智谱 / 通义 / Ollama | 多供应商 | HF 与云 | 偏国际云 | 视实现 | 硅基流动等 |
-| 2026 接口 | 第 4 周自己写 MCP + 一段 Skill | 有进阶章 | 工具加分 | 工具是模式之一 | 视实现 | LangGraph 节点 |
+| | **Agent学堂（本仓）** | [hello-agents](https://github.com/datawhalechina/hello-agents) | [HF Agents Course](https://huggingface.co/learn/agents-course/unit0/introduction) | [吴恩达 Agentic AI](https://www.deeplearning.ai/courses/agentic-ai) | [shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) |
+| --- | --- | --- | --- | --- | --- |
+| 给谁 | 1 个月中文小白学徒（4 日历周，材料仍是 00–08），国内 Key 可选 | 系统教材 + 自研框架 | 英文课 + 证书 | 英文短课，四种模式 | LangGraph 问数全栈 |
+| 作业长什么样 | 工单台引用芯片 + 理赔台决定书 | 旅行助手、赛博小镇等 | 单元作业 | Notebook | SQL / Qdrant / ES 流水线 |
+| 求职 | [岗位/作品集/面试](docs/jobs/roles.md) 分册，首页不堆题库 | 不是主线 | 不是主线 | 没有 | 工程履历 |
+| 评测 | 第 2 周三条 `--eval`；两台闸门夹具 | 后续引入 | 观测作加分 | 课内强调 eval | 问数链路 |
+| 默认供应商 | DeepSeek / 智谱 / 通义 / Ollama | 多供应商 | HF 与云 | 偏国际云 | 硅基流动等 |
+| 2026 接口 | 第 4 周自己写 MCP + 一段 Skill | 有进阶章 | 工具加分 | 工具是模式之一 | LangGraph 节点 |
 
-我们不造 HelloAgents 式框架，不重做旅行助手，不教 Qdrant/ES 问数，不提供三语言对照作业。
+我们不造 HelloAgents 式框架，不重做旅行助手，不教 Qdrant/ES 问数。
 
 ## 这套不覆盖什么
 
 - 就业承诺、薪资数字、并发或「准确率百分之几」。
 - 向量库、混合检索、NL2SQL、电商数仓。
 - Java / Go 第二实现。
-- 五人 Mesh、苏格拉底导师、BKT、SM-2。
+- 面试包装向的 Mesh 教室、BKT、SM-2。
 - 生产权限、多租户、监控平台。
 
 这些去别人的仓或进阶课。本仓先把循环、引用和两个队列做硬。
@@ -227,6 +227,6 @@ agent-xuetang/
 - 吴恩达 [Agentic AI](https://www.deeplearning.ai/courses/agentic-ai)
 - [Hugging Face Agents Course](https://huggingface.co/learn/agents-course/unit0/introduction)
 - Datawhale [hello-agents](https://github.com/datawhalechina/hello-agents)
-- 结构密度参考（产品不同）：[multi-agent-education](https://github.com/bcefghj/multi-agent-education)、[shopkeeper-agent](https://github.com/didilili/shopkeeper-agent)
+- 结构密度参考（产品不同）：[shopkeeper-agent](https://github.com/didilili/shopkeeper-agent)
 
 CiteKit（可选引用伙伴）：<https://github.com/SabreKeyZ/citekit>
