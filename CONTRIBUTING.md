@@ -15,8 +15,8 @@
 
 - 从其他教程复制或改写正文。包括但不限于 Datawhale hello-agents、
   handy-multi-agent、Hugging Face Agents Course 课文、吴恩达课程逐字稿、
-  各家公众号「万字拆解」。也不要整段搬 multi-agent-education 或
-  shopkeeper-agent 的 README 骨架、口号或表格。结构参考见 `docs/resources.md`。
+  各家公众号「万字拆解」。不要搬其他公开 Agent 课的作业/STAR，也不要整段搬
+  shopkeeper-agent 的 README 骨架、口号或表格。延伸阅读见 `docs/resources.md`。
 - 发明 Bilibili BV 号或「官方」链接。视频只进 `docs/videos.md`，且必须是
   仓库已经核对过的地址，或该课程的官方站点。
 - 盗版 PDF、网盘课件、付费课录音。

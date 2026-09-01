@@ -8,7 +8,7 @@
 先泼冷水。多一个角色，就是多一次完整的提示、多一轮等待、多一个会说错话的出口。
 本周的上半场用来建立三种结构；下半场跑一份**可选教室实验**。问学堂 / 值班台已降级，不是毕业作品。
 
-工单台三个角色是 **分类员 / 政策员 / 闸门员**。理赔台是 **质检 / 条款 / 核赔**。不是五人教育网。
+工单台三个角色是 **分类员 / 政策员 / 闸门员**。理赔台是 **质检 / 条款 / 核赔**。不要做成互相发事件的多人网。
 
 ## 本周你要带走什么
 
@@ -43,7 +43,7 @@
 
 **定义。** 本仓「多角色」= 出口分开、共用案件对象。主管只分流。理赔台是交接：质检做完把结构交给条款员，不再回头互聊。
 
-**反例。** 把三个角色做成三个相同提示，只改名字——一个人戴三顶帽子，账单按三个人收。下面有串台实录。五人 Mesh、苏格拉底导师、BKT 是别人的产品，本周不写进作业。
+**反例。** 把三个角色做成三个相同提示，只改名字——一个人戴三顶帽子，账单按三个人收。下面有串台实录。不要做成互相发事件的多人网；BKT/SM-2 不是本班作业。
 
 ## 图文步骤
 
@@ -156,7 +156,7 @@ error:supervisor_recurse 停在硬上限。没有 MAX_STEPS 会一直刷。
 
 ## 串台实录 · 三角色同一份提示
 
-反例：三个角色系统提示只改名字。下面是手工串的台本，用的是工单台真实夹具 `refund-over-200`（¥486），不是五人网。
+反例：三个角色系统提示只改名字。下面是手工串的台本，用的是工单台真实夹具 `refund-over-200`（¥486），不是互相发事件的多人网。
 
 ```text
 [classifier] 系统提示=「你是客服，尽量帮顾客解决问题」
@@ -221,6 +221,6 @@ payment.status=confirm_required
 - Deep Agents（子 Agent、HITL）：https://academy.langchain.com/courses/foundation-introduction-to-deepagents
 - 吴恩达 Agentic AI：https://www.deeplearning.ai/courses/agentic-ai
 - HF unit2：https://huggingface.co/learn/agents-course/unit2/introduction
-- hello-agents 多智能体章（勿抄，勿搬五人网）：https://github.com/datawhalechina/hello-agents
+- hello-agents 多智能体章（勿抄）：https://github.com/datawhalechina/hello-agents
 - 下一班（日历第 3 周前半）：[对着助手搭最小工单台](vibe.md)
 - 第 3 周后半：[工单台收完](06-ticketdesk.md)
