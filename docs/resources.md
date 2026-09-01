@@ -12,16 +12,7 @@
 | [Agent-Learning-Hub](https://github.com/datawhalechina/Agent-Learning-Hub) | 和 hello-agents 同一谱系的索引。 |
 | 李宏毅公开课 | 链接只认 [docs/videos.md](videos.md) 里核对过的。 |
 
-## 结构参考（产品不是我们的）
 
-这两份 README 的**密度**值得看：截图真、边界写得清、带学路径显眼。业务、口号、章节表、架构画法不要搬进本仓。
-
-| 仓 | 他们在卖什么 | 我们只借什么 |
-| --- | --- | --- |
-| [bcefghj/multi-agent-education](https://github.com/bcefghj/multi-agent-education) | 五人教育 Mesh、BKT/SM-2、三语言、面试包装 | 「求职材料要能讲」；STAR 我们写在 `docs/jobs`，不堆首页 |
-| [didilili/shopkeeper-agent](https://github.com/didilili/shopkeeper-agent) | LangGraph 电商问数、Qdrant/ES、章节分支 | 「打开就能看见界面」；我们的画面是队列芯片和案件页 |
-
-配套讲义入口（问数课，不是本仓库）：<https://didilili.github.io/ai-agents-from-zero/#/>
 
 ## 接口与生产向
 
